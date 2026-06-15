@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * WorkSpaceSwitcher
+ * WontechLogo
  *
  * Static brand header for the top of the sidebar. The workspace-switching
  * dropdown was removed — this is now a fixed slot for the company logo.
@@ -10,7 +10,7 @@
 
 import { SidebarMenu, SidebarMenuItem } from "@/components/ui/sidebar";
 
-export function WorkSpaceSwitcher() {
+export function WontechLogo() {
   return (
     <SidebarMenu>
       <SidebarMenuItem>

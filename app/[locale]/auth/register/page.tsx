@@ -39,7 +39,7 @@ export default function RegisterPage() {
         displayName: `${firstName.trim()} ${lastName.trim()}`,
       });
       await syncUser(user);
-      router.push("/units");
+      router.push("/dashboard");
     } catch (error: unknown) {
       const message =
         error instanceof Error ? error.message : "Failed to create account.";

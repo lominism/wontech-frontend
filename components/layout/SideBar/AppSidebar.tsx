@@ -16,20 +16,17 @@ import {
 
 import ProfileAccount from "@/components/shared/AccountSettings/profile-account";
 import { LanguageSwitcher } from "@/components/shared/LanguageSwitcher/LanguageSwitcher";
-import { WorkSpaceSwitcher } from "@/components/shared/WorkSpaceSwitcher";
+import { WontechLogo } from "@/components/shared/WontechLogo";
 import { Link } from "@/i18n/navigation";
 import {
-  Briefcase,
-  Building2,
-  ClipboardList,
-  Columns3Cog,
-  Contact2,
-  GitBranch,
+  FileDown,
+  LayoutDashboard,
   Package,
   Settings2,
-  Star,
-  Users2,
-  Wrench,
+  ShoppingCart,
+  Stethoscope,
+  TrendingUp,
+  Truck,
 } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
@@ -83,100 +80,70 @@ const AppSidebar = React.memo(
     const locale = useLocale();
 
     const data = {
-      jobmenu: [
+      overviewmenu: [
         {
           title: (
             <>
-              <ClipboardList size={16} />
-              {t("tasks")}
+              <LayoutDashboard size={16} />
+              {t("dashboard")}
             </>
           ),
-          url: "/tasks",
-          isActive: slug.startsWith(`/${locale}/tasks`),
-        },
-        {
-          title: (
-            <>
-              <Wrench size={16} />
-              {t("technicians")}
-            </>
-          ),
-          url: "/technicians",
-          isActive: slug.startsWith(`/${locale}/technicians`),
-        },
-        {
-          title: (
-            <>
-              <Star size={16} />
-              {t("reviews")}
-            </>
-          ),
-          url: "/reviews",
-          isActive: slug.startsWith(`/${locale}/reviews`),
+          url: "/dashboard",
+          isActive: slug.startsWith(`/${locale}/dashboard`),
         },
       ],
-      orgmenu: [
+      salesmenu: [
         {
           title: (
             <>
-              <Building2 size={16} />
-              {t("companies")}
+              <ShoppingCart size={16} />
+              {t("orders")}
             </>
           ),
-          url: "/companies",
-          isActive: slug.startsWith(`/${locale}/companies`),
+          url: "/orders",
+          isActive: slug.startsWith(`/${locale}/orders`),
         },
         {
           title: (
             <>
-              <GitBranch size={16} />
-              {t("branches")}
+              <Truck size={16} />
+              {t("logistics")}
             </>
           ),
-          url: "/branches",
-          isActive: slug.startsWith(`/${locale}/branches`),
+          url: "/logistics",
+          isActive: slug.startsWith(`/${locale}/logistics`),
+        },
+      ],
+      managementmenu: [
+        {
+          title: (
+            <>
+              <Stethoscope size={16} />
+              {t("clinic")}
+            </>
+          ),
+          url: "/clinic",
+          isActive: slug.startsWith(`/${locale}/clinic`),
         },
         {
           title: (
             <>
               <Package size={16} />
-              {t("products")}
+              {t("inventory")}
             </>
           ),
-          url: "/products",
-          isActive: slug.startsWith(`/${locale}/products`),
-        },
-      ],
-      settingsmenu: [
-        {
-          title: (
-            <>
-              <Users2 size={16} />
-              {t("members")}
-            </>
-          ),
-          url: "/members",
-          isActive: slug.startsWith(`/${locale}/members`),
+          url: "/inventory",
+          isActive: slug.startsWith(`/${locale}/inventory`),
         },
         {
           title: (
             <>
-              <Contact2 size={16} />
-              {t("personnel")}
+              <FileDown size={16} />
+              {t("reportsExport")}
             </>
           ),
-          url: "/personnel",
-          isActive: slug.startsWith(`/${locale}/personnel`),
-        },
-        {
-          title: (
-            <>
-              <Columns3Cog size={16} />
-              {t("configurations")}
-            </>
-          ),
-          url: "/settings",
-          isActive: slug.startsWith(`/${locale}/settings`),
+          url: "/export",
+          isActive: slug.startsWith(`/${locale}/export`),
         },
       ],
     };
@@ -185,26 +152,26 @@ const AppSidebar = React.memo(
       <Sidebar className="border-r-0" collapsible="offcanvas" {...props}>
         <SidebarHeader className="gap-4 pt-4">
           <div className="flex w-full px-2 flex-col gap-3">
-            <WorkSpaceSwitcher />
+            <WontechLogo />
           </div>
         </SidebarHeader>
 
         <SidebarContent className="px-3 select-none gap-6">
           <MenuGroup
-            data={data.jobmenu}
-            groupTitle="heading.JobsManagement"
-            groupIcon={<Briefcase className="mr-2" size={16} />}
+            data={data.overviewmenu}
+            groupTitle="heading.overview"
+            groupIcon={<LayoutDashboard className="mr-2" size={16} />}
           />
 
           <MenuGroup
-            data={data.orgmenu}
-            groupTitle="heading.OrgManagement"
-            groupIcon={<Building2 className="mr-2" size={16} />}
+            data={data.salesmenu}
+            groupTitle="heading.sales"
+            groupIcon={<TrendingUp className="mr-2" size={16} />}
           />
 
           <MenuGroup
-            data={data.settingsmenu}
-            groupTitle="heading.settings"
+            data={data.managementmenu}
+            groupTitle="heading.management"
             groupIcon={<Settings2 className="mr-2" size={16} />}
           />
         </SidebarContent>

@@ -1,23 +1,15 @@
 {
   "navigation": {
-    "tasks": "การจัดการงาน",
-    "reviews": "รีวิว",
-    "companies": "บริษัท",
-    "branches": "สาขา",
-    "technicians": "ช่างเทคนิค",
-    "products": "สินค้า",
-    "accessories": "อุปกรณ์เสริม",
-    "members": "สมาชิก",
-    "personnel": "บุคลากร",
-    "settings": "การตั้งค่า",
-    "allUnits": "ทุกยูนิต",
-    "configurations": "การกำหนดค่า",
-    "QRCODEMNG": "การจัดการ QR Code",
-    "batchPrint": "พิมพ์ชุด",
+    "dashboard": "แดชบอร์ด",
+    "orders": "คำสั่งซื้อ",
+    "logistics": "โลจิสติกส์",
+    "clinic": "คลินิก",
+    "inventory": "คลังสินค้า",
+    "reportsExport": "รายงานและการส่งออก",
     "heading": {
-      "JobsManagement": "การจัดการงาน",
-      "OrgManagement": "การจัดการองค์กร",
-      "settings": "การตั้งค่า"
+      "overview": "ภาพรวม",
+      "sales": "การขาย",
+      "management": "การจัดการ"
     }
   },
   "resources": {

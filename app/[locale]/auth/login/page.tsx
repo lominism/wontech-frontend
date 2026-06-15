@@ -30,7 +30,7 @@ export default function LoginPage() {
     try {
       const { user } = await signInWithEmailAndPassword(auth, email, password);
       await syncUser(user);
-      router.push("/units");
+      router.push("/dashboard");
     } catch (error: unknown) {
       const message =
         error instanceof Error ? error.message : "Failed to sign in.";

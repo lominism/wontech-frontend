@@ -33,7 +33,7 @@ export default function middleware(request: NextRequest) {
 
   if (isAuthenticated && isAuthPage) {
     const locale = getLocale(pathname);
-    return NextResponse.redirect(new URL(`/${locale}/units`, request.url));
+    return NextResponse.redirect(new URL(`/${locale}/dashboard`, request.url));
   }
 
   return intlMiddleware(request);

@@ -1,23 +1,15 @@
 {
   "navigation": {
-    "tasks": "Tasks",
-    "reviews": "Reviews",
-    "companies": "Companies",
-    "branches": "Branches",
-    "technicians": "Technicians",
-    "products": "Products",
-    "accessories": "Accessories",
-    "members": "Members",
-    "personnel": "Personnel",
-    "settings": "Settings",
-    "allUnits": "All Units",
-    "configurations": "Configurations",
-    "QRCODEMNG": "QR Code Management",
-    "batchPrint": "Batch Print",
+    "dashboard": "Dashboard",
+    "orders": "Orders",
+    "logistics": "Logistics",
+    "clinic": "Clinic",
+    "inventory": "Inventory",
+    "reportsExport": "Reports & Export",
     "heading": {
-      "JobsManagement": "Jobs Mgmt",
-      "OrgManagement": "Organization Mgmt",
-      "settings": "Settings"
+      "overview": "Overview",
+      "sales": "Sales",
+      "management": "Management"
     }
   },
   "resources": {
