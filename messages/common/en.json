@@ -1,0 +1,75 @@
+{
+  "navigation": {
+    "tasks": "Tasks",
+    "reviews": "Reviews",
+    "companies": "Companies",
+    "branches": "Branches",
+    "technicians": "Technicians",
+    "products": "Products",
+    "accessories": "Accessories",
+    "members": "Members",
+    "personnel": "Personnel",
+    "settings": "Settings",
+    "allUnits": "All Units",
+    "configurations": "Configurations",
+    "QRCODEMNG": "QR Code Management",
+    "batchPrint": "Batch Print",
+    "heading": {
+      "JobsManagement": "Jobs Mgmt",
+      "OrgManagement": "Organization Mgmt",
+      "settings": "Settings"
+    }
+  },
+  "resources": {
+    "products": "Products",
+    "unit": "Unit",
+    "units": "Units",
+    "subUnits": "SubUnits",
+    "tasks": "Tasks",
+    "accessories": "Accessories",
+    "assets": "Assets",
+    "tenant": "Tenant"
+  },
+  "total": "Total",
+  "information": "information",
+  "confirmation": "Confirmation",
+  "cancel": "Cancel",
+  "save": "Save",
+  "delete": "Delete",
+  "edit": "Edit",
+  "add": "Add",
+  "update": "Update",
+  "create": "Create",
+  "deleteConfirmation": "Are you sure you want to delete this {item}?",
+  "goBack": "Go Back",
+  "backToProducts": "Back to Products",
+  "noData": {
+    "defaultMessage": "Nothing to see here yet.",
+    "defaultDescription": "Your data will appear here once you add some."
+  },
+  "newActions": {
+    "addSubunit": "Add Subunit",
+    "viewSubunits": "View Subunits"
+  },
+  "subunitPage": {
+    "subunitInformation": "Subunit Information",
+    "noSubunitsAvailable": "No Subunits Available.",
+    "subunitError": "This unit doesn't have any subunits. Create a subunit to view information and manage products.",
+    "deletingSubunit": "Deleting Subunit",
+    "deletingSubunitDescription": "Are you sure you want to delete this subunit? All items attached to this unit will be detached, and the unit will be permanently removed. This action cannot be undone."
+  },
+  "errors": {
+    "productNotFound": {
+      "title": "Product Not Found",
+      "description": "The product you're looking for doesn't exist or has been removed.",
+      "subtitle": "This might happen if the product was deleted or the URL has changed."
+    }
+  },
+  "unitsTable": {
+    "name": "Name",
+    "createdAt": "Created At",
+    "rowsSelected": "{count} of {totalCount} row(s) selected",
+    "rowsPerPage": "Rows per page",
+    "pageCount": "Page {page} of {pageCount}"
+  }
+}

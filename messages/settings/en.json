@@ -1,0 +1,93 @@
+{
+  "members": {
+    "teamMembers": "Team Members",
+    "invitedTeamMembers": "Invited Team Members",
+    "filter": "Filter...",
+    "view": "View",
+    "inviteMember": "Invite Member",
+    "table": {
+      "fullName": "Full Name",
+      "phone": "Phone",
+      "email": "Email",
+      "role": "Role",
+      "joined": "Date Joined",
+      "invitedBy": "Invited By",
+      "status": "Status",
+      "invitedAt": "Invited At",
+      "actions": "Actions",
+      "you": "You"
+    }
+  },
+  "personnel": {
+    "title": "Personnel Management",
+    "actions": {
+      "searchPersonnel": "Search Personnel...",
+      "addPersonnel": "Add Personnel",
+      "editPersonnel": "Edit",
+      "deletePersonnel": "Delete",
+      "items": "Items",
+      "view": "View"
+    },
+    "table": {
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "address": "Address",
+      "joined": "Date Joined",
+      "actions": "Actions"
+    }
+  },
+  "configurations": {
+    "menu": {
+      "workspace": "Workspace",
+      "units": "Units",
+      "templates": "Templates",
+      "categories": "Category Info Cards"
+    },
+    "workspace": {
+      "title": "Workspace Configuration",
+      "description": "Manage your workspace settings and preferences.",
+      "workspaceName": "Workspace Name",
+      "save": "Save Changes",
+      "dangerZone": {
+        "title": "Danger Zone",
+        "description": "Irreversible and destructive actions.",
+        "deleteButton": "Delete Workspace",
+        "alertTitle": "Are you absolutely sure?",
+        "alertDescription": "This action cannot be undone. This will permanently delete your workspace, deactivate all resources, and cancel your active subscription immediately.",
+        "cancel": "Cancel",
+        "confirm": "Delete Workspace"
+      }
+    },
+    "units": {
+      "unitTitle": "Add Unit",
+      "unitDescription": "You can add a new unit here. It is at the top level of your directory.",
+      "subunitTitle": "Add Subunit",
+      "subunitDescription": "Add your sub-unit here. Each sub-unit is nested under a parent unit.",
+      "max": "Max",
+      "subunitsAllowed": "subunits allowed",
+      "unitName": "Unit Name",
+      "addUnitButton": "Add Unit",
+      "parentUnit": "Parent Unit",
+      "parentUnitPlaceholder": "Select Parent Unit",
+      "addSubunitButton": "Add Subunit",
+      "directoryTree": "Directory Tree",
+      "directoryTreeDescription": "This is your directory tree so you can see how your units and sub-units are organized."
+    },
+    "templates": {
+      "title": "Unit / Subunit",
+      "unitTemplateTitle": "Unit Attributes Template",
+      "subunitTemplateTitle": "Subunit Attributes Template",
+      "enterFieldName": "Enter field name",
+      "add": "Add"
+    },
+    "categories": {
+      "fieldsFor": "Fields for",
+      "enterFieldName": "Enter field name",
+      "max": "Max",
+      "add": "Add",
+      "title": "Additional Info Categories",
+      "description": "Create additional info cards for your different categories."
+    }
+  }
+}

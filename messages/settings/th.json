@@ -1,0 +1,93 @@
+{
+  "members": {
+    "teamMembers": "สมาชิกทีม",
+    "invitedTeamMembers": "สมาชิกทีมที่เชิญ",
+    "filter": "กรอง...",
+    "view": "ดู",
+    "inviteMember": "เชิญสมาชิก",
+    "table": {
+      "fullName": "ชื่อ-นามสกุล",
+      "phone": "โทรศัพท์",
+      "email": "อีเมล",
+      "role": "บทบาท",
+      "joined": "วันที่เข้าร่วม",
+      "invitedBy": "เชิญโดย",
+      "status": "สถานะ",
+      "invitedAt": "วันที่เชิญ",
+      "actions": "การดำเนินการ",
+      "you": "คุณ"
+    }
+  },
+  "personnel": {
+    "title": "การจัดการบุคลากร",
+    "actions": {
+      "searchPersonnel": "ค้นหาบุคลากร...",
+      "addPersonnel": "เพิ่มบุคลากร",
+      "editPersonnel": "แก้ไข",
+      "deletePersonnel": "ลบ",
+      "items": "รายการ",
+      "view": "ดู"
+    },
+    "table": {
+      "name": "ชื่อ",
+      "email": "อีเมล",
+      "phone": "โทรศัพท์",
+      "address": "ที่อยู่",
+      "joined": "วันที่เข้าร่วม",
+      "actions": "การดำเนินการ"
+    }
+  },
+  "configurations": {
+    "menu": {
+      "workspace": "พื้นที่ทำงาน",
+      "units": "หน่วย",
+      "templates": "แม่แบบ",
+      "categories": "หมวดหมู่ข้อมูลเพิ่มเติม"
+    },
+    "workspace": {
+      "title": "พื้นที่ทำงาน",
+      "description": "คุณสามารถเปลี่ยนแปลงพื้นที่ทำงานของคุณที่นี่ กดบันทึกเมื่อเสร็จสิ้น",
+      "workspaceName": "ชื่อพื้นที่ทำงาน",
+      "save": "บันทึก",
+      "dangerZone": {
+        "title": "พื้นที่อันตราย",
+        "description": "การกระทำที่ไม่สามารถย้อนกลับได้และอาจส่งผลเสียร้ายแรง",
+        "deleteButton": "ลบพื้นที่ทำงาน",
+        "alertTitle": "คุณแน่ใจหรือไม่?",
+        "alertDescription": "การกระทำนี้ไม่สามารถย้อนกลับได้ จะเป็นการลบพื้นที่ทำงานของคุณอย่างถาวร ปิดการใช้งานทรัพยากรทั้งหมด และยกเลิกการสมัครสมาชิกของคุณทันที",
+        "cancel": "ยกเลิก",
+        "confirm": "ลบพื้นที่ทำงาน"
+      }
+    },
+    "units": {
+      "unitTitle": "เพิ่มหน่วย",
+      "unitDescription": "คุณสามารถเพิ่มหน่วยใหม่ที่นี่ หน่วยจะอยู่ในระดับบนสุดของไดเรกทอรีของคุณ",
+      "subunitTitle": "เพิ่มหน่วยย่อย",
+      "subunitDescription": "เพิ่มหน่วยย่อยของคุณที่นี่ หน่วยย่อยแต่ละหน่วยจะอยู่ภายใต้หน่วยหลัก",
+      "max": "Max",
+      "subunitsAllowed": "subunits allowed (need Thai)",
+      "unitName": "ชื่อหน่วย",
+      "addUnitButton": "เพิ่มหน่วย",
+      "parentUnit": "หน่วยหลัก",
+      "parentUnitPlaceholder": "เลือกหน่วยหลัก",
+      "addSubunitButton": "เพิ่มหน่วยย่อย",
+      "directoryTree": "โครงสร้างไดเรกทอรี",
+      "directoryTreeDescription": "นี่คือโครงสร้างไดเรกทอรีของคุณ เพื่อให้คุณเห็นการจัดระเบียบหน่วยและหน่วยย่อยของคุณ"
+    },
+    "templates": {
+      "title": "หน่วย / หน่วยย่อย",
+      "unitTemplateTitle": "แม่แบบคุณลักษณะหน่วย",
+      "subunitTemplateTitle": "แม่แบบคุณลักษณะหน่วยย่อย",
+      "enterFieldName": "กรอกชื่อฟิลด์",
+      "add": "เพิ่ม"
+    },
+    "categories": {
+      "fieldsFor": "ฟิลด์สำหรับ",
+      "enterFieldName": "กรอกชื่อฟิลด์",
+      "max": "สูงสุด",
+      "add": "เพิ่ม",
+      "title": "หมวดหมู่ข้อมูลเพิ่มเติม",
+      "description": "สร้างการ์ดข้อมูลเพิ่มเติมสำหรับหมวดหมู่ต่าง ๆ ของคุณ"
+    }
+  }
+}

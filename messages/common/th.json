@@ -1,0 +1,75 @@
+{
+  "navigation": {
+    "tasks": "การจัดการงาน",
+    "reviews": "รีวิว",
+    "companies": "บริษัท",
+    "branches": "สาขา",
+    "technicians": "ช่างเทคนิค",
+    "products": "สินค้า",
+    "accessories": "อุปกรณ์เสริม",
+    "members": "สมาชิก",
+    "personnel": "บุคลากร",
+    "settings": "การตั้งค่า",
+    "allUnits": "ทุกยูนิต",
+    "configurations": "การกำหนดค่า",
+    "QRCODEMNG": "การจัดการ QR Code",
+    "batchPrint": "พิมพ์ชุด",
+    "heading": {
+      "JobsManagement": "การจัดการงาน",
+      "OrgManagement": "การจัดการองค์กร",
+      "settings": "การตั้งค่า"
+    }
+  },
+  "resources": {
+    "products": "สินค้า",
+    "unit": "ยูนิต",
+    "units": "ยูนิต",
+    "subUnits": "หน่วยย่อย",
+    "tasks": "งาน",
+    "assets": "ทรัพย์สิน",
+    "accessories": "อุปกรณ์เสริม",
+    "tenant": "ผู้เช่า"
+  },
+  "total": "รวม",
+  "information": "ข้อมูล",
+  "confirmation": "ยืนยัน",
+  "cancel": "ยกเลิก",
+  "save": "บันทึก",
+  "delete": "ลบ",
+  "edit": "แก้ไข",
+  "add": "เพิ่ม",
+  "update": "อัปเดต",
+  "create": "สร้าง",
+  "deleteConfirmation": "คุณแน่ใจหรือว่าต้องการลบ {item} นี้?",
+  "goBack": "ย้อนกลับ",
+  "backToProducts": "กลับไปที่สินค้า",
+  "noData": {
+    "defaultMessage": "ยังไม่มีข้อมูลที่นี่",
+    "defaultDescription": "ข้อมูลของคุณจะปรากฏที่นี่เมื่อคุณเพิ่มข้อมูลแล้ว"
+  },
+  "newActions": {
+    "addSubunit": "เพิ่มหน่วยย่อย",
+    "viewSubunits": "ดูหน่วยย่อย"
+  },
+  "subunitPage": {
+    "subunitInformation": "ข้อมูลหน่วยย่อย",
+    "noSubunitsAvailable": "ยังไม่มีหน่วยย่อย",
+    "subunitError": "หน่วยนี้ไม่มีหน่วยย่อย สร้างหน่วยย่อยเพื่อดูข้อมูลและจัดการสินค้า",
+    "deletingSubunit": "กำลังลบหน่วยย่อย",
+    "deletingSubunitDescription": "คุณแน่ใจหรือไม่ว่าต้องการลบหน่วยย่อยนี้? สินค้าทั้งหมดที่แนบกับหน่วยนี้จะถูกยกเลิกการเชื่อมโยง และหน่วยจะถูกลบอย่างถาวร การกระทำนี้ไม่สามารถย้อนกลับได้"
+  },
+  "errors": {
+    "productNotFound": {
+      "title": "ไม่พบสินค้า",
+      "description": "สินค้าที่คุณกำลังค้นหาไม่มีอยู่หรือถูกลบไปแล้ว",
+      "subtitle": "สิ่งนี้อาจเกิดขึ้นได้หากสินค้าถูกลบหรือ URL มีการเปลี่ยนแปลง"
+    }
+  },
+  "unitsTable": {
+    "name": "ชื่อ",
+    "createdAt": "วันที่สร้าง",
+    "rowsSelected": "เลือก {count} จาก {totalCount} แถว",
+    "rowsPerPage": "แถวต่อหน้า",
+    "pageCount": "หน้า {page} จาก {pageCount}"
+  }
+}
