@@ -1,0 +1,19 @@
+{
+  "page": {
+    "title": "Clinics",
+    "description": "Manage your clinic partners and track their sales activity."
+  },
+  "actions": {
+    "search": "Search clinics...",
+    "addClinic": "Add Clinic"
+  },
+  "table": {
+    "clinicName": "Clinic Name",
+    "itemsSold": "Items Sold",
+    "revenue": "Revenue",
+    "credit": "Credit",
+    "parent": "Parent",
+    "noParent": "None",
+    "empty": "No clinics found."
+  }
+}

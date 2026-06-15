@@ -112,6 +112,25 @@ export const mockMembers: Member[] = [
   },
 ];
 
+export type Clinic = {
+  id: string;
+  name: string;
+  itemsSold: number;
+  revenue: number;
+  credit: number;
+  parentId: string | null;
+};
+
+export const mockClinics: Clinic[] = [
+  { id: "c-1", name: "Wontech Central Clinic", itemsSold: 0,  revenue: 0,       credit: 0,      parentId: null },
+  { id: "c-2", name: "Siam Skin & Wellness",   itemsSold: 14, revenue: 42000,   credit: 3200,   parentId: null },
+  { id: "c-3", name: "Siam Skin — Sukhumvit",  itemsSold: 8,  revenue: 24000,   credit: 3200,   parentId: "c-2" },
+  { id: "c-4", name: "Siam Skin — Silom",      itemsSold: 5,  revenue: 15000,   credit: 3200,   parentId: "c-2" },
+  { id: "c-5", name: "Radiance MedSpa",        itemsSold: 22, revenue: 66000,   credit: 5800,   parentId: null },
+  { id: "c-6", name: "Radiance MedSpa — Ari",  itemsSold: 11, revenue: 33000,   credit: 5800,   parentId: "c-5" },
+  { id: "c-7", name: "Glow Clinic",            itemsSold: 3,  revenue: 9000,    credit: 750,    parentId: null },
+];
+
 export const mockPersonnel: Personnel[] = [
   {
     id: "p-1",

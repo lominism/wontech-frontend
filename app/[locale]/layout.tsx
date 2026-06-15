@@ -39,7 +39,6 @@ export default async function RootLayout({
       <body
         className={`${notoSansThai.variable} ${notoSans.variable} antialiased`}
         suppressHydrationWarning={true}
-        style={{ backgroundColor: "var(--fx-bg)" }}
       >
         <NextIntlClientProvider locale={locale}>
           <AppProvider>{children}</AppProvider>
