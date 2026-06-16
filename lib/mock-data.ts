@@ -131,6 +131,133 @@ export const mockClinics: Clinic[] = [
   { id: "c-7", name: "Glow Clinic",            itemsSold: 3,  revenue: 9000,    credit: 750,    parentId: null },
 ];
 
+export type Product = {
+  id: string;
+  name: string;
+  sku: string;
+  category: string;
+  price: number;
+  commission: number | null;
+  stock: number;
+  image?: string | null;
+};
+
+export const productCategories = [
+  "Skincare",
+  "Devices",
+  "Consumables",
+  "Supplements",
+] as const;
+
+export const mockProducts: Product[] = [
+  { id: "prod-1", name: "HydraGlow Serum 30ml",               sku: "WT-SK-001", category: "Skincare",     price: 1290, commission: 129,  stock: 142, image: null },
+  { id: "prod-2", name: "Vitamin C Brightening Cream",         sku: "WT-SK-002", category: "Skincare",     price: 1590, commission: 159,  stock: 8,   image: null },
+  { id: "prod-3", name: "LED Therapy Mask",                    sku: "WT-DV-001", category: "Devices",      price: 8900, commission: 890,  stock: 23,  image: null },
+  { id: "prod-4", name: "Microcurrent Facial Wand",            sku: "WT-DV-002", category: "Devices",      price: 6500, commission: null, stock: 0,   image: null },
+  { id: "prod-5", name: "Disposable Treatment Masks (50pk)",   sku: "WT-CN-001", category: "Consumables",  price: 450,  commission: null, stock: 320, image: null },
+  { id: "prod-6", name: "Nitrile Gloves (100pk)",              sku: "WT-CN-002", category: "Consumables",  price: 280,  commission: null, stock: 56,  image: null },
+  { id: "prod-7", name: "Collagen Boost Capsules",             sku: "WT-SP-001", category: "Supplements",  price: 990,  commission: 99,   stock: 4,   image: null },
+  { id: "prod-8", name: "Marine Collagen Powder",              sku: "WT-SP-002", category: "Supplements",  price: 1490, commission: 149,  stock: 78,  image: null },
+];
+
+// Richer ecommerce detail shown on the product detail page. Kept separate from
+// the catalog row so the table/grid stay lightweight.
+export type ProductDetails = {
+  description: string;
+  brand: string;
+  weight: string;
+  dimensions: string;
+  origin: string;
+};
+
+export const mockProductDetails: Record<string, ProductDetails> = {
+  "prod-1": {
+    description:
+      "A lightweight hydrating serum infused with hyaluronic acid and botanical extracts. Absorbs quickly to plump and smooth skin, leaving a dewy, radiant finish.",
+    brand: "Wontech Labs",
+    weight: "30 ml",
+    dimensions: "3 x 3 x 11 cm",
+    origin: "South Korea",
+  },
+  "prod-2": {
+    description:
+      "Brightening day cream with stabilized Vitamin C to even skin tone and reduce the appearance of dark spots over time. Non-greasy and suitable for daily use.",
+    brand: "Wontech Labs",
+    weight: "50 g",
+    dimensions: "6 x 6 x 5 cm",
+    origin: "South Korea",
+  },
+  "prod-3": {
+    description:
+      "Clinical-grade LED therapy mask delivering red and blue light wavelengths to support skin renewal and target blemishes. Rechargeable with a 20-minute auto-timer.",
+    brand: "Wontech Devices",
+    weight: "420 g",
+    dimensions: "24 x 19 x 12 cm",
+    origin: "China",
+  },
+  "prod-4": {
+    description:
+      "Handheld microcurrent wand that delivers gentle electrical stimulation to tone and lift facial muscles. Includes conductive gel and a USB-C charging cable.",
+    brand: "Wontech Devices",
+    weight: "180 g",
+    dimensions: "16 x 5 x 5 cm",
+    origin: "China",
+  },
+  "prod-5": {
+    description:
+      "Box of 50 single-use treatment masks made from soft, breathable non-woven fabric. Ideal for serum and mask applications during in-clinic facials.",
+    brand: "Wontech Essentials",
+    weight: "500 g",
+    dimensions: "22 x 15 x 10 cm",
+    origin: "Thailand",
+  },
+  "prod-6": {
+    description:
+      "Box of 100 powder-free nitrile examination gloves. Latex-free, textured fingertips for grip, suitable for sensitive skin.",
+    brand: "Wontech Essentials",
+    weight: "1.1 kg",
+    dimensions: "24 x 12 x 8 cm",
+    origin: "Malaysia",
+  },
+  "prod-7": {
+    description:
+      "Daily collagen supplement capsules formulated to support skin elasticity and hydration from within. 60 capsules per bottle.",
+    brand: "Wontech Nutrition",
+    weight: "90 g",
+    dimensions: "6 x 6 x 11 cm",
+    origin: "Japan",
+  },
+  "prod-8": {
+    description:
+      "Premium marine collagen peptide powder, unflavored and easily dissolved into drinks. Supports skin, hair, and joint health.",
+    brand: "Wontech Nutrition",
+    weight: "300 g",
+    dimensions: "10 x 10 x 14 cm",
+    origin: "Japan",
+  },
+};
+
+export type PurchaseRecord = {
+  id: string;
+  productId: string;
+  date: string; // ISO date
+  quantity: number;
+  clinicName: string;
+};
+
+export const mockPurchaseHistory: PurchaseRecord[] = [
+  { id: "ph-1",  productId: "prod-1", date: "2026-06-02", quantity: 12, clinicName: "Siam Skin & Wellness" },
+  { id: "ph-2",  productId: "prod-1", date: "2026-05-21", quantity: 6,  clinicName: "Radiance MedSpa" },
+  { id: "ph-3",  productId: "prod-1", date: "2026-05-09", quantity: 20, clinicName: "Glow Clinic" },
+  { id: "ph-4",  productId: "prod-2", date: "2026-06-10", quantity: 4,  clinicName: "Siam Skin — Sukhumvit" },
+  { id: "ph-5",  productId: "prod-2", date: "2026-04-28", quantity: 9,  clinicName: "Radiance MedSpa — Ari" },
+  { id: "ph-6",  productId: "prod-3", date: "2026-06-01", quantity: 2,  clinicName: "Radiance MedSpa" },
+  { id: "ph-7",  productId: "prod-3", date: "2026-03-15", quantity: 1,  clinicName: "Siam Skin & Wellness" },
+  { id: "ph-8",  productId: "prod-7", date: "2026-06-12", quantity: 30, clinicName: "Glow Clinic" },
+  { id: "ph-9",  productId: "prod-7", date: "2026-05-30", quantity: 15, clinicName: "Siam Skin — Silom" },
+  { id: "ph-10", productId: "prod-8", date: "2026-06-08", quantity: 8,  clinicName: "Radiance MedSpa" },
+];
+
 export const mockPersonnel: Personnel[] = [
   {
     id: "p-1",

@@ -1,0 +1,79 @@
+{
+  "page": {
+    "title": "คลังสินค้า",
+    "description": "จัดการแคตตาล็อกสินค้าและติดตามระดับสต็อก"
+  },
+  "actions": {
+    "search": "ค้นหาสินค้า...",
+    "addProduct": "เพิ่มสินค้า",
+    "allCategories": "ทุกหมวดหมู่"
+  },
+  "view": {
+    "grid": "ตาราง",
+    "list": "รายการ"
+  },
+  "card": {
+    "category": "หมวดหมู่",
+    "price": "ราคา",
+    "commission": "คอมมิชชัน",
+    "noCommission": "N/A",
+    "stock": "สต็อก",
+    "inStock": "ในสต็อก",
+    "outOfStock": "สินค้าหมด",
+    "lowStock": "สต็อกใกล้หมด"
+  },
+  "table": {
+    "image": "รูปภาพ",
+    "name": "ชื่อสินค้า",
+    "sku": "รหัสสินค้า",
+    "category": "หมวดหมู่",
+    "price": "ราคา",
+    "stock": "สต็อก",
+    "empty": "ไม่พบสินค้า"
+  },
+  "dialog": {
+    "title": "เพิ่มสินค้าใหม่",
+    "description": "เพิ่มสินค้าใหม่เข้าสู่คลังสินค้าของคุณ",
+    "name": "ชื่อสินค้า",
+    "namePlaceholder": "กรอกชื่อสินค้า",
+    "sku": "รหัสสินค้า",
+    "skuPlaceholder": "กรอกรหัสสินค้า",
+    "category": "หมวดหมู่",
+    "categoryPlaceholder": "เลือกหมวดหมู่",
+    "price": "ราคา",
+    "pricePlaceholder": "0.00",
+    "stock": "จำนวนสต็อก",
+    "stockPlaceholder": "0",
+    "commission": "คอมมิชชัน",
+    "commissionPlaceholder": "เว้นว่างหากไม่มี",
+    "cancel": "ยกเลิก",
+    "submit": "เพิ่มสินค้า"
+  },
+  "detail": {
+    "backToInventory": "กลับไปที่คลังสินค้า",
+    "notFound": "ไม่พบสินค้า",
+    "itemId": "รหัสสินค้า",
+    "category": "หมวดหมู่",
+    "price": "ราคา",
+    "commission": "คอมมิชชัน",
+    "noCommission": "N/A",
+    "stock": "สต็อก",
+    "inStock": "ในสต็อก",
+    "outOfStock": "สินค้าหมด",
+    "additionalInfo": {
+      "title": "รายละเอียดสินค้า",
+      "description": "คำอธิบาย",
+      "brand": "แบรนด์",
+      "weight": "น้ำหนัก",
+      "dimensions": "ขนาด",
+      "origin": "ประเทศต้นกำเนิด"
+    },
+    "history": {
+      "title": "ประวัติการซื้อ",
+      "date": "วันที่ซื้อ",
+      "quantity": "จำนวน",
+      "clinic": "คลินิก",
+      "empty": "ยังไม่มีการบันทึกการซื้อ"
+    }
+  }
+}

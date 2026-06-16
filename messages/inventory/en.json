@@ -1,0 +1,79 @@
+{
+  "page": {
+    "title": "Inventory",
+    "description": "Manage your product catalog and track stock levels."
+  },
+  "actions": {
+    "search": "Search products...",
+    "addProduct": "Add Product",
+    "allCategories": "All Categories"
+  },
+  "view": {
+    "grid": "Grid",
+    "list": "List"
+  },
+  "card": {
+    "category": "Category",
+    "price": "Price",
+    "commission": "Commission",
+    "noCommission": "N/A",
+    "stock": "Stock",
+    "inStock": "in stock",
+    "outOfStock": "Out of stock",
+    "lowStock": "Low stock"
+  },
+  "table": {
+    "image": "Image",
+    "name": "Product Name",
+    "sku": "Item ID",
+    "category": "Category",
+    "price": "Price",
+    "stock": "Stock",
+    "empty": "No products found."
+  },
+  "dialog": {
+    "title": "Add New Product",
+    "description": "Add a new product to your inventory.",
+    "name": "Product Name",
+    "namePlaceholder": "Enter product name",
+    "sku": "Item ID",
+    "skuPlaceholder": "Enter item ID",
+    "category": "Category",
+    "categoryPlaceholder": "Select a category",
+    "price": "Price",
+    "pricePlaceholder": "0.00",
+    "stock": "Stock Quantity",
+    "stockPlaceholder": "0",
+    "commission": "Commission",
+    "commissionPlaceholder": "Leave blank if none",
+    "cancel": "Cancel",
+    "submit": "Add Product"
+  },
+  "detail": {
+    "backToInventory": "Back to Inventory",
+    "notFound": "Product not found.",
+    "itemId": "Item ID",
+    "category": "Category",
+    "price": "Price",
+    "commission": "Commission",
+    "noCommission": "N/A",
+    "stock": "Stock",
+    "inStock": "in stock",
+    "outOfStock": "Out of stock",
+    "additionalInfo": {
+      "title": "Product Details",
+      "description": "Description",
+      "brand": "Brand",
+      "weight": "Weight",
+      "dimensions": "Dimensions",
+      "origin": "Country of Origin"
+    },
+    "history": {
+      "title": "Purchase History",
+      "date": "Date Bought",
+      "quantity": "Quantity",
+      "clinic": "Clinic",
+      "empty": "No purchases recorded yet."
+    }
+  }
+}

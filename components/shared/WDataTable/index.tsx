@@ -20,12 +20,14 @@ type Props<TData> = {
   columns: ColumnDef<TData, any>[];
   data: TData[];
   emptyMessage?: string;
+  onRowClick?: (row: TData) => void;
 };
 
 export function WDataTable<TData>({
   columns,
   data,
   emptyMessage = "No results found.",
+  onRowClick,
 }: Props<TData>) {
   const table = useReactTable({
     data,
@@ -68,7 +70,15 @@ export function WDataTable<TData>({
             </TableRow>
           ) : (
             table.getRowModel().rows.map((row) => (
-              <TableRow key={row.id} className="hover:bg-muted/40">
+              <TableRow
+                key={row.id}
+                className={
+                  onRowClick
+                    ? "hover:bg-muted/40 cursor-pointer"
+                    : "hover:bg-muted/40"
+                }
+                onClick={onRowClick ? () => onRowClick(row.original) : undefined}
+              >
                 {row.getVisibleCells().map((cell) => (
                   <TableCell key={cell.id} className="px-4 py-3">
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
