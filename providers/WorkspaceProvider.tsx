@@ -27,21 +27,22 @@ const WorkspaceContext = createContext<WorkspaceContextType | undefined>(
 );
 
 export function WorkspaceProvider({ children }: { children: React.ReactNode }) {
-  const { user } = useAuth();
+  const { user, profile } = useAuth();
   const [workspaces, setWorkspaces] = useState<Workspace[]>(mockWorkspaces);
   const [selectedId, setSelectedId] = useState<string>(mockWorkspaces[0].id);
 
   const currentUser = useMemo<CurrentUser>(() => {
-    const displayName = user?.displayName ?? "";
-    const [firstName = "", ...rest] = displayName.split(" ");
-    const lastName = rest.join(" ");
+    // Prefer the backend profile (source of truth). Fall back to splitting the
+    // Firebase display name while the profile is still loading.
+    const [fallbackFirst = "", ...rest] = (user?.displayName ?? "").split(" ");
+    const fallbackLast = rest.join(" ");
     return {
-      firstName,
-      lastName,
-      email: user?.email ?? "",
+      firstName: profile?.firstName ?? fallbackFirst,
+      lastName: profile?.lastName ?? fallbackLast,
+      email: profile?.email ?? user?.email ?? "",
       avatar: user?.photoURL ?? "",
     };
-  }, [user]);
+  }, [user, profile]);
 
   const selectWorkspace = useCallback((id: string) => {
     setSelectedId(id);

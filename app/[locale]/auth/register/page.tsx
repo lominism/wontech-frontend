@@ -4,6 +4,7 @@ import { useState } from "react";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "@/lib/firebase";
 import { syncUser } from "@/lib/syncUser";
+import { useAuth } from "@/providers/AuthProvider";
 import { useRouter, Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -20,6 +21,7 @@ import { toast } from "sonner";
 
 export default function RegisterPage() {
   const router = useRouter();
+  const { applyProfile } = useAuth();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -38,7 +40,11 @@ export default function RegisterPage() {
       await updateProfile(user, {
         displayName: `${firstName.trim()} ${lastName.trim()}`,
       });
-      await syncUser(user);
+      const backendUser = await syncUser(user, {
+        firstName: firstName.trim(),
+        lastName: lastName.trim(),
+      });
+      applyProfile(backendUser);
       router.push("/dashboard");
     } catch (error: unknown) {
       const message =

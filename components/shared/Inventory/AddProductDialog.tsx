@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
+import { toast } from "sonner";
 import {
   Dialog,
   DialogContent,
@@ -21,10 +22,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { productCategories } from "@/lib/mock-data";
+import { createProduct } from "@/lib/api/products";
 
 type Props = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  onCreated?: () => void;
 };
 
 const emptyForm = {
@@ -36,18 +39,37 @@ const emptyForm = {
   commission: "",
 };
 
-export function AddProductDialog({ open, onOpenChange }: Props) {
+export function AddProductDialog({ open, onOpenChange, onCreated }: Props) {
   const t = useTranslations("inventory.dialog");
   const [form, setForm] = useState(emptyForm);
+  const [saving, setSaving] = useState(false);
 
   const update = (key: keyof typeof emptyForm, value: string) =>
     setForm((prev) => ({ ...prev, [key]: value }));
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // No persistence yet — this is UI-only. Reset and close.
-    setForm(emptyForm);
-    onOpenChange(false);
+    setSaving(true);
+    (async () => {
+      try {
+        await createProduct({
+          sku: form.sku.trim(),
+          name: form.name.trim(),
+          category: form.category,
+          price: Number(form.price),
+          stock: Number(form.stock),
+          commission: form.commission ? Number(form.commission) : null,
+        });
+        toast.success("Product created");
+        setForm(emptyForm);
+        onOpenChange(false);
+        onCreated?.();
+      } catch (err: unknown) {
+        toast.error(err instanceof Error ? err.message : "Failed to create product");
+      } finally {
+        setSaving(false);
+      }
+    })();
   };
 
   return (
@@ -150,7 +172,9 @@ export function AddProductDialog({ open, onOpenChange }: Props) {
             >
               {t("cancel")}
             </Button>
-            <Button type="submit">{t("submit")}</Button>
+            <Button type="submit" disabled={saving}>
+              {saving ? "Saving..." : t("submit")}
+            </Button>
           </DialogFooter>
         </form>
       </DialogContent>
