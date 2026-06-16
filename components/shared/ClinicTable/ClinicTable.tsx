@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { thbFormatter } from "@/lib/utils";
 import { type Clinic } from "@/lib/mock-data";
 import { WDataTable } from "@/components/shared/WDataTable";
+import { useRouter } from "@/i18n/navigation";
 
 type Props = {
   data: Clinic[];
@@ -16,6 +17,7 @@ const columnHelper = createColumnHelper<Clinic>();
 
 export function ClinicTable({ data, allClinics }: Props) {
   const t = useTranslations("clinic.table");
+  const router = useRouter();
 
   const parentMap = Object.fromEntries(
     allClinics.map((c) => [c.id, c.name])
@@ -63,5 +65,12 @@ export function ClinicTable({ data, allClinics }: Props) {
     }),
   ];
 
-  return <WDataTable columns={columns} data={data} emptyMessage={t("empty")} />;
+  return (
+    <WDataTable
+      columns={columns}
+      data={data}
+      emptyMessage={t("empty")}
+      onRowClick={(clinic) => router.push(`/clinic/${clinic.id}`)}
+    />
+  );
 }

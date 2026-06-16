@@ -1,0 +1,27 @@
+{
+  "page": {
+    "title": "Orders",
+    "description": "Track and manage orders across all clinics."
+  },
+  "actions": {
+    "search": "Search order # or customer...",
+    "statusFilter": "Status",
+    "allStatuses": "All Statuses",
+    "exportCsv": "Export CSV",
+    "newOrder": "New Order"
+  },
+  "status": {
+    "Awaiting Shipment": "Awaiting Shipment",
+    "Shipped": "Shipped"
+  },
+  "table": {
+    "orderNo": "Order",
+    "date": "Date",
+    "customer": "Customer",
+    "clinic": "Clinic",
+    "qty": "Qty",
+    "status": "Status",
+    "total": "Total",
+    "empty": "No orders found."
+  }
+}

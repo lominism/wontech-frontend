@@ -15,5 +15,35 @@
     "parent": "บริษัทแม่",
     "noParent": "ไม่มี",
     "empty": "ไม่พบคลินิก"
+  },
+  "detail": {
+    "backToClinics": "กลับไปที่คลินิก",
+    "notFound": "ไม่พบคลินิก",
+    "none": "ไม่มี",
+    "address": "ที่อยู่",
+    "branches": "สาขา",
+    "noBranches": "ไม่มีสาขา",
+    "parentClinic": "คลินิกหลัก",
+    "financial": {
+      "title": "รายได้และเครดิต",
+      "itemsSold": "สินค้าที่ขาย",
+      "revenue": "รายได้",
+      "credit": "เครดิตคงเหลือ (รวมทุกสาขา)"
+    },
+    "history": {
+      "title": "ประวัติการใช้เครดิต",
+      "creditAdjustment": "ปรับเครดิต",
+      "adjustmentTitle": "ปรับเครดิตของคลินิก",
+      "adjustmentHint": "กรอกจำนวน แล้วเลือกเพิ่มหรือลด",
+      "amountPlaceholder": "0.00",
+      "decrease": "ลด",
+      "increase": "เพิ่ม",
+      "cancel": "ยกเลิก",
+      "save": "บันทึก",
+      "date": "วันที่",
+      "creditChange": "การเปลี่ยนแปลงเครดิต",
+      "user": "ผู้ใช้",
+      "empty": "ยังไม่มีการบันทึกกิจกรรมเครดิต"
+    }
   }
 }

@@ -1,0 +1,27 @@
+{
+  "page": {
+    "title": "คำสั่งซื้อ",
+    "description": "ติดตามและจัดการคำสั่งซื้อจากทุกคลินิก"
+  },
+  "actions": {
+    "search": "ค้นหาเลขคำสั่งซื้อหรือชื่อลูกค้า...",
+    "statusFilter": "สถานะ",
+    "allStatuses": "ทุกสถานะ",
+    "exportCsv": "ส่งออก CSV",
+    "newOrder": "เพิ่มคำสั่งซื้อ"
+  },
+  "status": {
+    "Awaiting Shipment": "รอจัดส่ง",
+    "Shipped": "จัดส่งแล้ว"
+  },
+  "table": {
+    "orderNo": "คำสั่งซื้อ",
+    "date": "วันที่",
+    "customer": "ลูกค้า",
+    "clinic": "คลินิก",
+    "qty": "จำนวน",
+    "status": "สถานะ",
+    "total": "ยอดรวม",
+    "empty": "ไม่พบคำสั่งซื้อ"
+  }
+}

@@ -115,6 +115,7 @@ export const mockMembers: Member[] = [
 export type Clinic = {
   id: string;
   name: string;
+  address: string;
   itemsSold: number;
   revenue: number;
   credit: number;
@@ -122,13 +123,58 @@ export type Clinic = {
 };
 
 export const mockClinics: Clinic[] = [
-  { id: "c-1", name: "Wontech Central Clinic", itemsSold: 0,  revenue: 0,       credit: 0,      parentId: null },
-  { id: "c-2", name: "Siam Skin & Wellness",   itemsSold: 14, revenue: 42000,   credit: 3200,   parentId: null },
-  { id: "c-3", name: "Siam Skin — Sukhumvit",  itemsSold: 8,  revenue: 24000,   credit: 3200,   parentId: "c-2" },
-  { id: "c-4", name: "Siam Skin — Silom",      itemsSold: 5,  revenue: 15000,   credit: 3200,   parentId: "c-2" },
-  { id: "c-5", name: "Radiance MedSpa",        itemsSold: 22, revenue: 66000,   credit: 5800,   parentId: null },
-  { id: "c-6", name: "Radiance MedSpa — Ari",  itemsSold: 11, revenue: 33000,   credit: 5800,   parentId: "c-5" },
-  { id: "c-7", name: "Glow Clinic",            itemsSold: 3,  revenue: 9000,    credit: 750,    parentId: null },
+  { id: "c-1", name: "Wontech Central Clinic", address: "88 Sukhumvit Soi 24, Khlong Toei, Bangkok 10110", itemsSold: 0,  revenue: 0,     credit: 0,    parentId: null },
+  { id: "c-2", name: "Siam Skin & Wellness",   address: "12 Rama I Rd, Pathum Wan, Bangkok 10330",       itemsSold: 14, revenue: 42000, credit: 3200, parentId: null },
+  { id: "c-3", name: "Siam Skin — Sukhumvit",  address: "101 Sukhumvit Rd, Watthana, Bangkok 10110",    itemsSold: 8,  revenue: 24000, credit: 3200, parentId: "c-2" },
+  { id: "c-4", name: "Siam Skin — Silom",      address: "45 Silom Rd, Bang Rak, Bangkok 10500",         itemsSold: 5,  revenue: 15000, credit: 3200, parentId: "c-2" },
+  { id: "c-5", name: "Radiance MedSpa",        address: "200 Phahonyothin Rd, Chatuchak, Bangkok 10900", itemsSold: 22, revenue: 66000, credit: 5800, parentId: null },
+  { id: "c-6", name: "Radiance MedSpa — Ari",  address: "8 Ari Soi 1, Phaya Thai, Bangkok 10400",       itemsSold: 11, revenue: 33000, credit: 5800, parentId: "c-5" },
+  { id: "c-7", name: "Glow Clinic",            address: "33 Thong Lo Soi 13, Watthana, Bangkok 10110",  itemsSold: 3,  revenue: 9000,  credit: 750,  parentId: null },
+];
+
+/** True when other clinics list this clinic as their parent (org-level, not a branch). */
+export function isParentClinic(
+  clinicId: string,
+  clinics: Clinic[] = mockClinics
+): boolean {
+  return clinics.some((c) => c.parentId === clinicId);
+}
+
+/** Clinics shown in the list: standalone locations and branches, not parent orgs. */
+export function getListableClinics(clinics: Clinic[] = mockClinics): Clinic[] {
+  return clinics.filter((c) => !isParentClinic(c.id, clinics));
+}
+
+/** All branches in the same group (siblings under a parent, or children of a parent). */
+export function getClinicBranches(
+  clinic: Clinic,
+  clinics: Clinic[] = mockClinics
+): Clinic[] {
+  if (clinic.parentId) {
+    return clinics.filter((c) => c.parentId === clinic.parentId);
+  }
+  return clinics.filter((c) => c.parentId === clinic.id);
+}
+
+export type CreditUsageRecord = {
+  id: string;
+  clinicId: string;
+  date: string;
+  creditChange: number;
+  userName: string;
+};
+
+export const mockCreditUsageHistory: CreditUsageRecord[] = [
+  { id: "cu-1",  clinicId: "c-2", date: "2026-06-10", creditChange: 450,  userName: "Jane Cooper" },
+  { id: "cu-2",  clinicId: "c-2", date: "2026-06-03", creditChange: -200, userName: "Wade Warren" },
+  { id: "cu-3",  clinicId: "c-2", date: "2026-05-22", creditChange: 320,  userName: "Jane Cooper" },
+  { id: "cu-4",  clinicId: "c-3", date: "2026-06-08", creditChange: 180,  userName: "Esther Howard" },
+  { id: "cu-5",  clinicId: "c-3", date: "2026-05-30", creditChange: -150, userName: "Wade Warren" },
+  { id: "cu-6",  clinicId: "c-5", date: "2026-06-12", creditChange: 890,  userName: "Jane Cooper" },
+  { id: "cu-7",  clinicId: "c-5", date: "2026-06-01", creditChange: -500, userName: "Robert Fox" },
+  { id: "cu-8",  clinicId: "c-5", date: "2026-05-18", creditChange: 620,  userName: "Jenny Wilson" },
+  { id: "cu-9",  clinicId: "c-7", date: "2026-06-05", creditChange: 75,   userName: "Jane Cooper" },
+  { id: "cu-10", clinicId: "c-7", date: "2026-05-14", creditChange: -50,  userName: "Wade Warren" },
 ];
 
 export type Product = {
@@ -256,6 +302,177 @@ export const mockPurchaseHistory: PurchaseRecord[] = [
   { id: "ph-8",  productId: "prod-7", date: "2026-06-12", quantity: 30, clinicName: "Glow Clinic" },
   { id: "ph-9",  productId: "prod-7", date: "2026-05-30", quantity: 15, clinicName: "Siam Skin — Silom" },
   { id: "ph-10", productId: "prod-8", date: "2026-06-08", quantity: 8,  clinicName: "Radiance MedSpa" },
+];
+
+/* ============================================================
+   Dashboard mock data
+   ============================================================ */
+
+// The stat cards (Total Revenue / Orders) can be filtered by time range.
+export type DashboardRange = "lastYear" | "last3Months" | "lastWeek";
+
+export const dashboardRangeOptions: { value: DashboardRange; label: string }[] =
+  [
+    { value: "lastYear", label: "Last Year" },
+    { value: "last3Months", label: "Last 3 Months" },
+    { value: "lastWeek", label: "Last Week" },
+  ];
+
+export type RangedMetric = {
+  // Headline value for the card
+  value: number;
+  // % change versus the previous comparable period
+  change: number;
+  // Tiny trend series powering the sparkline
+  trend: { label: string; value: number }[];
+};
+
+export const mockRevenueByRange: Record<DashboardRange, RangedMetric> = {
+  lastYear: {
+    value: 4825000,
+    change: 12.4,
+    trend: [
+      { label: "Q1", value: 980000 },
+      { label: "Q2", value: 1120000 },
+      { label: "Q3", value: 1340000 },
+      { label: "Q4", value: 1385000 },
+    ],
+  },
+  last3Months: {
+    value: 1385000,
+    change: 8.2,
+    trend: [
+      { label: "Apr", value: 412000 },
+      { label: "May", value: 468000 },
+      { label: "Jun", value: 505000 },
+    ],
+  },
+  lastWeek: {
+    value: 128400,
+    change: -3.1,
+    trend: [
+      { label: "Mon", value: 18200 },
+      { label: "Tue", value: 21400 },
+      { label: "Wed", value: 17600 },
+      { label: "Thu", value: 24800 },
+      { label: "Fri", value: 22100 },
+      { label: "Sat", value: 14300 },
+      { label: "Sun", value: 10000 },
+    ],
+  },
+};
+
+export const mockOrdersByRange: Record<DashboardRange, RangedMetric> = {
+  lastYear: {
+    value: 3120,
+    change: 9.6,
+    trend: [
+      { label: "Q1", value: 690 },
+      { label: "Q2", value: 742 },
+      { label: "Q3", value: 838 },
+      { label: "Q4", value: 850 },
+    ],
+  },
+  last3Months: {
+    value: 868,
+    change: 5.4,
+    trend: [
+      { label: "Apr", value: 268 },
+      { label: "May", value: 291 },
+      { label: "Jun", value: 309 },
+    ],
+  },
+  lastWeek: {
+    value: 74,
+    change: 2.8,
+    trend: [
+      { label: "Mon", value: 11 },
+      { label: "Tue", value: 13 },
+      { label: "Wed", value: 9 },
+      { label: "Thu", value: 15 },
+      { label: "Fri", value: 12 },
+      { label: "Sat", value: 8 },
+      { label: "Sun", value: 6 },
+    ],
+  },
+};
+
+// Units Sold and Active Clinics are single fixed figures (no time filter).
+export const mockUnitsSold: RangedMetric = {
+  value: 12840,
+  change: 6.7,
+  trend: [
+    { label: "Mon", value: 1620 },
+    { label: "Tue", value: 1880 },
+    { label: "Wed", value: 1740 },
+    { label: "Thu", value: 2010 },
+    { label: "Fri", value: 1960 },
+    { label: "Sat", value: 1740 },
+    { label: "Sun", value: 1890 },
+  ],
+};
+
+export const mockActiveClinics: RangedMetric = {
+  value: 86,
+  change: 4.2,
+  trend: [
+    { label: "Jan", value: 72 },
+    { label: "Feb", value: 75 },
+    { label: "Mar", value: 78 },
+    { label: "Apr", value: 80 },
+    { label: "May", value: 83 },
+    { label: "Jun", value: 86 },
+  ],
+};
+
+// Revenue overview area chart — monthly revenue vs. credit.
+export const mockRevenueOverview = [
+  { month: "Jan", revenue: 320000, credit: 48000 },
+  { month: "Feb", revenue: 358000, credit: 52000 },
+  { month: "Mar", revenue: 402000, credit: 61000 },
+  { month: "Apr", revenue: 412000, credit: 58000 },
+  { month: "May", revenue: 468000, credit: 67000 },
+  { month: "Jun", revenue: 505000, credit: 72000 },
+];
+
+// Sales by category donut chart.
+export const mockSalesByCategory = [
+  { category: "skincare", value: 1860000, fill: "var(--color-skincare)" },
+  { category: "devices", value: 1420000, fill: "var(--color-devices)" },
+  { category: "consumables", value: 920000, fill: "var(--color-consumables)" },
+  { category: "supplements", value: 625000, fill: "var(--color-supplements)" },
+];
+
+// Recent orders table: Order, Item, Customer, Clinic, Qty.
+export type OrderStatus = "Awaiting Shipment" | "Shipped";
+
+export const orderStatuses: OrderStatus[] = ["Awaiting Shipment", "Shipped"];
+
+export type Order = {
+  id: string;
+  orderNo: string;
+  date: string; // ISO date
+  item: string;
+  customer: string;
+  clinic: string;
+  qty: number;
+  status: OrderStatus;
+  total: number;
+};
+
+export const mockRecentOrders: Order[] = [
+  { id: "o-1",  orderNo: "#WT-10428", date: "2026-06-14", item: "HydraGlow Serum 30ml",            customer: "Wade Warren",        clinic: "Siam Skin & Wellness", qty: 12, status: "Shipped",           total: 15480 },
+  { id: "o-2",  orderNo: "#WT-10427", date: "2026-06-13", item: "LED Therapy Mask",               customer: "Esther Howard",      clinic: "Radiance MedSpa",      qty: 2,  status: "Awaiting Shipment", total: 17800 },
+  { id: "o-3",  orderNo: "#WT-10426", date: "2026-06-12", item: "Collagen Boost Capsules",        customer: "Cameron Williamson", clinic: "Glow Clinic",          qty: 30, status: "Awaiting Shipment", total: 29700 },
+  { id: "o-4",  orderNo: "#WT-10425", date: "2026-06-11", item: "Vitamin C Brightening Cream",    customer: "Brooklyn Simmons",   clinic: "Siam Skin & Wellness", qty: 4,  status: "Shipped",           total: 6360  },
+  { id: "o-5",  orderNo: "#WT-10424", date: "2026-06-10", item: "Marine Collagen Powder",         customer: "Robert Fox",         clinic: "Radiance MedSpa",      qty: 8,  status: "Shipped",           total: 11920 },
+  { id: "o-6",  orderNo: "#WT-10423", date: "2026-06-09", item: "Microcurrent Facial Wand",       customer: "Jenny Wilson",       clinic: "Glow Clinic",          qty: 3,  status: "Awaiting Shipment", total: 19500 },
+  { id: "o-7",  orderNo: "#WT-10422", date: "2026-06-08", item: "Disposable Treatment Masks",     customer: "Guy Hawkins",        clinic: "Siam Skin & Wellness", qty: 25, status: "Shipped",           total: 11250 },
+  { id: "o-8",  orderNo: "#WT-10421", date: "2026-06-07", item: "Nitrile Gloves (100pk)",         customer: "Kristin Watson",     clinic: "Radiance MedSpa",      qty: 18, status: "Awaiting Shipment", total: 5040  },
+  { id: "o-9",  orderNo: "#WT-10420", date: "2026-06-06", item: "HydraGlow Serum 30ml",           customer: "Jane Cooper",        clinic: "Glow Clinic",          qty: 6,  status: "Shipped",           total: 7740  },
+  { id: "o-10", orderNo: "#WT-10419", date: "2026-06-05", item: "LED Therapy Mask",               customer: "Wade Warren",        clinic: "Siam Skin & Wellness", qty: 1,  status: "Awaiting Shipment", total: 8900  },
+  { id: "o-11", orderNo: "#WT-10418", date: "2026-06-04", item: "Marine Collagen Powder",         customer: "Esther Howard",      clinic: "Radiance MedSpa",      qty: 14, status: "Shipped",           total: 20860 },
+  { id: "o-12", orderNo: "#WT-10417", date: "2026-06-03", item: "Collagen Boost Capsules",        customer: "Cameron Williamson", clinic: "Glow Clinic",          qty: 9,  status: "Shipped",           total: 8910  },
 ];
 
 export const mockPersonnel: Personnel[] = [

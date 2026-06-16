@@ -15,5 +15,35 @@
     "parent": "Parent",
     "noParent": "None",
     "empty": "No clinics found."
+  },
+  "detail": {
+    "backToClinics": "Back to Clinics",
+    "notFound": "Clinic not found.",
+    "none": "None",
+    "address": "Address",
+    "branches": "Branches",
+    "noBranches": "No branches",
+    "parentClinic": "Parent clinic",
+    "financial": {
+      "title": "Revenue & Credit",
+      "itemsSold": "Items Sold",
+      "revenue": "Revenue",
+      "credit": "Available Credit (from all branches)"
+    },
+    "history": {
+      "title": "Credit Usage History",
+      "creditAdjustment": "Credit Adjustment",
+      "adjustmentTitle": "Adjust clinic credit",
+      "adjustmentHint": "Enter an amount, then choose decrease or increase.",
+      "amountPlaceholder": "0.00",
+      "decrease": "Decrease",
+      "increase": "Increase",
+      "cancel": "Cancel",
+      "save": "Save",
+      "date": "Date",
+      "creditChange": "Credit Change",
+      "user": "User",
+      "empty": "No credit activity recorded yet."
+    }
   }
 }

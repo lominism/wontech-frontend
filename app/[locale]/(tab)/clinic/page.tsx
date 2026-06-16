@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
-import { mockClinics } from "@/lib/mock-data";
+import { getListableClinics, mockClinics } from "@/lib/mock-data";
 import { SearchBar } from "@/components/shared/ClinicTable/SearchBar";
 import { ClinicTable } from "@/components/shared/ClinicTable/ClinicTable";
 
@@ -10,7 +10,9 @@ export default function ClinicPage() {
   const t = useTranslations("clinic");
   const [search, setSearch] = useState("");
 
-  const filtered = mockClinics.filter((clinic) =>
+  const listableClinics = useMemo(() => getListableClinics(mockClinics), []);
+
+  const filtered = listableClinics.filter((clinic) =>
     clinic.name.toLowerCase().includes(search.toLowerCase())
   );
 
