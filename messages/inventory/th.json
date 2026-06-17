@@ -1,7 +1,10 @@
 {
   "page": {
     "title": "คลังสินค้า",
-    "description": "จัดการแคตตาล็อกสินค้าและติดตามระดับสต็อก"
+    "description": "จัดการแคตตาล็อกสินค้าและติดตามระดับสต็อก",
+    "loading": "กำลังโหลดสินค้า…",
+    "loadError": "ไม่สามารถโหลดสินค้าได้",
+    "retry": "ลองอีกครั้ง"
   },
   "actions": {
     "search": "ค้นหาสินค้า...",
@@ -25,7 +28,7 @@
   "table": {
     "image": "รูปภาพ",
     "name": "ชื่อสินค้า",
-    "sku": "รหัสสินค้า",
+    "sku": "SKU",
     "category": "หมวดหมู่",
     "price": "ราคา",
     "stock": "สต็อก",
@@ -36,7 +39,7 @@
     "description": "เพิ่มสินค้าใหม่เข้าสู่คลังสินค้าของคุณ",
     "name": "ชื่อสินค้า",
     "namePlaceholder": "กรอกชื่อสินค้า",
-    "sku": "รหัสสินค้า",
+    "sku": "SKU",
     "skuPlaceholder": "กรอกรหัสสินค้า",
     "category": "หมวดหมู่",
     "categoryPlaceholder": "เลือกหมวดหมู่",
@@ -46,13 +49,27 @@
     "stockPlaceholder": "0",
     "commission": "คอมมิชชัน",
     "commissionPlaceholder": "เว้นว่างหากไม่มี",
+    "description": "คำอธิบาย",
+    "descriptionPlaceholder": "คำอธิบายสินค้าสำหรับหน้าร้าน",
+    "brand": "แบรนด์",
+    "brandPlaceholder": "เช่น Wontech Labs",
+    "weight": "น้ำหนัก",
+    "weightPlaceholder": "เช่น 30 ml",
+    "dimensions": "ขนาด",
+    "dimensionsPlaceholder": "เช่น 3 x 3 x 11 cm",
+    "originCountry": "ประเทศต้นกำเนิด",
+    "originCountryPlaceholder": "เช่น South Korea",
+    "image": "รูปภาพสินค้า",
+    "imageHint": "การอัปโหลดรูปภาพยังไม่พร้อมใช้งาน ส่วนนี้เป็นเพียงตัวอย่างเลย์เอาต์",
+    "imageChoose": "เลือกรูปภาพ",
     "cancel": "ยกเลิก",
     "submit": "เพิ่มสินค้า"
   },
   "detail": {
     "backToInventory": "กลับไปที่คลังสินค้า",
+    "loading": "กำลังโหลดสินค้า…",
     "notFound": "ไม่พบสินค้า",
-    "itemId": "รหัสสินค้า",
+    "sku": "SKU",
     "category": "หมวดหมู่",
     "price": "ราคา",
     "commission": "คอมมิชชัน",

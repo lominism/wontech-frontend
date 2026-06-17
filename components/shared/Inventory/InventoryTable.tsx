@@ -5,16 +5,16 @@ import { useTranslations } from "next-intl";
 import { Package } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { thbFormatter } from "@/lib/utils";
-import { type Product } from "@/lib/mock-data";
+import { type InventoryProduct } from "@/lib/api/products";
 import { WDataTable } from "@/components/shared/WDataTable";
 import { useRouter } from "@/i18n/navigation";
 import { getStockStatus, stockTextColor } from "./stock";
 
 type Props = {
-  data: Product[];
+  data: InventoryProduct[];
 };
 
-const columnHelper = createColumnHelper<Product>();
+const columnHelper = createColumnHelper<InventoryProduct>();
 
 export function InventoryTable({ data }: Props) {
   const t = useTranslations("inventory.table");

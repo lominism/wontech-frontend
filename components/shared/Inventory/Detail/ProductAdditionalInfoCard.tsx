@@ -8,20 +8,22 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { type ProductDetails } from "@/lib/mock-data";
+import { type InventoryProduct } from "@/lib/api/products";
 
 type Props = {
-  details: ProductDetails;
+  product: InventoryProduct;
 };
 
-export function ProductAdditionalInfoCard({ details }: Props) {
+const empty = "—";
+
+export function ProductAdditionalInfoCard({ product }: Props) {
   const t = useTranslations("inventory.detail.additionalInfo");
 
   const specs = [
-    { label: t("brand"), value: details.brand },
-    { label: t("weight"), value: details.weight },
-    { label: t("dimensions"), value: details.dimensions },
-    { label: t("origin"), value: details.origin },
+    { label: t("brand"), value: product.brand ?? empty },
+    { label: t("weight"), value: product.weight ?? empty },
+    { label: t("dimensions"), value: product.dimensions ?? empty },
+    { label: t("origin"), value: product.origin ?? empty },
   ];
 
   return (
@@ -34,7 +36,9 @@ export function ProductAdditionalInfoCard({ details }: Props) {
           <span className="text-sm font-medium text-muted-foreground">
             {t("description")}
           </span>
-          <p className="text-sm leading-relaxed">{details.description}</p>
+          <p className="text-sm leading-relaxed">
+            {product.description ?? empty}
+          </p>
         </div>
 
         <Separator />
