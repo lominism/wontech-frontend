@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Separator } from "@/components/ui/separator";
 import { thbFormatter } from "@/lib/utils";
-import { type Product } from "@/lib/mock-data";
+import { type InventoryProduct } from "@/lib/api/products";
 import {
   getStockPercent,
   getStockStatus,
@@ -16,7 +16,7 @@ import {
 } from "../stock";
 
 type Props = {
-  product: Product;
+  product: InventoryProduct;
 };
 
 export function ProductInfoCard({ product }: Props) {
@@ -42,7 +42,7 @@ export function ProductInfoCard({ product }: Props) {
         <div className="flex flex-col gap-1">
           <h2 className="text-xl font-bold leading-tight">{product.name}</h2>
           <span className="font-mono text-xs text-muted-foreground">
-            {t("itemId")}: {product.sku}
+            {t("sku")}: {product.sku}
           </span>
         </div>
 

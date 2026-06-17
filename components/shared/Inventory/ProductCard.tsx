@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Separator } from "@/components/ui/separator";
 import { thbFormatter } from "@/lib/utils";
-import { type Product } from "@/lib/mock-data";
+import { type InventoryProduct } from "@/lib/api/products";
 import { Link } from "@/i18n/navigation";
 import {
   getStockPercent,
@@ -17,7 +17,7 @@ import {
 } from "./stock";
 
 type Props = {
-  product: Product;
+  product: InventoryProduct;
 };
 
 export function ProductCard({ product }: Props) {

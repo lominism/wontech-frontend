@@ -1,7 +1,10 @@
 {
   "page": {
     "title": "Inventory",
-    "description": "Manage your product catalog and track stock levels."
+    "description": "Manage your product catalog and track stock levels.",
+    "loading": "Loading products…",
+    "loadError": "Could not load products.",
+    "retry": "Try again"
   },
   "actions": {
     "search": "Search products...",
@@ -25,7 +28,7 @@
   "table": {
     "image": "Image",
     "name": "Product Name",
-    "sku": "Item ID",
+    "sku": "SKU",
     "category": "Category",
     "price": "Price",
     "stock": "Stock",
@@ -36,8 +39,8 @@
     "description": "Add a new product to your inventory.",
     "name": "Product Name",
     "namePlaceholder": "Enter product name",
-    "sku": "Item ID",
-    "skuPlaceholder": "Enter item ID",
+    "sku": "SKU",
+    "skuPlaceholder": "e.g. WT-SK-001",
     "category": "Category",
     "categoryPlaceholder": "Select a category",
     "price": "Price",
@@ -46,13 +49,27 @@
     "stockPlaceholder": "0",
     "commission": "Commission",
     "commissionPlaceholder": "Leave blank if none",
+    "description": "Description",
+    "descriptionPlaceholder": "Product description for the storefront",
+    "brand": "Brand",
+    "brandPlaceholder": "e.g. Wontech Labs",
+    "weight": "Weight",
+    "weightPlaceholder": "e.g. 30 ml",
+    "dimensions": "Dimensions",
+    "dimensionsPlaceholder": "e.g. 3 x 3 x 11 cm",
+    "originCountry": "Country of Origin",
+    "originCountryPlaceholder": "e.g. South Korea",
+    "image": "Product Image",
+    "imageHint": "Image upload is not available yet. This preview is for layout only.",
+    "imageChoose": "Choose image",
     "cancel": "Cancel",
     "submit": "Add Product"
   },
   "detail": {
     "backToInventory": "Back to Inventory",
+    "loading": "Loading product…",
     "notFound": "Product not found.",
-    "itemId": "Item ID",
+    "sku": "SKU",
     "category": "Category",
     "price": "Price",
     "commission": "Commission",

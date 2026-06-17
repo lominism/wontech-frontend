@@ -1,11 +1,11 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { type Product } from "@/lib/mock-data";
+import { type InventoryProduct } from "@/lib/api/products";
 import { ProductCard } from "./ProductCard";
 
 type Props = {
-  products: Product[];
+  products: InventoryProduct[];
 };
 
 export function ProductCardGrid({ products }: Props) {
