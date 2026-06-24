@@ -112,25 +112,26 @@ export const mockMembers: Member[] = [
   },
 ];
 
-export type Clinic = {
-  id: string;
-  name: string;
-  address: string;
-  itemsSold: number;
-  revenue: number;
-  credit: number;
-  parentId: string | null;
-};
+import type { Clinic } from "@/lib/api/clinics";
+
+export type { Clinic };
 
 export const mockClinics: Clinic[] = [
-  { id: "c-1", name: "Wontech Central Clinic", address: "88 Sukhumvit Soi 24, Khlong Toei, Bangkok 10110", itemsSold: 0,  revenue: 0,     credit: 0,    parentId: null },
-  { id: "c-2", name: "Siam Skin & Wellness",   address: "12 Rama I Rd, Pathum Wan, Bangkok 10330",       itemsSold: 14, revenue: 42000, credit: 3200, parentId: null },
-  { id: "c-3", name: "Siam Skin — Sukhumvit",  address: "101 Sukhumvit Rd, Watthana, Bangkok 10110",    itemsSold: 8,  revenue: 24000, credit: 3200, parentId: "c-2" },
-  { id: "c-4", name: "Siam Skin — Silom",      address: "45 Silom Rd, Bang Rak, Bangkok 10500",         itemsSold: 5,  revenue: 15000, credit: 3200, parentId: "c-2" },
-  { id: "c-5", name: "Radiance MedSpa",        address: "200 Phahonyothin Rd, Chatuchak, Bangkok 10900", itemsSold: 22, revenue: 66000, credit: 5800, parentId: null },
-  { id: "c-6", name: "Radiance MedSpa — Ari",  address: "8 Ari Soi 1, Phaya Thai, Bangkok 10400",       itemsSold: 11, revenue: 33000, credit: 5800, parentId: "c-5" },
-  { id: "c-7", name: "Glow Clinic",            address: "33 Thong Lo Soi 13, Watthana, Bangkok 10110",  itemsSold: 3,  revenue: 9000,  credit: 750,  parentId: null },
+  { id: "c-1", name: "Wontech Central Clinic", addressStreet: "88 Sukhumvit Soi 24", addressCity: "Khlong Toei, Bangkok", addressCode: "10110", itemsSold: 0,  revenue: 0,     credit: 0,    parentId: null },
+  { id: "c-2", name: "Siam Skin & Wellness",   addressStreet: "12 Rama I Rd", addressCity: "Pathum Wan, Bangkok", addressCode: "10330", itemsSold: 14, revenue: 42000, credit: 3200, parentId: null },
+  { id: "c-3", name: "Siam Skin — Sukhumvit",  addressStreet: "101 Sukhumvit Rd", addressCity: "Watthana, Bangkok", addressCode: "10110", itemsSold: 8,  revenue: 24000, credit: 3200, parentId: "c-2" },
+  { id: "c-4", name: "Siam Skin — Silom",      addressStreet: "45 Silom Rd", addressCity: "Bang Rak, Bangkok", addressCode: "10500", itemsSold: 5,  revenue: 15000, credit: 3200, parentId: "c-2" },
+  { id: "c-5", name: "Radiance MedSpa",        addressStreet: "200 Phahonyothin Rd", addressCity: "Chatuchak, Bangkok", addressCode: "10900", itemsSold: 22, revenue: 66000, credit: 5800, parentId: null },
+  { id: "c-6", name: "Radiance MedSpa — Ari",  addressStreet: "8 Ari Soi 1", addressCity: "Phaya Thai, Bangkok", addressCode: "10400", itemsSold: 11, revenue: 33000, credit: 5800, parentId: "c-5" },
+  { id: "c-7", name: "Glow Clinic",            addressStreet: "33 Thong Lo Soi 13", addressCity: "Watthana, Bangkok", addressCode: "10110", itemsSold: 3,  revenue: 9000,  credit: 750,  parentId: null },
 ];
+
+/** Top-level clinics that can be selected as a parent organization. */
+export function getParentClinicOptions(clinics: Clinic[] = mockClinics): Clinic[] {
+  return clinics
+    .filter((c) => c.parentId === null)
+    .sort((a, b) => a.name.localeCompare(b.name));
+}
 
 /** True when other clinics list this clinic as their parent (org-level, not a branch). */
 export function isParentClinic(

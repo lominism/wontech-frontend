@@ -1,29 +1,5 @@
-"use client";
-
-import { useMemo, useState } from "react";
-import { useTranslations } from "next-intl";
-import { getListableClinics, mockClinics } from "@/lib/mock-data";
-import { SearchBar } from "@/components/shared/ClinicTable/SearchBar";
-import { ClinicTable } from "@/components/shared/ClinicTable/ClinicTable";
+import { ClinicContainer } from "@/components/shared/ClinicTable/ClinicContainer";
 
 export default function ClinicPage() {
-  const t = useTranslations("clinic");
-  const [search, setSearch] = useState("");
-
-  const listableClinics = useMemo(() => getListableClinics(mockClinics), []);
-
-  const filtered = listableClinics.filter((clinic) =>
-    clinic.name.toLowerCase().includes(search.toLowerCase())
-  );
-
-  return (
-    <div className="flex flex-col gap-4">
-      <div>
-        <h1 className="text-2xl font-bold tracking-tight">{t("page.title")}</h1>
-        <p className="text-muted-foreground text-sm">{t("page.description")}</p>
-      </div>
-      <SearchBar value={search} onChange={setSearch} />
-      <ClinicTable data={filtered} allClinics={mockClinics} />
-    </div>
-  );
+  return <ClinicContainer />;
 }

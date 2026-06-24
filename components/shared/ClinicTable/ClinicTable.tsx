@@ -4,7 +4,7 @@ import { createColumnHelper } from "@tanstack/react-table";
 import { useTranslations } from "next-intl";
 import { Badge } from "@/components/ui/badge";
 import { thbFormatter } from "@/lib/utils";
-import { type Clinic } from "@/lib/mock-data";
+import { type Clinic } from "@/lib/api/clinics";
 import { WDataTable } from "@/components/shared/WDataTable";
 import { useRouter } from "@/i18n/navigation";
 

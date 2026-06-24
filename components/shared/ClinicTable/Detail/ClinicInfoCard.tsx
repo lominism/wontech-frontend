@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Link } from "@/i18n/navigation";
-import { type Clinic } from "@/lib/mock-data";
+import { type Clinic, formatClinicAddress } from "@/lib/api/clinics";
 
 type Props = {
   clinic: Clinic;
@@ -39,7 +39,9 @@ export function ClinicInfoCard({ clinic, branches, parent }: Props) {
             <span className="font-medium text-muted-foreground">
               {t("address")}
             </span>
-            <span className="leading-relaxed">{clinic.address}</span>
+            <span className="leading-relaxed whitespace-pre-line">
+              {formatClinicAddress(clinic)}
+            </span>
           </div>
         </div>
 

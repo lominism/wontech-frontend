@@ -24,12 +24,11 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { productCategories } from "@/lib/mock-data";
-import { createProduct } from "@/lib/api/products";
+import { useCreateProduct } from "@/lib/queries/useCreateProduct";
 
 type Props = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  onCreated?: () => void;
 };
 
 type FormState = {
@@ -60,10 +59,10 @@ const emptyForm: FormState = {
   originCountry: "",
 };
 
-export function AddProductDialog({ open, onOpenChange, onCreated }: Props) {
+export function AddProductDialog({ open, onOpenChange }: Props) {
   const t = useTranslations("inventory.dialog");
+  const { mutateAsync, isPending } = useCreateProduct();
   const [form, setForm] = useState<FormState>(emptyForm);
-  const [saving, setSaving] = useState(false);
 
   const update = (key: keyof FormState, value: string) =>
     setForm((prev) => ({ ...prev, [key]: value }));
@@ -77,40 +76,35 @@ export function AddProductDialog({ open, onOpenChange, onCreated }: Props) {
     return trimmed ? trimmed : null;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.category) {
       toast.error(t("categoryPlaceholder"));
       return;
     }
-    setSaving(true);
-    (async () => {
-      try {
-        await createProduct({
-          sku: form.sku.trim(),
-          name: form.name.trim(),
-          category: form.category,
-          price: Number(form.price),
-          stock: Number(form.stock),
-          commission: form.commission ? Number(form.commission) : null,
-          description: optionalText(form.description),
-          brand: optionalText(form.brand),
-          weight: optionalText(form.weight),
-          dimensions: optionalText(form.dimensions),
-          originCountry: optionalText(form.originCountry),
-        });
-        toast.success("Product created");
-        resetForm();
-        onOpenChange(false);
-        onCreated?.();
-      } catch (err: unknown) {
-        toast.error(
-          err instanceof Error ? err.message : "Failed to create product"
-        );
-      } finally {
-        setSaving(false);
-      }
-    })();
+
+    try {
+      await mutateAsync({
+        sku: form.sku.trim(),
+        name: form.name.trim(),
+        category: form.category,
+        price: Number(form.price),
+        stock: Number(form.stock),
+        commission: form.commission ? Number(form.commission) : null,
+        description: optionalText(form.description),
+        brand: optionalText(form.brand),
+        weight: optionalText(form.weight),
+        dimensions: optionalText(form.dimensions),
+        originCountry: optionalText(form.originCountry),
+      });
+      toast.success("Product created");
+      resetForm();
+      onOpenChange(false);
+    } catch (err: unknown) {
+      toast.error(
+        err instanceof Error ? err.message : "Failed to create product"
+      );
+    }
   };
 
   return (
@@ -290,8 +284,8 @@ export function AddProductDialog({ open, onOpenChange, onCreated }: Props) {
             >
               {t("cancel")}
             </Button>
-            <Button type="submit" disabled={saving}>
-              {saving ? "Saving..." : t("submit")}
+            <Button type="submit" disabled={isPending}>
+              {isPending ? "Saving..." : t("submit")}
             </Button>
           </DialogFooter>
         </form>

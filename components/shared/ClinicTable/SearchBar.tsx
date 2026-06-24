@@ -8,9 +8,10 @@ import { Search, Plus } from "lucide-react";
 type Props = {
   value: string;
   onChange: (value: string) => void;
+  onAdd: () => void;
 };
 
-export function SearchBar({ value, onChange }: Props) {
+export function SearchBar({ value, onChange, onAdd }: Props) {
   const t = useTranslations("clinic.actions");
 
   return (
@@ -27,7 +28,11 @@ export function SearchBar({ value, onChange }: Props) {
           className="pl-9"
         />
       </div>
-      <Button className="bg-sidebar-primary text-sidebar-primary-foreground hover:bg-sidebar-primary/90 shrink-0">
+      <Button
+        type="button"
+        onClick={onAdd}
+        className="bg-sidebar-primary text-sidebar-primary-foreground hover:bg-sidebar-primary/90 shrink-0"
+      >
         <Plus size={16} />
         {t("addClinic")}
       </Button>
