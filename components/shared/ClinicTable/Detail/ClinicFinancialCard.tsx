@@ -10,7 +10,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { thbFormatter } from "@/lib/utils";
-import { type Clinic } from "@/lib/mock-data";
+import { type Clinic } from "@/lib/api/clinics";
 
 type Props = {
   clinic: Clinic;

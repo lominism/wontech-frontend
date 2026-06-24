@@ -1,7 +1,10 @@
 {
   "page": {
     "title": "คลินิก",
-    "description": "จัดการพาร์ทเนอร์คลินิกและติดตามกิจกรรมการขาย"
+    "description": "จัดการพาร์ทเนอร์คลินิกและติดตามกิจกรรมการขาย",
+    "loading": "กำลังโหลดคลินิก…",
+    "loadError": "ไม่สามารถโหลดคลินิกได้",
+    "retry": "ลองอีกครั้ง"
   },
   "actions": {
     "search": "ค้นหาคลินิก...",
@@ -16,9 +19,40 @@
     "noParent": "ไม่มี",
     "empty": "ไม่พบคลินิก"
   },
+  "dialog": {
+    "title": "เพิ่มคลินิกใหม่",
+    "description": "เพิ่มสาขาคลินิก สามารถเชื่อมกับองค์กรแม่ที่มีอยู่หรือสร้างองค์กรแม่ใหม่ได้",
+    "name": "ชื่อคลินิก",
+    "namePlaceholder": "กรอกชื่อคลินิก",
+    "address": "ที่อยู่",
+    "addressStreet": "ถนน / บ้านเลขที่",
+    "addressStreetPlaceholder": "เช่น 88 สุขุมวิท ซอย 24",
+    "addressCity": "เขต / จังหวัด",
+    "addressCityPlaceholder": "เช่น คลองเตย, กรุงเทพฯ",
+    "addressCode": "รหัสไปรษณีย์",
+    "addressCodePlaceholder": "เช่น 10110",
+    "contactEmail": "อีเมลติดต่อ",
+    "contactEmailPlaceholder": "clinic@example.com",
+    "parentClinic": "องค์กรแม่",
+    "parentPlaceholder": "เลือกองค์กรแม่",
+    "parentHint": "เลือกองค์กรแม่ที่มีอยู่ สร้างองค์กรแม่ใหม่ หรือเว้นว่างสำหรับคลินิกอิสระ",
+    "noParent": "ไม่มี (คลินิกอิสระ)",
+    "createNewParent": "สร้างองค์กรแม่ใหม่…",
+    "newParentName": "ชื่อองค์กรแม่ใหม่",
+    "newParentNamePlaceholder": "เช่น Siam Skin & Wellness",
+    "newParentNameRequired": "กรุณากรอกชื่อองค์กรแม่ใหม่",
+    "newParentHint": "ระบบจะสร้างองค์กรแม่และเพิ่มคลินิกนี้เป็นสาขาแรก",
+    "cancel": "ยกเลิก",
+    "submit": "เพิ่มคลินิก",
+    "saving": "กำลังบันทึก…",
+    "success": "เพิ่มคลินิกแล้ว",
+    "error": "ไม่สามารถเพิ่มคลินิกได้"
+  },
   "detail": {
     "backToClinics": "กลับไปที่คลินิก",
+    "loading": "กำลังโหลดคลินิก…",
     "notFound": "ไม่พบคลินิก",
+    "retry": "ลองอีกครั้ง",
     "none": "ไม่มี",
     "address": "ที่อยู่",
     "branches": "สาขา",

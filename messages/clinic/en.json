@@ -1,7 +1,10 @@
 {
   "page": {
     "title": "Clinics",
-    "description": "Manage your clinic partners and track their sales activity."
+    "description": "Manage your clinic partners and track their sales activity.",
+    "loading": "Loading clinics…",
+    "loadError": "Could not load clinics.",
+    "retry": "Try again"
   },
   "actions": {
     "search": "Search clinics...",
@@ -16,9 +19,40 @@
     "noParent": "None",
     "empty": "No clinics found."
   },
+  "dialog": {
+    "title": "Add New Clinic",
+    "description": "Add a clinic location. Optionally link it to an existing parent organization or create a new one.",
+    "name": "Clinic Name",
+    "namePlaceholder": "Enter clinic name",
+    "address": "Address",
+    "addressStreet": "Street",
+    "addressStreetPlaceholder": "e.g. 88 Sukhumvit Soi 24",
+    "addressCity": "City / District",
+    "addressCityPlaceholder": "e.g. Khlong Toei, Bangkok",
+    "addressCode": "Postal code",
+    "addressCodePlaceholder": "e.g. 10110",
+    "contactEmail": "Contact Email",
+    "contactEmailPlaceholder": "clinic@example.com",
+    "parentClinic": "Parent Organization",
+    "parentPlaceholder": "Select a parent organization",
+    "parentHint": "Choose an existing parent, create a new organization, or leave as none for a standalone clinic.",
+    "noParent": "None (standalone clinic)",
+    "createNewParent": "Create new parent organization…",
+    "newParentName": "New Parent Organization Name",
+    "newParentNamePlaceholder": "e.g. Siam Skin & Wellness",
+    "newParentNameRequired": "Enter a name for the new parent organization.",
+    "newParentHint": "A parent organization will be created and this clinic will be added as its first branch.",
+    "cancel": "Cancel",
+    "submit": "Add Clinic",
+    "saving": "Saving…",
+    "success": "Clinic created",
+    "error": "Failed to create clinic"
+  },
   "detail": {
     "backToClinics": "Back to Clinics",
+    "loading": "Loading clinic…",
     "notFound": "Clinic not found.",
+    "retry": "Try again",
     "none": "None",
     "address": "Address",
     "branches": "Branches",

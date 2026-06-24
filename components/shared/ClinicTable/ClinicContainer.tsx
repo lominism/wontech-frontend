@@ -2,44 +2,40 @@
 
 import { useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
+import { getListableClinics, getParentClinicOptions } from "@/lib/mock-data";
 import { useAuth } from "@/providers/AuthProvider";
-import { useProducts } from "@/lib/queries/useProducts";
-import {
-  InventoryToolbar,
-  type InventoryView,
-} from "./InventoryToolbar";
-import { ProductCardGrid } from "./ProductCardGrid";
-import { InventoryTable } from "./InventoryTable";
-import { AddProductDialog } from "./AddProductDialog";
+import { useClinics } from "@/lib/queries/useClinics";
+import { SearchBar } from "@/components/shared/ClinicTable/SearchBar";
+import { ClinicTable } from "@/components/shared/ClinicTable/ClinicTable";
+import { AddClinicDialog } from "@/components/shared/ClinicTable/AddClinicDialog";
 
-export function InventoryContainer() {
-  const t = useTranslations("inventory");
+export function ClinicContainer() {
+  const t = useTranslations("clinic");
   const { user, loading: authLoading } = useAuth();
   const {
-    data: products = [],
+    data: clinics = [],
     isLoading,
     isError,
     refetch,
-  } = useProducts({
+  } = useClinics({
     enabled: !authLoading && !!user,
   });
-
   const [search, setSearch] = useState("");
-  const [category, setCategory] = useState("all");
-  const [view, setView] = useState<InventoryView>("grid");
   const [isAddOpen, setIsAddOpen] = useState(false);
 
-  const filtered = useMemo(() => {
-    const query = search.toLowerCase();
-    return products.filter((product) => {
-      const matchesSearch =
-        product.name.toLowerCase().includes(query) ||
-        product.sku.toLowerCase().includes(query);
-      const matchesCategory =
-        category === "all" || product.category === category;
-      return matchesSearch && matchesCategory;
-    });
-  }, [products, search, category]);
+  const parentOptions = useMemo(
+    () => getParentClinicOptions(clinics),
+    [clinics]
+  );
+
+  const listableClinics = useMemo(
+    () => getListableClinics(clinics),
+    [clinics]
+  );
+
+  const filtered = listableClinics.filter((clinic) =>
+    clinic.name.toLowerCase().includes(search.toLowerCase())
+  );
 
   return (
     <div className="flex flex-col gap-4">
@@ -48,13 +44,9 @@ export function InventoryContainer() {
         <p className="text-muted-foreground text-sm">{t("page.description")}</p>
       </div>
 
-      <InventoryToolbar
-        search={search}
-        onSearchChange={setSearch}
-        category={category}
-        onCategoryChange={setCategory}
-        view={view}
-        onViewChange={setView}
+      <SearchBar
+        value={search}
+        onChange={setSearch}
         onAdd={() => setIsAddOpen(true)}
       />
 
@@ -73,13 +65,15 @@ export function InventoryContainer() {
             {t("page.retry")}
           </button>
         </div>
-      ) : view === "grid" ? (
-        <ProductCardGrid products={filtered} />
       ) : (
-        <InventoryTable data={filtered} />
+        <ClinicTable data={filtered} allClinics={clinics} />
       )}
 
-      <AddProductDialog open={isAddOpen} onOpenChange={setIsAddOpen} />
+      <AddClinicDialog
+        open={isAddOpen}
+        onOpenChange={setIsAddOpen}
+        parentOptions={parentOptions}
+      />
     </div>
   );
 }
