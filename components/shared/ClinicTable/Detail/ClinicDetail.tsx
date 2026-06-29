@@ -14,6 +14,8 @@ import {
 import { ClinicInfoCard } from "./ClinicInfoCard";
 import { ClinicFinancialCard } from "./ClinicFinancialCard";
 import { CreditUsageHistoryTable } from "./CreditUsageHistoryTable";
+import { CopyShopLink } from "@/components/shared/Shop/CopyShopLink";
+import { useProducts } from "@/lib/queries/useProducts";
 
 type Props = {
   clinicId: string;
@@ -31,6 +33,9 @@ export function ClinicDetail({ clinicId }: Props) {
     enabled: !authLoading && !!user,
   });
   const { data: allClinics = [] } = useClinics({
+    enabled: !authLoading && !!user,
+  });
+  const { data: allProducts = [] } = useProducts({
     enabled: !authLoading && !!user,
   });
 
@@ -90,6 +95,8 @@ export function ClinicDetail({ clinicId }: Props) {
         <ArrowLeft size={15} />
         {t("backToClinics")}
       </Link>
+
+      <CopyShopLink clinicId={clinicId} products={allProducts} />
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
         <div className="lg:col-span-1">

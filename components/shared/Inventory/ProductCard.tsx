@@ -41,6 +41,11 @@ export function ProductCard({ product }: Props) {
         <span className="absolute left-3 top-3 rounded-md bg-background/80 px-1.5 py-0.5 font-mono text-xs text-muted-foreground backdrop-blur">
           {product.sku}
         </span>
+        {!product.isActive && (
+          <span className="absolute right-3 top-3">
+            <Badge variant="secondary">{t("disabled")}</Badge>
+          </span>
+        )}
       </div>
 
       <CardContent className="flex flex-col gap-3 p-4">

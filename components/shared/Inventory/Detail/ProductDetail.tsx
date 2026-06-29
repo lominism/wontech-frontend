@@ -73,7 +73,7 @@ export function ProductDetail({ productId }: Props) {
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
         <div className="lg:col-span-1">
-          <ProductInfoCard product={product} />
+          <ProductInfoCard product={product} productId={productId} />
         </div>
 
         <div className="flex flex-col gap-6 lg:col-span-2">

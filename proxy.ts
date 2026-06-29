@@ -5,6 +5,7 @@ import { routing } from "./i18n/routing";
 const intlMiddleware = createMiddleware(routing);
 
 const AUTH_PAGES = ["/auth/login", "/auth/register", "/auth/forgot-password"];
+const PUBLIC_PAGES = ["/shop", "/track"];
 
 function getLocale(pathname: string): string {
   const segment = pathname.split("/")[1];
@@ -22,9 +23,10 @@ export default function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const pathWithoutLocale = stripLocale(pathname);
   const isAuthPage = AUTH_PAGES.some((p) => pathWithoutLocale.startsWith(p));
+  const isPublicPage = PUBLIC_PAGES.some((p) => pathWithoutLocale.startsWith(p));
   const isAuthenticated = request.cookies.has("fb-auth");
 
-  if (!isAuthenticated && !isAuthPage) {
+  if (!isAuthenticated && !isAuthPage && !isPublicPage) {
     const locale = getLocale(pathname);
     return NextResponse.redirect(
       new URL(`/${locale}/auth/login`, request.url)

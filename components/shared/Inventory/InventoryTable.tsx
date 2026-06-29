@@ -43,7 +43,14 @@ export function InventoryTable({ data }: Props) {
     }),
     columnHelper.accessor("name", {
       header: t("name"),
-      cell: (info) => <span className="font-semibold">{info.getValue()}</span>,
+      cell: (info) => (
+        <div className="flex items-center gap-2">
+          <span className="font-semibold">{info.getValue()}</span>
+          {!info.row.original.isActive && (
+            <Badge variant="secondary">{t("disabled")}</Badge>
+          )}
+        </div>
+      ),
     }),
     columnHelper.accessor("sku", {
       header: t("sku"),
