@@ -65,11 +65,14 @@
     "total": "Total",
     "status": "Status",
     "lastUpdated": "Last updated",
+    "carrier": "Carrier",
+    "trackingNumber": "Tracking number",
     "statuses": {
       "pending_payment": "Pending payment",
       "paid": "Paid",
       "awaiting_shipment": "Awaiting shipment",
       "shipped": "Shipped",
+      "completed": "Completed",
       "cancelled": "Cancelled"
     }
   },

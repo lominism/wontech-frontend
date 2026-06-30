@@ -14,6 +14,7 @@ const statusStyles: Record<string, string> = {
   paid: "bg-[#E8F0EB] text-[#3D5A4C]",
   awaiting_shipment: "bg-[#E8F0EB] text-[#3D5A4C]",
   shipped: "bg-[#3D5A4C] text-[#FFFCF8]",
+  completed: "bg-[#2A2A2A] text-[#FFFCF8]",
   cancelled: "bg-red-50 text-red-700",
 };
 
@@ -56,6 +57,12 @@ export function OrderTrackingPage({ token }: Props) {
       value: thbFormatter.format(data.total),
       bold: true,
     },
+    ...(data.carrier
+      ? [{ label: t("carrier"), value: data.carrier }]
+      : []),
+    ...(data.trackingNumber
+      ? [{ label: t("trackingNumber"), value: data.trackingNumber, mono: true }]
+      : []),
     {
       label: t("lastUpdated"),
       value: new Date(data.updatedAt).toLocaleString(),

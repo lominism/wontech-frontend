@@ -1,18 +1,30 @@
 {
   "page": {
     "title": "คำสั่งซื้อ",
-    "description": "ติดตามและจัดการคำสั่งซื้อจากทุกคลินิก"
+    "description": "ติดตามและจัดการคำสั่งซื้อจากทุกคลินิก",
+    "loading": "กำลังโหลดคำสั่งซื้อ…",
+    "error": "ไม่สามารถโหลดคำสั่งซื้อได้",
+    "retry": "ลองอีกครั้ง"
   },
   "actions": {
     "search": "ค้นหาเลขคำสั่งซื้อหรือชื่อลูกค้า...",
     "statusFilter": "สถานะ",
-    "allStatuses": "ทุกสถานะ",
+    "activeStatuses": "กำลังดำเนินการ",
     "exportCsv": "ส่งออก CSV",
     "newOrder": "เพิ่มคำสั่งซื้อ"
   },
+  "filter": {
+    "awaiting_shipment": "รอจัดส่ง",
+    "shipped": "จัดส่งแล้ว",
+    "completed": "เสร็จสมบูรณ์"
+  },
   "status": {
-    "Awaiting Shipment": "รอจัดส่ง",
-    "Shipped": "จัดส่งแล้ว"
+    "pending_payment": "รอชำระเงิน",
+    "paid": "ชำระเงินแล้ว",
+    "awaiting_shipment": "รอจัดส่ง",
+    "shipped": "จัดส่งแล้ว",
+    "completed": "เสร็จสมบูรณ์",
+    "cancelled": "ยกเลิก"
   },
   "table": {
     "orderNo": "คำสั่งซื้อ",
@@ -23,5 +35,80 @@
     "status": "สถานะ",
     "total": "ยอดรวม",
     "empty": "ไม่พบคำสั่งซื้อ"
+  },
+  "pagination": {
+    "pageOf": "หน้า {page} จาก {totalPages}",
+    "previous": "ก่อนหน้า",
+    "next": "ถัดไป",
+    "total": "{count} คำสั่งซื้อ"
+  },
+  "newOrder": {
+    "title": "เพิ่มคำสั่งซื้อ",
+    "description": "บันทึกการขายจาก Wontech, Lazada, Shopee หรืองานแสดงสินค้า",
+    "source": "แหล่งที่มา",
+    "name": "ชื่อ",
+    "email": "อีเมล",
+    "phone": "เบอร์โทรศัพท์",
+    "addressStreet": "ที่อยู่",
+    "addressCity": "เมือง / เขต",
+    "addressCode": "รหัสไปรษณีย์",
+    "item": "สินค้า",
+    "itemPlaceholder": "เลือกสินค้า",
+    "qty": "จำนวน",
+    "soldBy": "ขายโดย",
+    "noClinic": "ไม่มี",
+    "status": "สถานะ",
+    "optional": "ไม่บังคับ",
+    "stockAvailable": "คงเหลือ {count} ชิ้น",
+    "cancel": "ยกเลิก",
+    "submit": "สร้างคำสั่งซื้อ",
+    "saving": "กำลังสร้าง…",
+    "success": "สร้างคำสั่งซื้อแล้ว",
+    "error": "ไม่สามารถสร้างคำสั่งซื้อได้",
+    "insufficientStock": "สต็อกไม่เพียงพอสำหรับจำนวนนี้",
+    "sources": {
+      "wontech": "Wontech",
+      "lazada": "Lazada",
+      "shopee": "Shopee"
+    },
+    "validation": {
+      "productRequired": "กรุณาเลือกสินค้า",
+      "quantityRequired": "กรุณากรอกจำนวนที่ถูกต้อง",
+      "insufficientStock": "จำนวนเกินสต็อกที่มี",
+      "nameRequired": "ต้องระบุชื่อสำหรับคำสั่งซื้อ Wontech",
+      "emailRequired": "ต้องระบุอีเมลสำหรับคำสั่งซื้อ Wontech",
+      "phoneRequired": "ต้องระบุเบอร์โทรสำหรับคำสั่งซื้อ Wontech",
+      "streetRequired": "ต้องระบุที่อยู่สำหรับคำสั่งซื้อ Wontech",
+      "cityRequired": "ต้องระบุเมืองสำหรับคำสั่งซื้อ Wontech",
+      "codeRequired": "ต้องระบุรหัสไปรษณีย์สำหรับคำสั่งซื้อ Wontech"
+    }
+  },
+  "detail": {
+    "title": "รายละเอียดคำสั่งซื้อ",
+    "orderDate": "วันที่สั่งซื้อ",
+    "source": "แหล่งที่มา",
+    "product": "สินค้า",
+    "soldVia": "จำหน่ายผ่าน",
+    "customer": "ลูกค้า",
+    "shipping": "จัดส่งไปที่",
+    "payment": "การชำระเงิน",
+    "name": "ชื่อ",
+    "email": "อีเมล",
+    "phone": "เบอร์โทรศัพท์",
+    "street": "ที่อยู่",
+    "city": "เมือง",
+    "postalCode": "รหัสไปรษณีย์",
+    "sku": "SKU",
+    "quantity": "จำนวน",
+    "unitPrice": "ราคาต่อชิ้น",
+    "total": "ยอดรวม",
+    "provider": "ผู้ให้บริการ",
+    "reference": "อ้างอิง",
+    "loading": "กำลังโหลดรายละเอียด…",
+    "error": "ไม่สามารถโหลดรายละเอียดได้",
+    "retry": "ลองอีกครั้ง",
+    "notPaidYet": "ยังไม่ชำระเงิน",
+    "copyAddress": "คัดลอกที่อยู่",
+    "copied": "คัดลอกที่อยู่แล้ว"
   }
 }

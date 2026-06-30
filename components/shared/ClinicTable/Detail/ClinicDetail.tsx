@@ -6,11 +6,9 @@ import { ArrowLeft } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { useAuth } from "@/providers/AuthProvider";
 import { useClinic } from "@/lib/queries/useClinic";
-import { useClinics } from "@/lib/queries/useClinics";
-import {
-  getClinicBranches,
-  mockCreditUsageHistory,
-} from "@/lib/mock-data";
+import { useClinicsLookup } from "@/lib/queries/useClinicsLookup";
+import { getClinicBranches } from "@/lib/mock-data";
+import { useClinicCreditLedger } from "@/lib/queries/useClinicCreditLedger";
 import { ClinicInfoCard } from "./ClinicInfoCard";
 import { ClinicFinancialCard } from "./ClinicFinancialCard";
 import { CreditUsageHistoryTable } from "./CreditUsageHistoryTable";
@@ -32,7 +30,7 @@ export function ClinicDetail({ clinicId }: Props) {
   } = useClinic(clinicId, {
     enabled: !authLoading && !!user,
   });
-  const { data: allClinics = [] } = useClinics({
+  const { data: allClinics = [] } = useClinicsLookup({
     enabled: !authLoading && !!user,
   });
   const { data: allProducts = [] } = useProducts({
@@ -52,7 +50,10 @@ export function ClinicDetail({ clinicId }: Props) {
     };
   }, [clinic, allClinics]);
 
-  const history = mockCreditUsageHistory.filter((r) => r.clinicId === clinicId);
+  const { data: history = [], isLoading: historyLoading } = useClinicCreditLedger(
+    clinicId,
+    { enabled: !authLoading && !!user }
+  );
 
   if (authLoading || isLoading) {
     return (
@@ -105,7 +106,11 @@ export function ClinicDetail({ clinicId }: Props) {
 
         <div className="flex flex-col gap-6 lg:col-span-2">
           <ClinicFinancialCard clinic={clinic} />
-          <CreditUsageHistoryTable records={history} />
+          <CreditUsageHistoryTable
+            clinicId={clinicId}
+            records={history}
+            loading={historyLoading}
+          />
         </div>
       </div>
     </div>

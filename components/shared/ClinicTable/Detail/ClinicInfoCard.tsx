@@ -51,12 +51,7 @@ export function ClinicInfoCard({ clinic, branches, parent }: Props) {
             {t("parentClinic")}
           </span>
           {parent ? (
-            <Link
-              href={`/clinic/${parent.id}`}
-              className="font-semibold text-primary hover:underline"
-            >
-              {parent.name}
-            </Link>
+            <span className="font-semibold text-primary">{parent.name}</span>
           ) : (
             <span className="text-sm text-muted-foreground">{t("none")}</span>
           )}

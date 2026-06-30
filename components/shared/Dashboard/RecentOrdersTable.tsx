@@ -10,7 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { WDataTable } from "@/components/shared/WDataTable";
-import { mockRecentOrders, type Order } from "@/lib/mock-data";
+import { mockRecentOrders, type DashboardOrder } from "@/lib/mock-data";
 
 const dateFormatter = new Intl.DateTimeFormat("en-GB", {
   day: "2-digit",
@@ -18,7 +18,7 @@ const dateFormatter = new Intl.DateTimeFormat("en-GB", {
   year: "numeric",
 });
 
-const columnHelper = createColumnHelper<Order>();
+const columnHelper = createColumnHelper<DashboardOrder>();
 
 const columns = [
   columnHelper.accessor("orderNo", {

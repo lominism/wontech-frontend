@@ -157,25 +157,34 @@ export function getClinicBranches(
   return clinics.filter((c) => c.parentId === clinic.id);
 }
 
-export type CreditUsageRecord = {
+// Recent orders table (dashboard mock only).
+export type DashboardOrderStatus = "Awaiting Shipment" | "Shipped";
+
+export type DashboardOrder = {
   id: string;
-  clinicId: string;
+  orderNo: string;
   date: string;
-  creditChange: number;
-  userName: string;
+  item: string;
+  customer: string;
+  clinic: string;
+  qty: number;
+  status: DashboardOrderStatus;
+  total: number;
 };
 
-export const mockCreditUsageHistory: CreditUsageRecord[] = [
-  { id: "cu-1",  clinicId: "c-2", date: "2026-06-10", creditChange: 450,  userName: "Jane Cooper" },
-  { id: "cu-2",  clinicId: "c-2", date: "2026-06-03", creditChange: -200, userName: "Wade Warren" },
-  { id: "cu-3",  clinicId: "c-2", date: "2026-05-22", creditChange: 320,  userName: "Jane Cooper" },
-  { id: "cu-4",  clinicId: "c-3", date: "2026-06-08", creditChange: 180,  userName: "Esther Howard" },
-  { id: "cu-5",  clinicId: "c-3", date: "2026-05-30", creditChange: -150, userName: "Wade Warren" },
-  { id: "cu-6",  clinicId: "c-5", date: "2026-06-12", creditChange: 890,  userName: "Jane Cooper" },
-  { id: "cu-7",  clinicId: "c-5", date: "2026-06-01", creditChange: -500, userName: "Robert Fox" },
-  { id: "cu-8",  clinicId: "c-5", date: "2026-05-18", creditChange: 620,  userName: "Jenny Wilson" },
-  { id: "cu-9",  clinicId: "c-7", date: "2026-06-05", creditChange: 75,   userName: "Jane Cooper" },
-  { id: "cu-10", clinicId: "c-7", date: "2026-05-14", creditChange: -50,  userName: "Wade Warren" },
+export const mockRecentOrders: DashboardOrder[] = [
+  { id: "o-1",  orderNo: "#WT-10428", date: "2026-06-14", item: "HydraGlow Serum 30ml",            customer: "Wade Warren",        clinic: "Siam Skin & Wellness", qty: 12, status: "Shipped",           total: 15480 },
+  { id: "o-2",  orderNo: "#WT-10427", date: "2026-06-13", item: "LED Therapy Mask",               customer: "Esther Howard",      clinic: "Radiance MedSpa",      qty: 2,  status: "Awaiting Shipment", total: 17800 },
+  { id: "o-3",  orderNo: "#WT-10426", date: "2026-06-12", item: "Collagen Boost Capsules",        customer: "Cameron Williamson", clinic: "Glow Clinic",          qty: 30, status: "Awaiting Shipment", total: 29700 },
+  { id: "o-4",  orderNo: "#WT-10425", date: "2026-06-11", item: "Vitamin C Brightening Cream",    customer: "Brooklyn Simmons",   clinic: "Siam Skin & Wellness", qty: 4,  status: "Shipped",           total: 6360  },
+  { id: "o-5",  orderNo: "#WT-10424", date: "2026-06-10", item: "Marine Collagen Powder",         customer: "Robert Fox",         clinic: "Radiance MedSpa",      qty: 8,  status: "Shipped",           total: 11920 },
+  { id: "o-6",  orderNo: "#WT-10423", date: "2026-06-09", item: "Microcurrent Facial Wand",       customer: "Jenny Wilson",       clinic: "Glow Clinic",          qty: 3,  status: "Awaiting Shipment", total: 19500 },
+  { id: "o-7",  orderNo: "#WT-10422", date: "2026-06-08", item: "Disposable Treatment Masks",     customer: "Guy Hawkins",        clinic: "Siam Skin & Wellness", qty: 25, status: "Shipped",           total: 11250 },
+  { id: "o-8",  orderNo: "#WT-10421", date: "2026-06-07", item: "Nitrile Gloves (100pk)",         customer: "Kristin Watson",     clinic: "Radiance MedSpa",      qty: 18, status: "Awaiting Shipment", total: 5040  },
+  { id: "o-9",  orderNo: "#WT-10420", date: "2026-06-06", item: "HydraGlow Serum 30ml",           customer: "Jane Cooper",        clinic: "Glow Clinic",          qty: 6,  status: "Shipped",           total: 7740  },
+  { id: "o-10", orderNo: "#WT-10419", date: "2026-06-05", item: "LED Therapy Mask",               customer: "Wade Warren",        clinic: "Siam Skin & Wellness", qty: 1,  status: "Awaiting Shipment", total: 8900  },
+  { id: "o-11", orderNo: "#WT-10418", date: "2026-06-04", item: "Marine Collagen Powder",         customer: "Esther Howard",      clinic: "Radiance MedSpa",      qty: 14, status: "Shipped",           total: 20860 },
+  { id: "o-12", orderNo: "#WT-10417", date: "2026-06-03", item: "Collagen Boost Capsules",        customer: "Cameron Williamson", clinic: "Glow Clinic",          qty: 9,  status: "Shipped",           total: 8910  },
 ];
 
 export type Product = {
@@ -442,38 +451,6 @@ export const mockSalesByCategory = [
   { category: "devices", value: 1420000, fill: "var(--color-devices)" },
   { category: "consumables", value: 920000, fill: "var(--color-consumables)" },
   { category: "supplements", value: 625000, fill: "var(--color-supplements)" },
-];
-
-// Recent orders table: Order, Item, Customer, Clinic, Qty.
-export type OrderStatus = "Awaiting Shipment" | "Shipped";
-
-export const orderStatuses: OrderStatus[] = ["Awaiting Shipment", "Shipped"];
-
-export type Order = {
-  id: string;
-  orderNo: string;
-  date: string; // ISO date
-  item: string;
-  customer: string;
-  clinic: string;
-  qty: number;
-  status: OrderStatus;
-  total: number;
-};
-
-export const mockRecentOrders: Order[] = [
-  { id: "o-1",  orderNo: "#WT-10428", date: "2026-06-14", item: "HydraGlow Serum 30ml",            customer: "Wade Warren",        clinic: "Siam Skin & Wellness", qty: 12, status: "Shipped",           total: 15480 },
-  { id: "o-2",  orderNo: "#WT-10427", date: "2026-06-13", item: "LED Therapy Mask",               customer: "Esther Howard",      clinic: "Radiance MedSpa",      qty: 2,  status: "Awaiting Shipment", total: 17800 },
-  { id: "o-3",  orderNo: "#WT-10426", date: "2026-06-12", item: "Collagen Boost Capsules",        customer: "Cameron Williamson", clinic: "Glow Clinic",          qty: 30, status: "Awaiting Shipment", total: 29700 },
-  { id: "o-4",  orderNo: "#WT-10425", date: "2026-06-11", item: "Vitamin C Brightening Cream",    customer: "Brooklyn Simmons",   clinic: "Siam Skin & Wellness", qty: 4,  status: "Shipped",           total: 6360  },
-  { id: "o-5",  orderNo: "#WT-10424", date: "2026-06-10", item: "Marine Collagen Powder",         customer: "Robert Fox",         clinic: "Radiance MedSpa",      qty: 8,  status: "Shipped",           total: 11920 },
-  { id: "o-6",  orderNo: "#WT-10423", date: "2026-06-09", item: "Microcurrent Facial Wand",       customer: "Jenny Wilson",       clinic: "Glow Clinic",          qty: 3,  status: "Awaiting Shipment", total: 19500 },
-  { id: "o-7",  orderNo: "#WT-10422", date: "2026-06-08", item: "Disposable Treatment Masks",     customer: "Guy Hawkins",        clinic: "Siam Skin & Wellness", qty: 25, status: "Shipped",           total: 11250 },
-  { id: "o-8",  orderNo: "#WT-10421", date: "2026-06-07", item: "Nitrile Gloves (100pk)",         customer: "Kristin Watson",     clinic: "Radiance MedSpa",      qty: 18, status: "Awaiting Shipment", total: 5040  },
-  { id: "o-9",  orderNo: "#WT-10420", date: "2026-06-06", item: "HydraGlow Serum 30ml",           customer: "Jane Cooper",        clinic: "Glow Clinic",          qty: 6,  status: "Shipped",           total: 7740  },
-  { id: "o-10", orderNo: "#WT-10419", date: "2026-06-05", item: "LED Therapy Mask",               customer: "Wade Warren",        clinic: "Siam Skin & Wellness", qty: 1,  status: "Awaiting Shipment", total: 8900  },
-  { id: "o-11", orderNo: "#WT-10418", date: "2026-06-04", item: "Marine Collagen Powder",         customer: "Esther Howard",      clinic: "Radiance MedSpa",      qty: 14, status: "Shipped",           total: 20860 },
-  { id: "o-12", orderNo: "#WT-10417", date: "2026-06-03", item: "Collagen Boost Capsules",        customer: "Cameron Williamson", clinic: "Glow Clinic",          qty: 9,  status: "Shipped",           total: 8910  },
 ];
 
 export const mockPersonnel: Personnel[] = [

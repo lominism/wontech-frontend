@@ -1,10 +1,9 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { Download, Plus, Search } from "lucide-react";
+import { Search } from "lucide-react";
 
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
@@ -12,25 +11,23 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { ORDER_FILTER_STATUSES } from "@/lib/api/orders";
+import { LOGISTICS_FILTER_STATUSES } from "@/lib/api/logistics";
 
 type Props = {
   search: string;
   onSearchChange: (value: string) => void;
   status: string;
   onStatusChange: (value: string) => void;
-  onNewOrder: () => void;
 };
 
-export function OrdersToolbar({
+export function LogisticsToolbar({
   search,
   onSearchChange,
   status,
   onStatusChange,
-  onNewOrder,
 }: Props) {
-  const t = useTranslations("orders.actions");
-  const tFilter = useTranslations("orders.filter");
+  const t = useTranslations("logistics.actions");
+  const tFilter = useTranslations("logistics.filter");
 
   return (
     <div className="flex flex-wrap items-center gap-3">
@@ -53,24 +50,13 @@ export function OrdersToolbar({
         </SelectTrigger>
         <SelectContent>
           <SelectItem value="all">{t("activeStatuses")}</SelectItem>
-          {ORDER_FILTER_STATUSES.map((s) => (
+          {LOGISTICS_FILTER_STATUSES.map((s) => (
             <SelectItem key={s} value={s}>
               {tFilter(s)}
             </SelectItem>
           ))}
         </SelectContent>
       </Select>
-
-      <div className="ml-auto flex items-center gap-2">
-        <Button variant="secondary" className="shrink-0" disabled>
-          <Download size={16} />
-          {t("exportCsv")}
-        </Button>
-        <Button className="shrink-0" onClick={onNewOrder}>
-          <Plus size={16} />
-          {t("newOrder")}
-        </Button>
-      </div>
     </div>
   );
 }

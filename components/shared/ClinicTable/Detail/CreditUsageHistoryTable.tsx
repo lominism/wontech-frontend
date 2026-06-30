@@ -3,6 +3,7 @@
 import { createColumnHelper } from "@tanstack/react-table";
 import { useTranslations, useLocale } from "next-intl";
 import { useMemo, useState } from "react";
+import { toast } from "sonner";
 import {
   Card,
   CardContent,
@@ -15,7 +16,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { thbFormatter } from "@/lib/utils";
 import { WDataTable } from "@/components/shared/WDataTable";
-import { type CreditUsageRecord } from "@/lib/mock-data";
+import { type CreditLedgerRecord } from "@/lib/api/clinics";
+import { useAdjustClinicCredit } from "@/lib/queries/useAdjustClinicCredit";
 import {
   Dialog,
   DialogContent,
@@ -26,17 +28,24 @@ import {
 } from "@/components/ui/dialog";
 
 type Props = {
-  records: CreditUsageRecord[];
+  clinicId: string;
+  records: CreditLedgerRecord[];
+  loading?: boolean;
 };
 
-const columnHelper = createColumnHelper<CreditUsageRecord>();
+const columnHelper = createColumnHelper<CreditLedgerRecord>();
 
-export function CreditUsageHistoryTable({ records }: Props) {
+export function CreditUsageHistoryTable({
+  clinicId,
+  records,
+  loading,
+}: Props) {
   const t = useTranslations("clinic.detail.history");
   const locale = useLocale();
   const [open, setOpen] = useState(false);
   const [amount, setAmount] = useState("");
   const [mode, setMode] = useState<"decrease" | "increase">("decrease");
+  const { mutateAsync, isPending } = useAdjustClinicCredit(clinicId);
 
   const dateFormatter = useMemo(
     () =>
@@ -54,6 +63,14 @@ export function CreditUsageHistoryTable({ records }: Props) {
       cell: (info) => (
         <span className="tabular-nums">
           {dateFormatter.format(new Date(info.getValue()))}
+        </span>
+      ),
+    }),
+    columnHelper.accessor("reason", {
+      header: t("reason"),
+      cell: (info) => (
+        <span className="text-muted-foreground text-sm">
+          {t(`reasons.${info.getValue()}` as "reasons.commission")}
         </span>
       ),
     }),
@@ -82,6 +99,32 @@ export function CreditUsageHistoryTable({ records }: Props) {
     }),
   ];
 
+  const resetDialog = () => {
+    setAmount("");
+    setMode("decrease");
+  };
+
+  const handleSave = async () => {
+    const parsedAmount = Number(amount);
+    if (!amount.trim() || !Number.isFinite(parsedAmount) || parsedAmount <= 0) {
+      toast.error(t("amountRequired"));
+      return;
+    }
+
+    try {
+      await mutateAsync({
+        amount: parsedAmount,
+        direction: mode,
+      });
+      toast.success(t("saveSuccess"));
+      setOpen(false);
+      resetDialog();
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "";
+      toast.error(message || t("saveError"));
+    }
+  };
+
   return (
     <Card>
       <CardHeader>
@@ -91,16 +134,31 @@ export function CreditUsageHistoryTable({ records }: Props) {
             {t("creditAdjustment")}
           </Button>
         </div>
+        <p className="text-muted-foreground text-sm">{t("groupNote")}</p>
       </CardHeader>
       <CardContent>
-        <WDataTable
-          columns={columns}
-          data={records}
-          emptyMessage={t("empty")}
-        />
+        {loading ? (
+          <div className="flex h-24 items-center justify-center text-muted-foreground text-sm">
+            {t("loading")}
+          </div>
+        ) : (
+          <WDataTable
+            columns={columns}
+            data={records}
+            emptyMessage={t("empty")}
+          />
+        )}
       </CardContent>
 
-      <Dialog open={open} onOpenChange={setOpen}>
+      <Dialog
+        open={open}
+        onOpenChange={(nextOpen) => {
+          setOpen(nextOpen);
+          if (!nextOpen) {
+            resetDialog();
+          }
+        }}
+      >
         <DialogContent>
           <DialogHeader>
             <DialogTitle>{t("adjustmentTitle")}</DialogTitle>
@@ -121,6 +179,7 @@ export function CreditUsageHistoryTable({ records }: Props) {
                 }
                 variant={mode === "decrease" ? "secondary" : "outline"}
                 onClick={() => setMode("decrease")}
+                disabled={isPending}
               >
                 {t("decrease")}
               </Button>
@@ -132,6 +191,7 @@ export function CreditUsageHistoryTable({ records }: Props) {
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
                 className="text-center tabular-nums"
+                disabled={isPending}
               />
 
               <Button
@@ -143,6 +203,7 @@ export function CreditUsageHistoryTable({ records }: Props) {
                 }
                 variant={mode === "increase" ? "secondary" : "outline"}
                 onClick={() => setMode("increase")}
+                disabled={isPending}
               >
                 {t("increase")}
               </Button>
@@ -159,22 +220,14 @@ export function CreditUsageHistoryTable({ records }: Props) {
               variant="outline"
               onClick={() => {
                 setOpen(false);
-                setAmount("");
-                setMode("decrease");
+                resetDialog();
               }}
+              disabled={isPending}
             >
               {t("cancel")}
             </Button>
-            <Button
-              type="button"
-              onClick={() => {
-                // UI-only for now: close modal. Later this will write a record.
-                setOpen(false);
-                setAmount("");
-                setMode("decrease");
-              }}
-            >
-              {t("save")}
+            <Button type="button" onClick={handleSave} disabled={isPending}>
+              {isPending ? t("saving") : t("save")}
             </Button>
           </DialogFooter>
         </DialogContent>

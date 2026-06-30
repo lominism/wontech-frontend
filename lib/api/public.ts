@@ -52,6 +52,8 @@ export type PublicTrackResponse = {
   quantity: number;
   total: number;
   updatedAt: string;
+  carrier: string | null;
+  trackingNumber: string | null;
 };
 
 const apiUrl = () => process.env.NEXT_PUBLIC_API_URL ?? "";

@@ -1,0 +1,44 @@
+{
+  "page": {
+    "title": "โลจิสติกส์",
+    "description": "จัดการการจัดส่งสำหรับคำสั่งซื้อที่รอส่ง",
+    "loading": "กำลังโหลดรายการจัดส่ง…",
+    "error": "ไม่สามารถโหลดรายการจัดส่งได้",
+    "retry": "ลองอีกครั้ง"
+  },
+  "actions": {
+    "search": "ค้นหาเลขคำสั่งซื้อหรือชื่อลูกค้า...",
+    "statusFilter": "สถานะ",
+    "activeStatuses": "กำลังดำเนินการ"
+  },
+  "filter": {
+    "awaiting_shipment": "รอจัดส่ง",
+    "shipped": "จัดส่งแล้ว"
+  },
+  "table": {
+    "orderNo": "คำสั่งซื้อ",
+    "date": "วันที่",
+    "customer": "ลูกค้า",
+    "item": "สินค้า",
+    "qty": "จำนวน",
+    "status": "สถานะ",
+    "empty": "ไม่พบรายการจัดส่ง"
+  },
+  "pagination": {
+    "pageOf": "หน้า {page} จาก {totalPages}",
+    "previous": "ก่อนหน้า",
+    "next": "ถัดไป",
+    "total": "{count} รายการจัดส่ง"
+  },
+  "detail": {
+    "carrier": "บริษัทขนส่ง",
+    "carrierPlaceholder": "เช่น Kerry, Flash",
+    "trackingNumber": "เลขพัสดุ",
+    "trackingPlaceholder": "กรอกเลขพัสดุ",
+    "save": "บันทึก",
+    "edit": "แก้ไขข้อมูลจัดส่ง",
+    "saving": "กำลังบันทึก…",
+    "saveSuccess": "บันทึกข้อมูลจัดส่งแล้ว",
+    "saveError": "ไม่สามารถบันทึกข้อมูลจัดส่งได้"
+  }
+}

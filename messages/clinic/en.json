@@ -19,6 +19,12 @@
     "noParent": "None",
     "empty": "No clinics found."
   },
+  "pagination": {
+    "pageOf": "Page {page} of {totalPages}",
+    "previous": "Previous",
+    "next": "Next",
+    "total": "{count, plural, one {# clinic} other {# clinics}}"
+  },
   "dialog": {
     "title": "Add New Clinic",
     "description": "Add a clinic location. Optionally link it to an existing parent organization or create a new one.",
@@ -74,9 +80,21 @@
       "increase": "Increase",
       "cancel": "Cancel",
       "save": "Save",
+      "saving": "Saving…",
+      "saveSuccess": "Credit adjusted",
+      "saveError": "Failed to adjust credit",
+      "amountRequired": "Enter an amount greater than zero",
       "date": "Date",
       "creditChange": "Credit Change",
+      "reason": "Type",
       "user": "User",
+      "loading": "Loading credit history…",
+      "groupNote": "Shows credit activity for this clinic's organization (shared across branches).",
+      "reasons": {
+        "commission": "Commission",
+        "adjustment": "Adjustment",
+        "redemption": "Redemption"
+      },
       "empty": "No credit activity recorded yet."
     }
   }

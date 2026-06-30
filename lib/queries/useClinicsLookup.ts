@@ -8,8 +8,7 @@ type Options = {
   enabled?: boolean;
 };
 
-/** @deprecated Use useClinicsPaginated or useClinicsLookup */
-export function useClinics({ enabled = true }: Options = {}) {
+export function useClinicsLookup({ enabled = true }: Options = {}) {
   return useQuery({
     queryKey: clinicKeys.lookup(),
     queryFn: listClinicsLookup,
