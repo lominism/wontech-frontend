@@ -8,28 +8,25 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useTranslations } from "next-intl";
-import {
-  DASHBOARD_RANGES,
-  type DashboardRange,
-} from "@/lib/api/dashboard";
+import { CLINIC_MODES, type ClinicMode } from "@/lib/api/dashboard";
 
 type Props = {
-  value: DashboardRange;
-  onChange: (value: DashboardRange) => void;
+  value: ClinicMode;
+  onChange: (value: ClinicMode) => void;
 };
 
-export function RangeSelect({ value, onChange }: Props) {
-  const t = useTranslations("dashboard.ranges");
+export function ClinicModeSelect({ value, onChange }: Props) {
+  const t = useTranslations("dashboard.clinicModes");
 
   return (
-    <Select value={value} onValueChange={(v) => onChange(v as DashboardRange)}>
+    <Select value={value} onValueChange={(v) => onChange(v as ClinicMode)}>
       <SelectTrigger className="h-7 w-auto gap-1 border-none bg-muted px-2 text-xs shadow-none focus:ring-0">
         <SelectValue />
       </SelectTrigger>
       <SelectContent align="end">
-        {DASHBOARD_RANGES.map((range) => (
-          <SelectItem key={range} value={range} className="text-xs">
-            {t(range)}
+        {CLINIC_MODES.map((mode) => (
+          <SelectItem key={mode} value={mode} className="text-xs">
+            {t(mode)}
           </SelectItem>
         ))}
       </SelectContent>
