@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
 
 import {
@@ -15,22 +16,28 @@ import {
   ChartTooltipContent,
   type ChartConfig,
 } from "@/components/ui/chart";
-import { mockRevenueOverview } from "@/lib/mock-data";
+import type { RevenueOverviewItem } from "@/lib/api/dashboard";
 
 const chartConfig = {
   revenue: { label: "Revenue", color: "var(--primary)" },
 } satisfies ChartConfig;
 
-export function RevenueChart() {
+type Props = {
+  data: RevenueOverviewItem[];
+};
+
+export function RevenueChart({ data }: Props) {
+  const t = useTranslations("dashboard.charts.revenueOverview");
+
   return (
     <Card className="col-span-1 lg:col-span-2">
       <CardHeader>
-        <CardTitle>Revenue Overview</CardTitle>
-        <CardDescription>Monthly revenue</CardDescription>
+        <CardTitle>{t("title")}</CardTitle>
+        <CardDescription>{t("description")}</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig} className="aspect-auto h-[280px] w-full">
-          <AreaChart data={mockRevenueOverview} margin={{ left: 12, right: 12 }}>
+          <AreaChart data={data} margin={{ left: 12, right: 12 }}>
             <defs>
               <linearGradient id="fillRevenue" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="5%" stopColor="var(--color-revenue)" stopOpacity={0.4} />

@@ -1,0 +1,47 @@
+{
+  "title": "Dashboard",
+  "subtitle": "Overview of sales, clinics, and recent activity.",
+  "loading": "Loading dashboard…",
+  "error": "Failed to load dashboard.",
+  "retry": "Retry",
+  "kpis": {
+    "totalRevenue": "Total Revenue",
+    "unitsSold": "Units Sold",
+    "clinics": "Clinics",
+    "orders": "Orders"
+  },
+  "ranges": {
+    "lastYear": "Last Year",
+    "last3Months": "Last 3 Months",
+    "lastWeek": "Last Week"
+  },
+  "clinicModes": {
+    "total": "Total",
+    "active": "Active"
+  },
+  "charts": {
+    "revenueOverview": {
+      "title": "Revenue Overview",
+      "description": "Monthly revenue"
+    },
+    "salesBySource": {
+      "title": "Sales by Source",
+      "description": "Revenue split across sales channels",
+      "totalSales": "Total Sales",
+      "empty": "No sales data yet"
+    }
+  },
+  "recentOrders": {
+    "title": "Recent Orders",
+    "description": "Latest orders across all clinics",
+    "empty": "No orders yet",
+    "columns": {
+      "order": "Order",
+      "date": "Date",
+      "item": "Item",
+      "customer": "Customer",
+      "clinic": "Clinic",
+      "qty": "Qty"
+    }
+  }
+}
