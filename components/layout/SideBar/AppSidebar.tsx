@@ -19,7 +19,6 @@ import { LanguageSwitcher } from "@/components/shared/LanguageSwitcher/LanguageS
 import { WontechLogo } from "@/components/shared/WontechLogo";
 import { Link } from "@/i18n/navigation";
 import {
-  FileDown,
   LayoutDashboard,
   Package,
   Settings2,
@@ -27,6 +26,7 @@ import {
   Stethoscope,
   TrendingUp,
   Truck,
+  Users,
 } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
@@ -138,12 +138,12 @@ const AppSidebar = React.memo(
         {
           title: (
             <>
-              <FileDown size={16} />
-              {t("reportsExport")}
+              <Users size={16} />
+              {t("userMgmt")}
             </>
           ),
-          url: "/export",
-          isActive: slug.startsWith(`/${locale}/export`),
+          url: "/users",
+          isActive: slug.startsWith(`/${locale}/users`),
         },
       ],
     };
