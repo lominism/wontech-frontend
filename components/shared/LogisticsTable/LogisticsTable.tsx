@@ -1,21 +1,21 @@
 "use client";
 
 import { createColumnHelper } from "@tanstack/react-table";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 
 import { Badge } from "@/components/ui/badge";
 import { SortableColumnHeader } from "@/components/shared/SortableColumnHeader";
-import { thbFormatter } from "@/lib/utils";
 import { type SortDirection } from "@/lib/sorting";
-import { type Order, type OrderStatus } from "@/lib/api/orders";
+import { type LogisticsOrder } from "@/lib/api/logistics";
+import { type OrderStatus } from "@/lib/api/orders";
 import { WDataTable } from "@/components/shared/WDataTable";
 
 type Props = {
-  data: Order[];
+  data: LogisticsOrder[];
   sortBy: string;
   sortDir: SortDirection;
   onSort: (columnId: string) => void;
-  onOrderClick?: (order: Order) => void;
+  onOrderClick?: (order: LogisticsOrder) => void;
 };
 
 const statusStyles: Record<OrderStatus, string> = {
@@ -36,17 +36,27 @@ const dateFormatter = new Intl.DateTimeFormat("en-GB", {
   year: "numeric",
 });
 
-const columnHelper = createColumnHelper<Order>();
+const columnHelper = createColumnHelper<LogisticsOrder>();
 
-export function OrdersTable({
+export function LogisticsTable({
   data,
   sortBy,
   sortDir,
   onSort,
   onOrderClick,
 }: Props) {
-  const t = useTranslations("orders.table");
+  const t = useTranslations("logistics.table");
   const tStatus = useTranslations("orders.status");
+  const locale = useLocale();
+
+  const formatter =
+    locale === "th"
+      ? new Intl.DateTimeFormat("th-TH", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric",
+        })
+      : dateFormatter;
 
   const columns = [
     columnHelper.accessor("orderNo", {
@@ -77,7 +87,7 @@ export function OrdersTable({
       ),
       cell: (info) => (
         <span className="text-muted-foreground tabular-nums">
-          {dateFormatter.format(new Date(info.getValue()))}
+          {formatter.format(new Date(info.getValue()))}
         </span>
       ),
     }),
@@ -94,12 +104,12 @@ export function OrdersTable({
       ),
       cell: (info) => <span className="font-medium">{info.getValue()}</span>,
     }),
-    columnHelper.accessor("clinic", {
-      id: "clinic",
+    columnHelper.accessor("item", {
+      id: "item",
       header: () => (
         <SortableColumnHeader
-          label={t("clinic")}
-          columnId="clinic"
+          label={t("item")}
+          columnId="item"
           sortBy={sortBy}
           sortDir={sortDir}
           onSort={onSort}
@@ -139,23 +149,6 @@ export function OrdersTable({
           <Badge className={statusStyles[status]}>{tStatus(status)}</Badge>
         );
       },
-    }),
-    columnHelper.accessor("total", {
-      id: "total",
-      header: () => (
-        <SortableColumnHeader
-          label={t("total")}
-          columnId="total"
-          sortBy={sortBy}
-          sortDir={sortDir}
-          onSort={onSort}
-        />
-      ),
-      cell: (info) => (
-        <span className="font-medium tabular-nums">
-          {thbFormatter.format(info.getValue())}
-        </span>
-      ),
     }),
   ];
 

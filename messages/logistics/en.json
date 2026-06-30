@@ -1,0 +1,44 @@
+{
+  "page": {
+    "title": "Logistics",
+    "description": "Manage shipments for orders awaiting dispatch.",
+    "loading": "Loading shipments…",
+    "error": "Could not load shipments.",
+    "retry": "Try again"
+  },
+  "actions": {
+    "search": "Search order # or customer...",
+    "statusFilter": "Status",
+    "activeStatuses": "Active"
+  },
+  "filter": {
+    "awaiting_shipment": "Awaiting Shipment",
+    "shipped": "Shipped"
+  },
+  "table": {
+    "orderNo": "Order",
+    "date": "Date",
+    "customer": "Customer",
+    "item": "Item",
+    "qty": "Qty",
+    "status": "Status",
+    "empty": "No shipments found."
+  },
+  "pagination": {
+    "pageOf": "Page {page} of {totalPages}",
+    "previous": "Previous",
+    "next": "Next",
+    "total": "{count, plural, one {# shipment} other {# shipments}}"
+  },
+  "detail": {
+    "carrier": "Carrier",
+    "carrierPlaceholder": "e.g. Kerry, Flash",
+    "trackingNumber": "Tracking Number",
+    "trackingPlaceholder": "Enter tracking number",
+    "save": "Save",
+    "edit": "Edit shipping info",
+    "saving": "Saving…",
+    "saveSuccess": "Shipping info saved",
+    "saveError": "Failed to save shipping info"
+  }
+}

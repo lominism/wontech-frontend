@@ -17,7 +17,7 @@ import { Input } from "@/components/ui/input";
 import { WDataTable } from "@/components/shared/WDataTable";
 import { type Clinic } from "@/lib/api/clinics";
 import { getListableClinics } from "@/lib/mock-data";
-import { useClinics } from "@/lib/queries/useClinics";
+import { useClinicsLookup } from "@/lib/queries/useClinicsLookup";
 import { buildShopUrl } from "@/lib/shop-url";
 import { useAuth } from "@/providers/AuthProvider";
 
@@ -43,7 +43,7 @@ export function GetClinicLinkDialog({ open, onOpenChange, productId }: Props) {
     isLoading,
     isError,
     refetch,
-  } = useClinics({
+  } = useClinicsLookup({
     enabled: open && !authLoading && !!user,
   });
 

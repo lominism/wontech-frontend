@@ -1,18 +1,30 @@
 {
   "page": {
     "title": "Orders",
-    "description": "Track and manage orders across all clinics."
+    "description": "Track and manage orders across all clinics.",
+    "loading": "Loading orders…",
+    "error": "Could not load orders.",
+    "retry": "Try again"
   },
   "actions": {
     "search": "Search order # or customer...",
     "statusFilter": "Status",
-    "allStatuses": "All Statuses",
+    "activeStatuses": "Active",
     "exportCsv": "Export CSV",
     "newOrder": "New Order"
   },
+  "filter": {
+    "awaiting_shipment": "Awaiting Shipment",
+    "shipped": "Shipped",
+    "completed": "Completed"
+  },
   "status": {
-    "Awaiting Shipment": "Awaiting Shipment",
-    "Shipped": "Shipped"
+    "pending_payment": "Pending payment",
+    "paid": "Paid",
+    "awaiting_shipment": "Awaiting shipment",
+    "shipped": "Shipped",
+    "completed": "Completed",
+    "cancelled": "Cancelled"
   },
   "table": {
     "orderNo": "Order",
@@ -23,5 +35,80 @@
     "status": "Status",
     "total": "Total",
     "empty": "No orders found."
+  },
+  "pagination": {
+    "pageOf": "Page {page} of {totalPages}",
+    "previous": "Previous",
+    "next": "Next",
+    "total": "{count, plural, one {# order} other {# orders}}"
+  },
+  "newOrder": {
+    "title": "New Order",
+    "description": "Record a sale from Wontech, Lazada, Shopee, or an expo.",
+    "source": "Source",
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone Number",
+    "addressStreet": "Street address",
+    "addressCity": "City / District",
+    "addressCode": "Postal code",
+    "item": "Item",
+    "itemPlaceholder": "Select a product",
+    "qty": "Quantity",
+    "soldBy": "Sold by",
+    "noClinic": "None",
+    "status": "Status",
+    "optional": "optional",
+    "stockAvailable": "{count} in stock",
+    "cancel": "Cancel",
+    "submit": "Create Order",
+    "saving": "Creating…",
+    "success": "Order created",
+    "error": "Failed to create order",
+    "insufficientStock": "Insufficient stock for this quantity",
+    "sources": {
+      "wontech": "Wontech",
+      "lazada": "Lazada",
+      "shopee": "Shopee"
+    },
+    "validation": {
+      "productRequired": "Please select a product",
+      "quantityRequired": "Please enter a valid quantity",
+      "insufficientStock": "Quantity exceeds available stock",
+      "nameRequired": "Name is required for Wontech orders",
+      "emailRequired": "Email is required for Wontech orders",
+      "phoneRequired": "Phone is required for Wontech orders",
+      "streetRequired": "Street address is required for Wontech orders",
+      "cityRequired": "City is required for Wontech orders",
+      "codeRequired": "Postal code is required for Wontech orders"
+    }
+  },
+  "detail": {
+    "title": "Order details",
+    "orderDate": "Order date",
+    "source": "Source",
+    "product": "Product",
+    "soldVia": "Sold via",
+    "customer": "Customer",
+    "shipping": "Ship to",
+    "payment": "Payment",
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "street": "Street address",
+    "city": "City",
+    "postalCode": "Postal code",
+    "sku": "SKU",
+    "quantity": "Quantity",
+    "unitPrice": "Unit price",
+    "total": "Total",
+    "provider": "Provider",
+    "reference": "Reference",
+    "loading": "Loading order details…",
+    "error": "Could not load order details.",
+    "retry": "Try again",
+    "notPaidYet": "Not paid yet",
+    "copyAddress": "Copy address",
+    "copied": "Address copied"
   }
 }

@@ -1,41 +1,80 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
-import { getListableClinics, getParentClinicOptions } from "@/lib/mock-data";
+import { getParentClinicOptions } from "@/lib/mock-data";
 import { useAuth } from "@/providers/AuthProvider";
-import { useClinics } from "@/lib/queries/useClinics";
+import { useDebouncedValue } from "@/lib/hooks/useDebouncedValue";
+import {
+  CLINIC_DEFAULT_SORT,
+  toggleSort,
+  type SortDirection,
+} from "@/lib/sorting";
+import { useClinicsPaginated } from "@/lib/queries/useClinicsPaginated";
+import { useClinicsLookup } from "@/lib/queries/useClinicsLookup";
 import { SearchBar } from "@/components/shared/ClinicTable/SearchBar";
 import { ClinicTable } from "@/components/shared/ClinicTable/ClinicTable";
+import { ClinicsPagination } from "@/components/shared/ClinicTable/ClinicsPagination";
 import { AddClinicDialog } from "@/components/shared/ClinicTable/AddClinicDialog";
 
 export function ClinicContainer() {
   const t = useTranslations("clinic");
   const { user, loading: authLoading } = useAuth();
-  const {
-    data: clinics = [],
-    isLoading,
-    isError,
-    refetch,
-  } = useClinics({
-    enabled: !authLoading && !!user,
-  });
   const [search, setSearch] = useState("");
+  const debouncedSearch = useDebouncedValue(search, 300);
+  const [page, setPage] = useState(1);
+  const [sortBy, setSortBy] = useState(CLINIC_DEFAULT_SORT.sortBy);
+  const [sortDir, setSortDir] = useState<SortDirection>(
+    CLINIC_DEFAULT_SORT.sortDir
+  );
   const [isAddOpen, setIsAddOpen] = useState(false);
 
-  const parentOptions = useMemo(
-    () => getParentClinicOptions(clinics),
-    [clinics]
-  );
+  useEffect(() => {
+    setPage(1);
+  }, [debouncedSearch, sortBy, sortDir]);
 
-  const listableClinics = useMemo(
-    () => getListableClinics(clinics),
-    [clinics]
-  );
+  const {
+    data: lookupClinics = [],
+  } = useClinicsLookup({
+    enabled: !authLoading && !!user,
+  });
 
-  const filtered = listableClinics.filter((clinic) =>
-    clinic.name.toLowerCase().includes(search.toLowerCase())
-  );
+  const {
+    data,
+    isLoading,
+    isFetching,
+    isError,
+    refetch,
+  } = useClinicsPaginated({
+    search: debouncedSearch,
+    page,
+    sortBy,
+    sortDir,
+    enabled: !authLoading && !!user,
+  });
+
+  const clinics = data?.items ?? [];
+  const total = data?.total ?? 0;
+  const pageSize = data?.pageSize ?? 10;
+  const totalPages = Math.max(1, Math.ceil(total / pageSize));
+  const currentPage = Math.min(page, totalPages);
+
+  useEffect(() => {
+    if (page > totalPages) {
+      setPage(totalPages);
+    }
+  }, [page, totalPages]);
+
+  const parentOptions = getParentClinicOptions(lookupClinics);
+
+  const isInitialLoading = isLoading && !data;
+  const isRefreshing = isFetching && !isInitialLoading;
+
+  const handleSort = (columnId: string) => {
+    const next = toggleSort(sortBy, sortDir, columnId);
+    setSortBy(next.sortBy);
+    setSortDir(next.sortDir);
+  };
 
   return (
     <div className="flex flex-col gap-4">
@@ -50,7 +89,7 @@ export function ClinicContainer() {
         onAdd={() => setIsAddOpen(true)}
       />
 
-      {isLoading ? (
+      {authLoading || isInitialLoading ? (
         <div className="flex h-32 items-center justify-center rounded-lg border bg-card text-muted-foreground">
           {t("page.loading")}
         </div>
@@ -66,7 +105,27 @@ export function ClinicContainer() {
           </button>
         </div>
       ) : (
-        <ClinicTable data={filtered} allClinics={clinics} />
+        <>
+          <div
+            className={
+              isRefreshing ? "opacity-60 transition-opacity" : undefined
+            }
+          >
+            <ClinicTable
+              data={clinics}
+              allClinics={lookupClinics}
+              sortBy={sortBy}
+              sortDir={sortDir}
+              onSort={handleSort}
+            />
+          </div>
+          <ClinicsPagination
+            page={currentPage}
+            totalPages={totalPages}
+            total={total}
+            onPageChange={setPage}
+          />
+        </>
       )}
 
       <AddClinicDialog

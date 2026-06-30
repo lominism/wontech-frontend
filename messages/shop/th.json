@@ -65,11 +65,14 @@
     "total": "ยอดรวม",
     "status": "สถานะ",
     "lastUpdated": "อัปเดตล่าสุด",
+    "carrier": "บริษัทขนส่ง",
+    "trackingNumber": "เลขพัสดุ",
     "statuses": {
       "pending_payment": "รอชำระเงิน",
       "paid": "ชำระเงินแล้ว",
       "awaiting_shipment": "รอจัดส่ง",
       "shipped": "จัดส่งแล้ว",
+      "completed": "เสร็จสมบูรณ์",
       "cancelled": "ยกเลิก"
     }
   },
