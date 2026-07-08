@@ -1,16 +1,19 @@
 "use client";
 
+import { useState } from "react";
 import { useTranslations } from "next-intl";
-import { Building2, MapPin } from "lucide-react";
+import { Building2, Mail, MapPin, Pencil, Phone } from "lucide-react";
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Link } from "@/i18n/navigation";
 import { type Clinic, formatClinicAddress } from "@/lib/api/clinics";
+import { EditClinicContactDialog } from "./EditClinicContactDialog";
 
 type Props = {
   clinic: Clinic;
@@ -20,15 +23,30 @@ type Props = {
 
 export function ClinicInfoCard({ clinic, branches, parent }: Props) {
   const t = useTranslations("clinic.detail");
+  const [editOpen, setEditOpen] = useState(false);
 
   return (
     <Card className="overflow-hidden">
       <CardHeader className="bg-primary/5 border-b border-primary/10">
-        <div className="flex items-start gap-3">
-          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
-            <Building2 size={24} />
+        <div className="flex items-start justify-between gap-3">
+          <div className="flex items-start gap-3">
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
+              <Building2 size={24} />
+            </div>
+            <CardTitle className="text-xl leading-tight">
+              {clinic.name}
+            </CardTitle>
           </div>
-          <CardTitle className="text-xl leading-tight">{clinic.name}</CardTitle>
+          <Button
+            type="button"
+            variant="ghost"
+            size="sm"
+            className="shrink-0 text-muted-foreground"
+            onClick={() => setEditOpen(true)}
+          >
+            <Pencil size={14} />
+            {t("editContact.trigger")}
+          </Button>
         </div>
       </CardHeader>
 
@@ -42,6 +60,48 @@ export function ClinicInfoCard({ clinic, branches, parent }: Props) {
             <span className="leading-relaxed whitespace-pre-line">
               {formatClinicAddress(clinic)}
             </span>
+          </div>
+        </div>
+
+        <div className="flex gap-2 text-sm">
+          <Mail className="mt-0.5 shrink-0 text-muted-foreground" size={16} />
+          <div className="flex flex-col gap-0.5">
+            <span className="font-medium text-muted-foreground">
+              {t("contactEmail")}
+            </span>
+            {clinic.contactEmail ? (
+              <a
+                href={`mailto:${clinic.contactEmail}`}
+                className="leading-relaxed break-all hover:text-primary hover:underline"
+              >
+                {clinic.contactEmail}
+              </a>
+            ) : (
+              <span className="leading-relaxed text-muted-foreground">
+                {t("none")}
+              </span>
+            )}
+          </div>
+        </div>
+
+        <div className="flex gap-2 text-sm">
+          <Phone className="mt-0.5 shrink-0 text-muted-foreground" size={16} />
+          <div className="flex flex-col gap-0.5">
+            <span className="font-medium text-muted-foreground">
+              {t("contactPhone")}
+            </span>
+            {clinic.contactPhone ? (
+              <a
+                href={`tel:${clinic.contactPhone}`}
+                className="leading-relaxed hover:text-primary hover:underline"
+              >
+                {clinic.contactPhone}
+              </a>
+            ) : (
+              <span className="leading-relaxed text-muted-foreground">
+                {t("none")}
+              </span>
+            )}
           </div>
         </div>
 
@@ -86,6 +146,12 @@ export function ClinicInfoCard({ clinic, branches, parent }: Props) {
           </>
         )}
       </CardContent>
+
+      <EditClinicContactDialog
+        open={editOpen}
+        onOpenChange={setEditOpen}
+        clinic={clinic}
+      />
     </Card>
   );
 }

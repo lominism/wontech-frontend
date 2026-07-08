@@ -31,6 +31,7 @@ import {
 import { useLocale, useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/providers/AuthProvider";
 
 type SidebarMenuItemType = {
   title: React.ReactNode;
@@ -78,6 +79,8 @@ const AppSidebar = React.memo(
     const slug = usePathname();
     const t = useTranslations("common.navigation");
     const locale = useLocale();
+    const { profile } = useAuth();
+    const isOwner = profile?.role === "owner";
 
     const data = {
       overviewmenu: [
@@ -135,16 +138,20 @@ const AppSidebar = React.memo(
           url: "/inventory",
           isActive: slug.startsWith(`/${locale}/inventory`),
         },
-        {
-          title: (
-            <>
-              <Users size={16} />
-              {t("userMgmt")}
-            </>
-          ),
-          url: "/users",
-          isActive: slug.startsWith(`/${locale}/users`),
-        },
+        ...(isOwner
+          ? [
+              {
+                title: (
+                  <>
+                    <Users size={16} />
+                    {t("userMgmt")}
+                  </>
+                ),
+                url: "/users",
+                isActive: slug.startsWith(`/${locale}/users`),
+              },
+            ]
+          : []),
       ],
     };
 

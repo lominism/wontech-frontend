@@ -1,7 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  deleteUser,
+  updateProfile,
+} from "firebase/auth";
 import { auth } from "@/lib/firebase";
 import { syncUser } from "@/lib/syncUser";
 import { useAuth } from "@/providers/AuthProvider";
@@ -40,12 +44,21 @@ export default function RegisterPage() {
       await updateProfile(user, {
         displayName: `${firstName.trim()} ${lastName.trim()}`,
       });
-      const backendUser = await syncUser(user, {
-        firstName: firstName.trim(),
-        lastName: lastName.trim(),
-      });
-      applyProfile(backendUser);
-      router.push("/dashboard");
+
+      try {
+        const backendUser = await syncUser(user, {
+          firstName: firstName.trim(),
+          lastName: lastName.trim(),
+        });
+        applyProfile(backendUser);
+        router.push("/dashboard");
+      } catch (syncError) {
+        // Registration is invite-only: if the backend rejects the sync (no
+        // valid invitation), remove the just-created Firebase account so the
+        // email stays clean for a future invite.
+        await deleteUser(user).catch(() => undefined);
+        throw syncError;
+      }
     } catch (error: unknown) {
       const message =
         error instanceof Error ? error.message : "Failed to create account.";

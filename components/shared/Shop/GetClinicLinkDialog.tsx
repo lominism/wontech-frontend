@@ -18,8 +18,14 @@ import { WDataTable } from "@/components/shared/WDataTable";
 import { type Clinic } from "@/lib/api/clinics";
 import { getListableClinics } from "@/lib/mock-data";
 import { useClinicsLookup } from "@/lib/queries/useClinicsLookup";
+import { QrPreviewDialog } from "@/components/shared/Shop/QrPreviewDialog";
 import { buildShopUrl } from "@/lib/shop-url";
 import { useAuth } from "@/providers/AuthProvider";
+
+type QrPreviewState = {
+  clinicName: string;
+  url: string;
+};
 
 const PAGE_SIZE = 50;
 
@@ -27,16 +33,23 @@ type Props = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   productId: string;
+  productName: string;
 };
 
 const columnHelper = createColumnHelper<Clinic>();
 
-export function GetClinicLinkDialog({ open, onOpenChange, productId }: Props) {
+export function GetClinicLinkDialog({
+  open,
+  onOpenChange,
+  productId,
+  productName,
+}: Props) {
   const t = useTranslations("shop.link");
   const locale = useLocale();
   const { user, loading: authLoading } = useAuth();
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
+  const [qrPreview, setQrPreview] = useState<QrPreviewState | null>(null);
 
   const {
     data: clinics = [],
@@ -51,6 +64,7 @@ export function GetClinicLinkDialog({ open, onOpenChange, productId }: Props) {
     if (!open) {
       setSearch("");
       setPage(1);
+      setQrPreview(null);
     }
   }, [open]);
 
@@ -78,13 +92,11 @@ export function GetClinicLinkDialog({ open, onOpenChange, productId }: Props) {
     currentPage * PAGE_SIZE
   );
 
+  const buildClinicUrl = (clinicId: string) =>
+    buildShopUrl(window.location.origin, locale, clinicId, productId);
+
   const handleCopyLink = async (clinicId: string) => {
-    const url = buildShopUrl(
-      window.location.origin,
-      locale,
-      clinicId,
-      productId
-    );
+    const url = buildClinicUrl(clinicId);
 
     try {
       await navigator.clipboard.writeText(url);
@@ -92,6 +104,13 @@ export function GetClinicLinkDialog({ open, onOpenChange, productId }: Props) {
     } catch {
       toast.error(t("copyFailed"));
     }
+  };
+
+  const handleOpenQrPreview = (clinicId: string, clinicName: string) => {
+    setQrPreview({
+      clinicName,
+      url: buildClinicUrl(clinicId),
+    });
   };
 
   const columns = useMemo(
@@ -123,14 +142,14 @@ export function GetClinicLinkDialog({ open, onOpenChange, productId }: Props) {
       columnHelper.display({
         id: "downloadQr",
         header: t("downloadQr"),
-        cell: () => (
+        cell: ({ row }) => (
           <Button
             type="button"
             variant="outline"
             size="sm"
             onClick={(e) => {
               e.stopPropagation();
-              toast.info(t("qrComingSoon"));
+              handleOpenQrPreview(row.original.id, row.original.name);
             }}
           >
             <QrCode size={14} />
@@ -144,8 +163,9 @@ export function GetClinicLinkDialog({ open, onOpenChange, productId }: Props) {
   );
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-h-[85vh] overflow-y-auto sm:max-w-4xl">
+    <>
+      <Dialog open={open} onOpenChange={onOpenChange}>
+        <DialogContent className="max-h-[85vh] overflow-y-auto sm:max-w-4xl">
         <DialogHeader>
           <DialogTitle>{t("modalTitle")}</DialogTitle>
           <DialogDescription>{t("modalDescription")}</DialogDescription>
@@ -223,6 +243,20 @@ export function GetClinicLinkDialog({ open, onOpenChange, productId }: Props) {
           )}
         </div>
       </DialogContent>
-    </Dialog>
+      </Dialog>
+
+      {qrPreview && (
+        <QrPreviewDialog
+          open={!!qrPreview}
+          onOpenChange={(open) => {
+            if (!open) setQrPreview(null);
+          }}
+          url={qrPreview.url}
+          clinicName={qrPreview.clinicName}
+          productId={productId}
+          productName={productName}
+        />
+      )}
+    </>
   );
 }

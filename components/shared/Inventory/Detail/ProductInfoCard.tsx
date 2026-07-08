@@ -129,6 +129,7 @@ export function ProductInfoCard({ product, productId }: Props) {
           open={linkDialogOpen}
           onOpenChange={setLinkDialogOpen}
           productId={productId}
+          productName={product.name}
         />
         <ProductFormDialog
           open={editOpen}
