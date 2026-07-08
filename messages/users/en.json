@@ -1,4 +1,63 @@
 {
   "title": "User Mgmt",
-  "subtitle": "Invite and manage backoffice users."
+  "subtitle": "Invite and manage backoffice users.",
+  "teamMembers": "Team Members",
+  "invitedTeamMembers": "Invited Team Members",
+  "inviteMember": "Invite Member",
+  "ownerOnly": "Only the owner can manage users.",
+  "table": {
+    "fullName": "Full Name",
+    "email": "Email",
+    "role": "Role",
+    "joined": "Date Joined",
+    "invitedBy": "Invited By",
+    "status": "Status",
+    "invitedAt": "Invited At",
+    "actions": "Actions",
+    "you": "You"
+  },
+  "roles": {
+    "owner": "Owner",
+    "admin": "Admin"
+  },
+  "status": {
+    "pending": "Pending",
+    "accepted": "Accepted",
+    "revoked": "Revoked",
+    "expired": "Expired"
+  },
+  "emptyMembers": "No members yet.",
+  "emptyInvitations": "No invitations yet.",
+  "loadMembersError": "Could not load members.",
+  "loadInvitationsError": "Could not load invitations.",
+  "retry": "Try again",
+  "remove": {
+    "action": "Remove",
+    "title": "Remove Member",
+    "description": "Remove {name} from the backoffice? They will lose access immediately and must be re-invited.",
+    "cancel": "Cancel",
+    "confirm": "Remove Member",
+    "success": "Member removed",
+    "error": "Could not remove member"
+  },
+  "revoke": {
+    "action": "Revoke",
+    "title": "Revoke Invitation",
+    "description": "Revoke the invitation for {email}? They will no longer be able to register with this invite.",
+    "cancel": "Cancel",
+    "confirm": "Revoke Invitation",
+    "success": "Invitation revoked",
+    "error": "Could not revoke invitation"
+  },
+  "invite": {
+    "title": "Invite Member",
+    "description": "Enter the email address to invite as an admin. Ask them to register using this exact email.",
+    "emailLabel": "Email Address",
+    "emailPlaceholder": "user@example.com",
+    "cancel": "Cancel",
+    "submit": "Send Invite",
+    "submitting": "Sending…",
+    "success": "Invitation created",
+    "error": "Could not create invitation"
+  }
 }

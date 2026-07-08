@@ -11,6 +11,7 @@ export type ClinicResponse = {
   address_city: string;
   address_code: string;
   contact_email: string;
+  contact_phone?: string | null;
   items_sold: number;
   revenue: number;
   credit: number;
@@ -34,6 +35,8 @@ export type Clinic = {
   addressStreet: string;
   addressCity: string;
   addressCode: string;
+  contactEmail?: string | null;
+  contactPhone?: string | null;
   itemsSold: number;
   revenue: number;
   credit: number;
@@ -47,6 +50,8 @@ export function mapClinicResponse(row: ClinicResponse): Clinic {
     addressStreet: row.address_street,
     addressCity: row.address_city,
     addressCode: row.address_code,
+    contactEmail: row.contact_email ?? null,
+    contactPhone: row.contact_phone ?? null,
     itemsSold: row.items_sold ?? 0,
     revenue: row.revenue ?? 0,
     credit: row.credit ?? 0,
@@ -207,6 +212,7 @@ export type CreateClinicPayload = {
   addressCity: string;
   addressCode: string;
   contactEmail: string;
+  contactPhone: string;
   parentClinicId?: string | null;
   newParentName?: string | null;
 };
@@ -226,6 +232,57 @@ export async function createClinic(
   if (!res.ok) {
     const text = await res.text();
     throw new Error(text || "Failed to create clinic");
+  }
+
+  const row = (await res.json()) as ClinicResponse;
+  return mapClinicResponse(row);
+}
+
+export async function deleteClinic(id: string): Promise<void> {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/clinics/${id}`, {
+    method: "DELETE",
+    headers: {
+      ...(await authHeaders()),
+    },
+  });
+
+  if (!res.ok) {
+    const text = await res.text();
+    let message = text || "Failed to delete clinic";
+    try {
+      const parsed = JSON.parse(text) as { message?: string };
+      if (parsed?.message) message = parsed.message;
+    } catch {
+      // Non-JSON error body; fall back to the raw text.
+    }
+    throw new Error(message);
+  }
+}
+
+export type UpdateClinicContactPayload = {
+  addressStreet?: string;
+  addressCity?: string;
+  addressCode?: string;
+  contactEmail?: string;
+  contactPhone?: string;
+};
+
+export async function updateClinicContact(
+  id: string,
+  payload: UpdateClinicContactPayload
+): Promise<Clinic> {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/clinics/${id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      ...(await authHeaders()),
+    },
+    body: JSON.stringify(payload),
+  });
+
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(text || "Failed to update clinic");
   }
 
   const row = (await res.json()) as ClinicResponse;

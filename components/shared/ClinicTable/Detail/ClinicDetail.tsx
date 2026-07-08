@@ -97,7 +97,11 @@ export function ClinicDetail({ clinicId }: Props) {
         {t("backToClinics")}
       </Link>
 
-      <CopyShopLink clinicId={clinicId} products={allProducts} />
+      <CopyShopLink
+        clinicId={clinicId}
+        clinicName={clinic.name}
+        products={allProducts}
+      />
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
         <div className="lg:col-span-1">

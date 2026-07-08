@@ -39,6 +39,7 @@ type FormState = {
   addressCity: string;
   addressCode: string;
   contactEmail: string;
+  contactPhone: string;
   parentOption: string;
   newParentName: string;
 };
@@ -49,6 +50,7 @@ const emptyForm: FormState = {
   addressCity: "",
   addressCode: "",
   contactEmail: "",
+  contactPhone: "",
   parentOption: PARENT_NONE,
   newParentName: "",
 };
@@ -82,6 +84,7 @@ export function AddClinicDialog({ open, onOpenChange, parentOptions }: Props) {
         addressCity: form.addressCity.trim(),
         addressCode: form.addressCode.trim(),
         contactEmail: form.contactEmail.trim(),
+        contactPhone: form.contactPhone.trim(),
         parentClinicId:
           form.parentOption !== PARENT_NONE && form.parentOption !== PARENT_NEW
             ? form.parentOption
@@ -175,6 +178,18 @@ export function AddClinicDialog({ open, onOpenChange, parentOptions }: Props) {
               value={form.contactEmail}
               onChange={(e) => update("contactEmail", e.target.value)}
               placeholder={t("contactEmailPlaceholder")}
+              required
+            />
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="clinic-phone">{t("contactPhone")}</Label>
+            <Input
+              id="clinic-phone"
+              type="tel"
+              value={form.contactPhone}
+              onChange={(e) => update("contactPhone", e.target.value)}
+              placeholder={t("contactPhonePlaceholder")}
               required
             />
           </div>
