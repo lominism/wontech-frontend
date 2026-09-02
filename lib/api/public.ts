@@ -38,6 +38,16 @@ export type CreateOrderResponse = {
   paymentUrl: string;
 };
 
+export type CheckoutSessionResponse = {
+  checkoutUrl: string;
+};
+
+export type PaymentStatusResponse = {
+  status: "pending" | "paid" | "failed" | "cancelled";
+  orderNo?: string;
+  trackingToken?: string;
+};
+
 export type ConfirmPaymentResponse = {
   orderId: string;
   orderNo: string;
@@ -92,6 +102,42 @@ export async function createPublicOrder(
   return res.json() as Promise<CreateOrderResponse>;
 }
 
+export async function createCheckoutSession(
+  orderId: string,
+  successUrl: string,
+  cancelUrl: string
+): Promise<CheckoutSessionResponse> {
+  const res = await fetch(`${apiUrl()}/public/payments/checkout-session`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ orderId, successUrl, cancelUrl }),
+  });
+
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(text || "Failed to start payment");
+  }
+
+  return res.json() as Promise<CheckoutSessionResponse>;
+}
+
+export async function getPaymentStatus(
+  sessionId: string
+): Promise<PaymentStatusResponse> {
+  const res = await fetch(
+    `${apiUrl()}/public/payments/status?session_id=${encodeURIComponent(sessionId)}`,
+    { cache: "no-store" }
+  );
+
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(text || "Failed to verify payment");
+  }
+
+  return res.json() as Promise<PaymentStatusResponse>;
+}
+
+/** Dev-only stub; disabled in production on the backend. */
 export async function confirmPayment(
   orderId: string
 ): Promise<ConfirmPaymentResponse> {
