@@ -68,6 +68,7 @@ export type OrderDetail = {
   customerEmail: string | null;
   customerPhone: string | null;
   shippingAddressStreet: string | null;
+  shippingAddressStreet2: string | null;
   shippingAddressCity: string | null;
   shippingAddressCode: string | null;
   paymentProvider: string | null;
@@ -87,6 +88,7 @@ export type CreateOrderPayload = {
   customerEmail?: string | null;
   customerPhone?: string | null;
   shippingAddressStreet?: string | null;
+  shippingAddressStreet2?: string | null;
   shippingAddressCity?: string | null;
   shippingAddressCode?: string | null;
 };
@@ -107,6 +109,7 @@ export type ListOrdersParams = {
   pageSize?: number;
   sortBy?: string;
   sortDir?: string;
+  productId?: string;
 };
 
 export async function listOrders(
@@ -118,6 +121,9 @@ export async function listOrders(
   }
   if (params.status && params.status !== "all") {
     query.set("status", params.status);
+  }
+  if (params.productId?.trim()) {
+    query.set("productId", params.productId.trim());
   }
   query.set("page", String(params.page ?? 1));
   query.set("pageSize", String(params.pageSize ?? ORDER_PAGE_SIZE));

@@ -58,8 +58,8 @@ export function ProductInfoCard({ product, productId }: Props) {
   );
 
   return (
-    <Card className="overflow-hidden">
-      <div className="relative flex aspect-square items-center justify-center bg-muted">
+    <Card className="flex h-full flex-col overflow-hidden">
+      <div className="relative flex aspect-square shrink-0 items-center justify-center bg-muted">
         {product.image ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
@@ -98,7 +98,7 @@ export function ProductInfoCard({ product, productId }: Props) {
         </div>
       </div>
 
-      <CardContent className="flex flex-col gap-4 p-5">
+      <CardContent className="flex flex-1 flex-col gap-4 p-5">
         <div className="flex items-start justify-between gap-3">
           <div className="flex min-w-0 flex-col gap-1">
             <div className="flex flex-wrap items-center gap-2">

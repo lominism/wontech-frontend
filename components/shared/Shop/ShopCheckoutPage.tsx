@@ -42,6 +42,7 @@ export function ShopCheckoutPage({ clinicId, productId }: Props) {
     customerEmail: "",
     customerPhone: "",
     shippingAddressStreet: "",
+    shippingAddressStreet2: "",
     shippingAddressCity: "",
     shippingAddressCode: "",
   });
@@ -162,6 +163,23 @@ export function ShopCheckoutPage({ clinicId, productId }: Props) {
                   value={form.shippingAddressStreet}
                   onChange={(e) =>
                     handleChange("shippingAddressStreet", e.target.value)
+                  }
+                />
+              </div>
+              <div className="flex flex-col gap-2 sm:col-span-2">
+                <label htmlFor="street2" className="text-sm text-[#4A4541]">
+                  {t("addressStreet2")}
+                  <span className="font-normal text-[#6B6560]">
+                    {" "}
+                    ({t("optional")})
+                  </span>
+                </label>
+                <input
+                  id="street2"
+                  className={shopInputClass}
+                  value={form.shippingAddressStreet2}
+                  onChange={(e) =>
+                    handleChange("shippingAddressStreet2", e.target.value)
                   }
                 />
               </div>

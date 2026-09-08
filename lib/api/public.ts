@@ -27,6 +27,7 @@ export type CreateOrderPayload = {
   customerEmail: string;
   customerPhone: string;
   shippingAddressStreet: string;
+  shippingAddressStreet2?: string;
   shippingAddressCity: string;
   shippingAddressCode: string;
   quantity?: number;

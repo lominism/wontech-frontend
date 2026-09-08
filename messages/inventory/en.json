@@ -134,8 +134,16 @@
       "title": "Purchase History",
       "date": "Date Bought",
       "quantity": "Quantity",
+      "soldTo": "sold to",
       "clinic": "Clinic",
-      "empty": "No purchases recorded yet."
+      "empty": "No purchases recorded yet.",
+      "loading": "Loading purchase history…",
+      "pagination": {
+        "pageOf": "Page {page} of {totalPages}",
+        "previous": "Previous",
+        "next": "Next",
+        "total": "{count, plural, one {# purchase} other {# purchases}}"
+      }
     }
   }
 }

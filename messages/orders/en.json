@@ -49,7 +49,8 @@
     "name": "Name",
     "email": "Email",
     "phone": "Phone Number",
-    "addressStreet": "Street address",
+    "addressStreet": "Address Line 1",
+    "addressStreet2": "Address Line 2",
     "addressCity": "City / District",
     "addressCode": "Postal code",
     "item": "Item",
@@ -78,7 +79,7 @@
       "nameRequired": "Name is required for Wontech orders",
       "emailRequired": "Email is required for Wontech orders",
       "phoneRequired": "Phone is required for Wontech orders",
-      "streetRequired": "Street address is required for Wontech orders",
+      "streetRequired": "Address Line 1 is required for Wontech orders",
       "cityRequired": "City is required for Wontech orders",
       "codeRequired": "Postal code is required for Wontech orders"
     }
@@ -95,7 +96,8 @@
     "name": "Name",
     "email": "Email",
     "phone": "Phone",
-    "street": "Street address",
+    "street": "Address Line 1",
+    "street2": "Address Line 2",
     "city": "City",
     "postalCode": "Postal code",
     "sku": "SKU",

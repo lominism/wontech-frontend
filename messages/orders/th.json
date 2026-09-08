@@ -49,7 +49,8 @@
     "name": "ชื่อ",
     "email": "อีเมล",
     "phone": "เบอร์โทรศัพท์",
-    "addressStreet": "ที่อยู่",
+    "addressStreet": "ที่อยู่บรรทัดที่ 1",
+    "addressStreet2": "ที่อยู่บรรทัดที่ 2",
     "addressCity": "เมือง / เขต",
     "addressCode": "รหัสไปรษณีย์",
     "item": "สินค้า",
@@ -78,7 +79,7 @@
       "nameRequired": "ต้องระบุชื่อสำหรับคำสั่งซื้อ Wontech",
       "emailRequired": "ต้องระบุอีเมลสำหรับคำสั่งซื้อ Wontech",
       "phoneRequired": "ต้องระบุเบอร์โทรสำหรับคำสั่งซื้อ Wontech",
-      "streetRequired": "ต้องระบุที่อยู่สำหรับคำสั่งซื้อ Wontech",
+      "streetRequired": "ต้องระบุที่อยู่บรรทัดที่ 1 สำหรับคำสั่งซื้อ Wontech",
       "cityRequired": "ต้องระบุเมืองสำหรับคำสั่งซื้อ Wontech",
       "codeRequired": "ต้องระบุรหัสไปรษณีย์สำหรับคำสั่งซื้อ Wontech"
     }
@@ -95,7 +96,8 @@
     "name": "ชื่อ",
     "email": "อีเมล",
     "phone": "เบอร์โทรศัพท์",
-    "street": "ที่อยู่",
+    "street": "ที่อยู่บรรทัดที่ 1",
+    "street2": "ที่อยู่บรรทัดที่ 2",
     "city": "เมือง",
     "postalCode": "รหัสไปรษณีย์",
     "sku": "SKU",

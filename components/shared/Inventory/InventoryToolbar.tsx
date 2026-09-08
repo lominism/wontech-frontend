@@ -1,18 +1,10 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { Search, Plus, LayoutGrid, List } from "lucide-react";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { LayoutGrid, List } from "lucide-react";
+// Temporary single-product catalog: restore Search/Plus, Input, Button, Select, and
+// productCategories when re-enabling search, category filter, and Add Product.
 import { cn } from "@/lib/utils";
-import { productCategories } from "@/lib/mock-data";
 
 export type InventoryView = "grid" | "list";
 
@@ -27,18 +19,20 @@ type Props = {
 };
 
 export function InventoryToolbar({
-  search,
-  onSearchChange,
-  category,
-  onCategoryChange,
+  // Kept for easy restore of search / category / add UI
+  search: _search,
+  onSearchChange: _onSearchChange,
+  category: _category,
+  onCategoryChange: _onCategoryChange,
+  onAdd: _onAdd,
   view,
   onViewChange,
-  onAdd,
 }: Props) {
   const t = useTranslations("inventory");
 
   return (
-    <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+    <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-end">
+      {/*
       <div className="flex flex-1 items-center gap-3">
         <div className="relative w-full max-w-xs">
           <Search
@@ -67,6 +61,7 @@ export function InventoryToolbar({
           </SelectContent>
         </Select>
       </div>
+      */}
 
       <div className="flex items-center gap-3">
         <div className="inline-flex items-center rounded-md border p-0.5">
@@ -100,10 +95,12 @@ export function InventoryToolbar({
           </button>
         </div>
 
+        {/*
         <Button onClick={onAdd} className="shrink-0">
           <Plus size={16} />
           {t("actions.addProduct")}
         </Button>
+        */}
       </div>
     </div>
   );
