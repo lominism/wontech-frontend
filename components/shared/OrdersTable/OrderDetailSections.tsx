@@ -25,7 +25,9 @@ export function DetailRow({
   return (
     <div className="flex flex-col gap-1 sm:flex-row sm:justify-between sm:gap-4">
       <dt className="text-sm text-muted-foreground">{label}</dt>
-      <dd className="text-sm font-medium sm:text-right">{value}</dd>
+      <dd className="min-w-0 break-all text-sm font-medium sm:text-right">
+        {value}
+      </dd>
     </div>
   );
 }

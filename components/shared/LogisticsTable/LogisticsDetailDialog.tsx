@@ -92,6 +92,7 @@ export function LogisticsDetailDialog({ orderId, open, onOpenChange }: Props) {
     return [
       data.customerName ?? "",
       data.shippingAddressStreet ?? "",
+      data.shippingAddressStreet2 ?? "",
       `${data.shippingAddressCity ?? ""} ${data.shippingAddressCode ?? ""}`.trim(),
       data.customerPhone ?? "",
     ]
@@ -274,6 +275,12 @@ export function LogisticsDetailDialog({ orderId, open, onOpenChange }: Props) {
                   label={t("street")}
                   value={data.shippingAddressStreet ?? dash}
                 />
+                {data.shippingAddressStreet2 ? (
+                  <DetailRow
+                    label={t("street2")}
+                    value={data.shippingAddressStreet2}
+                  />
+                ) : null}
                 <DetailRow
                   label={t("city")}
                   value={data.shippingAddressCity ?? dash}

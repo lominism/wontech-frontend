@@ -6,7 +6,11 @@ import { getVisiblePageNumbers } from "@/lib/pagination";
 import { cn } from "@/lib/utils";
 
 type Props = {
-  namespace: "clinic.pagination" | "orders.pagination" | "logistics.pagination";
+  namespace:
+    | "clinic.pagination"
+    | "orders.pagination"
+    | "logistics.pagination"
+    | "inventory.detail.history.pagination";
   page: number;
   totalPages: number;
   total: number;

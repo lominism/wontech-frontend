@@ -45,6 +45,7 @@ type FormState = {
   customerEmail: string;
   customerPhone: string;
   shippingAddressStreet: string;
+  shippingAddressStreet2: string;
   shippingAddressCity: string;
   shippingAddressCode: string;
   productId: string;
@@ -59,6 +60,7 @@ const emptyForm: FormState = {
   customerEmail: "",
   customerPhone: "",
   shippingAddressStreet: "",
+  shippingAddressStreet2: "",
   shippingAddressCity: "",
   shippingAddressCode: "",
   productId: "",
@@ -150,6 +152,7 @@ export function NewOrderDialog({ open, onOpenChange }: Props) {
         customerEmail: form.customerEmail.trim() || null,
         customerPhone: form.customerPhone.trim() || null,
         shippingAddressStreet: form.shippingAddressStreet.trim() || null,
+        shippingAddressStreet2: form.shippingAddressStreet2.trim() || null,
         shippingAddressCity: form.shippingAddressCity.trim() || null,
         shippingAddressCode: form.shippingAddressCode.trim() || null,
       });
@@ -264,6 +267,22 @@ export function NewOrderDialog({ open, onOpenChange }: Props) {
                   setField("shippingAddressStreet", e.target.value)
                 }
                 required={customerFieldsRequired}
+              />
+            </div>
+            <div className="flex flex-col gap-2 sm:col-span-2">
+              <Label htmlFor="address-street-2">
+                {t("addressStreet2")}
+                <span className="text-muted-foreground font-normal">
+                  {" "}
+                  ({t("optional")})
+                </span>
+              </Label>
+              <Input
+                id="address-street-2"
+                value={form.shippingAddressStreet2}
+                onChange={(e) =>
+                  setField("shippingAddressStreet2", e.target.value)
+                }
               />
             </div>
             <div className="flex flex-col gap-2">
