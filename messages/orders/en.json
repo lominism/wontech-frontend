@@ -58,6 +58,8 @@
     "qty": "Quantity",
     "soldBy": "Sold by",
     "noClinic": "None",
+    "influencer": "Influencer",
+    "noInfluencer": "None",
     "status": "Status",
     "optional": "optional",
     "stockAvailable": "{count} in stock",

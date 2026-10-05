@@ -1,7 +1,7 @@
 export const publicShopKeys = {
   all: ["publicShop"] as const,
-  detail: (clinicId: string, productId: string) =>
-    [...publicShopKeys.all, clinicId, productId] as const,
+  detail: (partner: string, partnerId: string, productId: string) =>
+    [...publicShopKeys.all, partner, partnerId, productId] as const,
 };
 
 export const publicTrackKeys = {

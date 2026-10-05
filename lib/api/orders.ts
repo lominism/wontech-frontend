@@ -64,6 +64,8 @@ export type OrderDetail = {
   total: number;
   clinicId: string | null;
   clinicName: string;
+  influencerId: string | null;
+  influencerName: string;
   customerName: string | null;
   customerEmail: string | null;
   customerPhone: string | null;
@@ -84,6 +86,7 @@ export type CreateOrderPayload = {
   quantity: number;
   status: OrderManualStatus;
   clinicId?: string | null;
+  influencerId?: string | null;
   customerName?: string | null;
   customerEmail?: string | null;
   customerPhone?: string | null;

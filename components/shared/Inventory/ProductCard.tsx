@@ -76,6 +76,17 @@ export function ProductCard({ product }: Props) {
           )}
         </div>
 
+        <div className="flex items-center justify-between text-sm">
+          <span className="text-muted-foreground">{t("kolCommission")}</span>
+          {product.kolCommission != null ? (
+            <Badge className="bg-violet-100 text-violet-700 border-violet-200 hover:bg-violet-100">
+              {thbFormatter.format(product.kolCommission)}
+            </Badge>
+          ) : (
+            <span className="text-muted-foreground text-xs">{t("noCommission")}</span>
+          )}
+        </div>
+
         <Separator />
 
         <div className="flex flex-col gap-1.5">

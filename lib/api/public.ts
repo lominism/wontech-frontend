@@ -1,3 +1,5 @@
+import { type ShopPartner } from "@/lib/shop-url";
+
 export type PublicShopProduct = {
   id: string;
   name: string;
@@ -21,7 +23,8 @@ export type PublicShopResponse = {
 };
 
 export type CreateOrderPayload = {
-  clinicId: string;
+  clinicId?: string;
+  influencerId?: string;
   productId: string;
   customerName: string;
   customerEmail: string;
@@ -70,13 +73,15 @@ export type PublicTrackResponse = {
 const apiUrl = () => process.env.NEXT_PUBLIC_API_URL ?? "";
 
 export async function getPublicShopProduct(
-  clinicId: string,
-  productId: string
+  partnerId: string,
+  productId: string,
+  partner: ShopPartner = "clinic"
 ): Promise<PublicShopResponse> {
-  const res = await fetch(
-    `${apiUrl()}/public/shop/${clinicId}/${productId}`,
-    { cache: "no-store" }
-  );
+  const path =
+    partner === "influencer"
+      ? `/public/shop/influencer/${partnerId}/${productId}`
+      : `/public/shop/${partnerId}/${productId}`;
+  const res = await fetch(`${apiUrl()}${path}`, { cache: "no-store" });
 
   if (!res.ok) {
     const text = await res.text();

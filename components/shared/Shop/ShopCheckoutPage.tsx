@@ -8,6 +8,7 @@ import { useRouter } from "@/i18n/navigation";
 import { Link } from "@/i18n/navigation";
 import { createPublicOrder } from "@/lib/api/public";
 import { usePublicShopProduct } from "@/lib/queries/usePublicShopProduct";
+import { shopProductPath, type ShopPartner } from "@/lib/shop-url";
 import { thbFormatter } from "@/lib/utils";
 import { ShopQuantitySelector } from "./ShopQuantitySelector";
 import { shopInputClass } from "./shop-theme";
@@ -15,13 +16,20 @@ import { shopInputClass } from "./shop-theme";
 type Props = {
   clinicId: string;
   productId: string;
+  partner?: ShopPartner;
 };
 
-export function ShopCheckoutPage({ clinicId, productId }: Props) {
+export function ShopCheckoutPage({
+  clinicId,
+  productId,
+  partner = "clinic",
+}: Props) {
   const t = useTranslations("shop.checkout");
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { data, isLoading } = usePublicShopProduct(clinicId, productId);
+  const { data, isLoading } = usePublicShopProduct(clinicId, productId, {
+    partner,
+  });
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -58,13 +66,15 @@ export function ShopCheckoutPage({ clinicId, productId }: Props) {
 
     try {
       const result = await createPublicOrder({
-        clinicId,
+        ...(partner === "influencer"
+          ? { influencerId: clinicId }
+          : { clinicId }),
         productId,
         quantity,
         ...form,
       });
       router.push(
-        `/shop/${clinicId}/${productId}/checkout/pay?orderId=${result.orderId}`
+        `${shopProductPath(partner, clinicId, productId)}/checkout/pay?orderId=${result.orderId}`
       );
     } catch (err) {
       const message = err instanceof Error ? err.message : "";
@@ -93,7 +103,7 @@ export function ShopCheckoutPage({ clinicId, productId }: Props) {
   return (
     <div className="flex flex-col gap-8">
       <Link
-        href={`/shop/${clinicId}/${productId}`}
+        href={shopProductPath(partner, clinicId, productId)}
         className="inline-flex w-fit items-center gap-1.5 text-sm text-[#6B6560] transition-colors hover:text-[#2A2A2A]"
       >
         <ArrowLeft size={15} />

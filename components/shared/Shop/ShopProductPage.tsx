@@ -2,18 +2,25 @@
 
 import { useTranslations } from "next-intl";
 import { usePublicShopProduct } from "@/lib/queries/usePublicShopProduct";
+import { type ShopPartner } from "@/lib/shop-url";
 import { ShopProductView } from "./ShopProductView";
 
 type Props = {
   clinicId: string;
   productId: string;
+  partner?: ShopPartner;
 };
 
-export function ShopProductPage({ clinicId, productId }: Props) {
+export function ShopProductPage({
+  clinicId,
+  productId,
+  partner = "clinic",
+}: Props) {
   const t = useTranslations("shop.product");
   const { data, isLoading, isError, refetch } = usePublicShopProduct(
     clinicId,
-    productId
+    productId,
+    { partner }
   );
 
   if (isLoading) {
@@ -44,6 +51,7 @@ export function ShopProductPage({ clinicId, productId }: Props) {
       data={data}
       clinicId={clinicId}
       productId={productId}
+      partner={partner}
     />
   );
 }

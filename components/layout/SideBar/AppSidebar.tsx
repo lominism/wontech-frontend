@@ -24,6 +24,7 @@ import {
   Settings2,
   ShoppingCart,
   Stethoscope,
+  Megaphone,
   TrendingUp,
   Truck,
   Users,
@@ -127,6 +128,16 @@ const AppSidebar = React.memo(
           ),
           url: "/clinic",
           isActive: slug.startsWith(`/${locale}/clinic`),
+        },
+        {
+          title: (
+            <>
+              <Megaphone size={16} />
+              {t("influencer")}
+            </>
+          ),
+          url: "/influencer",
+          isActive: slug.startsWith(`/${locale}/influencer`),
         },
         {
           title: (

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { type PublicShopResponse } from "@/lib/api/public";
+import { shopProductPath, type ShopPartner } from "@/lib/shop-url";
 import { thbFormatter } from "@/lib/utils";
 import { ShopProductGallery } from "./ShopProductGallery";
 import { ShopQuantitySelector } from "./ShopQuantitySelector";
@@ -12,9 +13,15 @@ type Props = {
   data: PublicShopResponse;
   clinicId: string;
   productId: string;
+  partner?: ShopPartner;
 };
 
-export function ShopProductView({ data, clinicId, productId }: Props) {
+export function ShopProductView({
+  data,
+  clinicId,
+  productId,
+  partner = "clinic",
+}: Props) {
   const t = useTranslations("shop.product");
   const { clinic, product } = data;
   const maxQuantity = Math.max(1, product.stockAvailable || 1);
@@ -27,7 +34,7 @@ export function ShopProductView({ data, clinicId, productId }: Props) {
         ? [product.image]
         : [];
 
-  const checkoutHref = `/shop/${clinicId}/${productId}/checkout?quantity=${quantity}`;
+  const checkoutHref = `${shopProductPath(partner, clinicId, productId)}/checkout?quantity=${quantity}`;
 
   const details = [
     { label: t("brand"), value: product.brand },

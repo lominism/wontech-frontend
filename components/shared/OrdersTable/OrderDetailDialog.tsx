@@ -146,7 +146,9 @@ export function OrderDetailDialog({ orderId, open, onOpenChange }: Props) {
             </DetailSection>
 
             <DetailSection title={t("soldVia")}>
-              <p className="text-sm font-medium">{data.clinicName}</p>
+              <p className="text-sm font-medium">
+                {data.influencerId ? data.influencerName : data.clinicName}
+              </p>
             </DetailSection>
 
             <DetailSection title={t("customer")}>

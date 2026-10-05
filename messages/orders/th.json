@@ -58,6 +58,8 @@
     "qty": "จำนวน",
     "soldBy": "ขายโดย",
     "noClinic": "ไม่มี",
+    "influencer": "อินฟลูเอนเซอร์",
+    "noInfluencer": "ไม่มี",
     "status": "สถานะ",
     "optional": "ไม่บังคับ",
     "stockAvailable": "คงเหลือ {count} ชิ้น",

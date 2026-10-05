@@ -29,10 +29,12 @@ import {
 } from "@/lib/api/orders";
 import { getListableClinics } from "@/lib/mock-data";
 import { useClinicsLookup } from "@/lib/queries/useClinicsLookup";
+import { useInfluencersLookup } from "@/lib/queries/useInfluencersLookup";
 import { useProducts } from "@/lib/queries/useProducts";
 import { useCreateOrder } from "@/lib/queries/useCreateOrder";
 
 const CLINIC_NONE = "none";
+const INFLUENCER_NONE = "none";
 
 type Props = {
   open: boolean;
@@ -51,6 +53,7 @@ type FormState = {
   productId: string;
   quantity: string;
   clinicId: string;
+  influencerId: string;
   status: OrderManualStatus;
 };
 
@@ -66,6 +69,7 @@ const emptyForm: FormState = {
   productId: "",
   quantity: "1",
   clinicId: CLINIC_NONE,
+  influencerId: INFLUENCER_NONE,
   status: "awaiting_shipment",
 };
 
@@ -77,6 +81,9 @@ export function NewOrderDialog({ open, onOpenChange }: Props) {
     enabled: open,
   });
   const { data: lookupClinics = [] } = useClinicsLookup({ enabled: open });
+  const { data: lookupInfluencers = [] } = useInfluencersLookup({
+    enabled: open,
+  });
   const [form, setForm] = useState<FormState>(emptyForm);
 
   const activeProducts = useMemo(
@@ -86,6 +93,10 @@ export function NewOrderDialog({ open, onOpenChange }: Props) {
   const clinicOptions = useMemo(
     () => getListableClinics(lookupClinics),
     [lookupClinics]
+  );
+  const influencerOptions = useMemo(
+    () => getListableClinics(lookupInfluencers),
+    [lookupInfluencers]
   );
   const selectedProduct = activeProducts.find(
     (product) => product.id === form.productId
@@ -148,6 +159,8 @@ export function NewOrderDialog({ open, onOpenChange }: Props) {
         status: form.status,
         clinicId:
           form.clinicId === CLINIC_NONE ? null : form.clinicId,
+        influencerId:
+          form.influencerId === INFLUENCER_NONE ? null : form.influencerId,
         customerName: form.customerName.trim() || null,
         customerEmail: form.customerEmail.trim() || null,
         customerPhone: form.customerPhone.trim() || null,
@@ -373,7 +386,14 @@ export function NewOrderDialog({ open, onOpenChange }: Props) {
             </Label>
             <Select
               value={form.clinicId}
-              onValueChange={(value) => setField("clinicId", value)}
+              onValueChange={(value) =>
+                setForm((prev) => ({
+                  ...prev,
+                  clinicId: value,
+                  influencerId:
+                    value === CLINIC_NONE ? prev.influencerId : INFLUENCER_NONE,
+                }))
+              }
             >
               <SelectTrigger id="clinic">
                 <SelectValue />
@@ -383,6 +403,41 @@ export function NewOrderDialog({ open, onOpenChange }: Props) {
                 {clinicOptions.map((clinic) => (
                   <SelectItem key={clinic.id} value={clinic.id}>
                     {clinic.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="influencer">
+              {t("influencer")}
+              <span className="text-muted-foreground font-normal">
+                {" "}
+                ({t("optional")})
+              </span>
+            </Label>
+            <Select
+              value={form.influencerId}
+              onValueChange={(value) =>
+                setForm((prev) => ({
+                  ...prev,
+                  influencerId: value,
+                  clinicId:
+                    value === INFLUENCER_NONE ? prev.clinicId : CLINIC_NONE,
+                }))
+              }
+            >
+              <SelectTrigger id="influencer">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value={INFLUENCER_NONE}>
+                  {t("noInfluencer")}
+                </SelectItem>
+                {influencerOptions.map((influencer) => (
+                  <SelectItem key={influencer.id} value={influencer.id}>
+                    {influencer.name}
                   </SelectItem>
                 ))}
               </SelectContent>

@@ -11,6 +11,7 @@ export type CreateProductPayload = {
   price: number;
   stock: number;
   commission?: number | null;
+  kolCommission?: number | null;
   description?: string | null;
   brand?: string | null;
   weight?: string | null;
@@ -31,6 +32,7 @@ export type ProductResponse = {
   category: string;
   price: string;
   commission_amount: string | null;
+  kol_commission_amount: string | null;
   description: string | null;
   brand: string | null;
   weight: string | null;
@@ -51,6 +53,7 @@ export type InventoryProduct = {
   category: string;
   price: number;
   commission: number | null;
+  kolCommission: number | null;
   stock: number;
   image: string | null;
   images: string[];
@@ -73,6 +76,10 @@ export function mapProductResponse(row: ProductResponse): InventoryProduct {
     price: Number(row.price),
     commission:
       row.commission_amount != null ? Number(row.commission_amount) : null,
+    kolCommission:
+      row.kol_commission_amount != null
+        ? Number(row.kol_commission_amount)
+        : null,
     stock: row.stock?.quantity_on_hand ?? 0,
     images,
     image: primaryImageUrl(images),

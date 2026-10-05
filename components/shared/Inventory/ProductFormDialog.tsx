@@ -42,6 +42,7 @@ type FormState = {
   price: string;
   stock: string;
   commission: string;
+  kolCommission: string;
   description: string;
   brand: string;
   weight: string;
@@ -56,6 +57,7 @@ const emptyForm: FormState = {
   price: "",
   stock: "",
   commission: "",
+  kolCommission: "",
   description: "",
   brand: "",
   weight: "",
@@ -71,6 +73,8 @@ function productToForm(product: InventoryProduct): FormState {
     price: String(product.price),
     stock: String(product.stock),
     commission: product.commission != null ? String(product.commission) : "",
+    kolCommission:
+      product.kolCommission != null ? String(product.kolCommission) : "",
     description: product.description ?? "",
     brand: product.brand ?? "",
     weight: product.weight ?? "",
@@ -132,6 +136,7 @@ export function ProductFormDialog({ open, onOpenChange, product }: Props) {
       price: Number(form.price),
       stock: Number(form.stock),
       commission: form.commission ? Number(form.commission) : null,
+      kolCommission: form.kolCommission ? Number(form.kolCommission) : null,
       description: optionalText(form.description),
       brand: optionalText(form.brand),
       weight: optionalText(form.weight),
@@ -258,6 +263,18 @@ export function ProductFormDialog({ open, onOpenChange, product }: Props) {
               value={form.commission}
               onChange={(e) => update("commission", e.target.value)}
               placeholder={t("commissionPlaceholder")}
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="kolCommission">{t("kolCommission")}</Label>
+            <Input
+              id="kolCommission"
+              type="number"
+              min="0"
+              step="0.01"
+              value={form.kolCommission}
+              onChange={(e) => update("kolCommission", e.target.value)}
+              placeholder={t("kolCommissionPlaceholder")}
             />
           </div>
 

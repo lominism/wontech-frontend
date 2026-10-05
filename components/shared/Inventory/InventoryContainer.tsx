@@ -37,7 +37,7 @@ export function InventoryContainer() {
         product.sku.toLowerCase().includes(query);
       const matchesCategory =
         category === "all" || product.category === category;
-      return matchesSearch && matchesCategory && product.isActive;
+      return matchesSearch && matchesCategory;
     });
   }, [products, search, category]);
 

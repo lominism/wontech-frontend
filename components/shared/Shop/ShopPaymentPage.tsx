@@ -6,16 +6,22 @@ import { ArrowLeft, CheckCircle2, Loader2 } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { Link } from "@/i18n/navigation";
 import { createCheckoutSession, getPaymentStatus } from "@/lib/api/public";
+import { shopProductPath, type ShopPartner } from "@/lib/shop-url";
 
 type Props = {
   clinicId: string;
   productId: string;
+  partner?: ShopPartner;
 };
 
 const POLL_INTERVAL_MS = 1500;
 const POLL_TIMEOUT_MS = 30000;
 
-export function ShopPaymentPage({ clinicId, productId }: Props) {
+export function ShopPaymentPage({
+  clinicId,
+  productId,
+  partner = "clinic",
+}: Props) {
   const t = useTranslations("shop.payment");
   const locale = useLocale();
   const searchParams = useSearchParams();
@@ -28,9 +34,9 @@ export function ShopPaymentPage({ clinicId, productId }: Props) {
   const [trackingToken, setTrackingToken] = useState<string | null>(null);
 
   const buildPayPath = useCallback(() => {
-    const base = `${window.location.origin}/${locale}/shop/${clinicId}/${productId}/checkout/pay`;
+    const base = `${window.location.origin}/${locale}${shopProductPath(partner, clinicId, productId)}/checkout/pay`;
     return orderId ? `${base}?orderId=${orderId}` : base;
-  }, [clinicId, locale, orderId, productId]);
+  }, [clinicId, locale, orderId, partner, productId]);
 
   const pollPaymentStatus = useCallback(async (stripeSessionId: string) => {
     const deadline = Date.now() + POLL_TIMEOUT_MS;
@@ -92,7 +98,7 @@ export function ShopPaymentPage({ clinicId, productId }: Props) {
     try {
       const payPath = buildPayPath();
       const successUrl = `${payPath}&session_id={CHECKOUT_SESSION_ID}`;
-      const cancelUrl = `${window.location.origin}/${locale}/shop/${clinicId}/${productId}/checkout`;
+      const cancelUrl = `${window.location.origin}/${locale}${shopProductPath(partner, clinicId, productId)}/checkout`;
 
       const { checkoutUrl } = await createCheckoutSession(
         orderId,
@@ -178,7 +184,7 @@ export function ShopPaymentPage({ clinicId, productId }: Props) {
           {redirecting ? t("redirecting") : t("payNow")}
         </button>
         <Link
-          href={`/shop/${clinicId}/${productId}/checkout`}
+          href={`${shopProductPath(partner, clinicId, productId)}/checkout`}
           className="inline-flex w-fit items-center gap-1.5 text-sm text-[#6B6560] transition-colors hover:text-[#2A2A2A]"
         >
           <ArrowLeft size={15} />

@@ -56,6 +56,7 @@ export function DeleteProductDialog({ open, onOpenChange, product }: Props) {
         price: product.price,
         stock: product.stock,
         commission: product.commission,
+        kolCommission: product.kolCommission,
         description: product.description,
         brand: product.brand,
         weight: product.weight,
