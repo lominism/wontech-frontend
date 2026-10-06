@@ -1,4 +1,49 @@
 {
+  "menu": {
+    "account": "บัญชี",
+    "companySettings": "ตั้งค่าบริษัท"
+  },
+  "account": {
+    "title": "บัญชี",
+    "comingSoon": "การตั้งค่าบัญชีจะพร้อมใช้งานเร็วๆ นี้"
+  },
+  "company": {
+    "title": "ตั้งค่าบริษัท",
+    "tabs": {
+      "productCategories": "หมวดหมู่สินค้า",
+      "agency": "เอเจนซี่"
+    },
+    "agencyEmpty": "ยังไม่มีเอเจนซี่ สร้างได้เมื่อเพิ่มอินฟลูเอนเซอร์",
+    "agenciesLoading": "กำลังโหลดเอเจนซี่…",
+    "agenciesLoadError": "ไม่สามารถโหลดเอเจนซี่ได้",
+    "agenciesEmpty": "ยังไม่มีเอเจนซี่ สร้างได้เมื่อเพิ่มอินฟลูเอนเซอร์",
+    "agencyName": "เอเจนซี่",
+    "agencyInfluencers": "อินฟลูเอนเซอร์",
+    "agencyCredit": "เครดิต",
+    "deleteAgency": "ลบเอเจนซี่",
+    "deleteAgencyTitle": "ลบเอเจนซี่?",
+    "deleteAgencyDescription": "อินฟลูเอนเซอร์ใน “{name}” จะกลายเป็นอิสระ เครดิตของเอเจนซี่ต้องเป็น 0 จึงจะลบได้ การกระทำนี้ไม่สามารถย้อนกลับได้",
+    "agencyDeleteSuccess": "ลบเอเจนซี่แล้ว",
+    "agencyDeleteFailed": "ไม่สามารถลบเอเจนซี่ได้",
+    "categoriesLoading": "กำลังโหลดหมวดหมู่…",
+    "categoriesLoadError": "ไม่สามารถโหลดหมวดหมู่สินค้าได้",
+    "categoriesEmpty": "ยังไม่มีหมวดหมู่สินค้า เพิ่มหมวดหมู่เพื่อเริ่มต้น",
+    "retry": "ลองอีกครั้ง",
+    "categoryNamePlaceholder": "ชื่อหมวดหมู่",
+    "categoryNameRequired": "กรุณาระบุชื่อหมวดหมู่",
+    "addCategory": "เพิ่ม",
+    "adding": "กำลังเพิ่ม…",
+    "deleteCategory": "ลบหมวดหมู่",
+    "deleteCategoryTitle": "ลบหมวดหมู่?",
+    "deleteCategoryDescription": "สินค้าที่ใช้ “{name}” จะถูกล้างหมวดหมู่ การกระทำนี้ไม่สามารถย้อนกลับได้",
+    "cancel": "ยกเลิก",
+    "confirmDelete": "ลบ",
+    "deleting": "กำลังลบ…",
+    "categoryAddSuccess": "เพิ่มหมวดหมู่แล้ว",
+    "categoryAddFailed": "ไม่สามารถเพิ่มหมวดหมู่ได้",
+    "categoryDeleteSuccess": "ลบหมวดหมู่แล้ว",
+    "categoryDeleteFailed": "ไม่สามารถลบหมวดหมู่ได้"
+  },
   "members": {
     "teamMembers": "สมาชิกทีม",
     "invitedTeamMembers": "สมาชิกทีมที่เชิญ",

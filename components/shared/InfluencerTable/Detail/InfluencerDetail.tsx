@@ -7,7 +7,6 @@ import { Link } from "@/i18n/navigation";
 import { useAuth } from "@/providers/AuthProvider";
 import { useInfluencer } from "@/lib/queries/useInfluencer";
 import { useInfluencersLookup } from "@/lib/queries/useInfluencersLookup";
-import { getClinicBranches } from "@/lib/mock-data";
 import { useInfluencerCreditLedger } from "@/lib/queries/useInfluencerCreditLedger";
 import { InfluencerInfoCard } from "./InfluencerInfoCard";
 import { InfluencerFinancialCard } from "./InfluencerFinancialCard";
@@ -37,23 +36,18 @@ export function InfluencerDetail({ influencerId }: Props) {
     enabled: !authLoading && !!user,
   });
 
-  const { parent, branches } = useMemo(() => {
-    if (!influencer) return { parent: null, branches: [] };
-
-    const parentInfluencer = influencer.parentId
-      ? allInfluencers.find((c) => c.id === influencer.parentId) ?? null
-      : null;
-
-    return {
-      parent: parentInfluencer,
-      branches: parentInfluencer ? getClinicBranches(influencer, allInfluencers) : [],
-    };
+  const peers = useMemo(() => {
+    if (!influencer?.agencyId) return [];
+    return allInfluencers.filter(
+      (item) =>
+        item.agencyId === influencer.agencyId && item.id !== influencer.id
+    );
   }, [influencer, allInfluencers]);
 
-  const { data: history = [], isLoading: historyLoading } = useInfluencerCreditLedger(
-    influencerId,
-    { enabled: !authLoading && !!user }
-  );
+  const { data: history = [], isLoading: historyLoading } =
+    useInfluencerCreditLedger(influencerId, {
+      enabled: !authLoading && !!user,
+    });
 
   if (authLoading || isLoading) {
     return (
@@ -106,7 +100,7 @@ export function InfluencerDetail({ influencerId }: Props) {
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
         <div className="lg:col-span-1">
-          <InfluencerInfoCard influencer={influencer} branches={branches} parent={parent} />
+          <InfluencerInfoCard influencer={influencer} peers={peers} />
         </div>
 
         <div className="flex flex-col gap-6 lg:col-span-2">

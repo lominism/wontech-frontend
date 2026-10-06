@@ -25,8 +25,12 @@ export const ORDER_MANUAL_STATUSES = [
 
 export const ORDER_SOURCES = ["wontech", "lazada", "shopee"] as const;
 
+/** Includes public storefront purchases (not selectable in New Order). */
+export type OrderSource =
+  | (typeof ORDER_SOURCES)[number]
+  | "storefront";
+
 export type OrderStatus = (typeof ORDER_STATUSES)[number];
-export type OrderSource = (typeof ORDER_SOURCES)[number];
 export type OrderManualStatus = (typeof ORDER_MANUAL_STATUSES)[number];
 
 export type Order = {

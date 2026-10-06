@@ -17,11 +17,10 @@ import { EditInfluencerContactDialog } from "./EditInfluencerContactDialog";
 
 type Props = {
   influencer: Influencer;
-  branches: Influencer[];
-  parent?: Influencer | null;
+  peers: Influencer[];
 };
 
-export function InfluencerInfoCard({ influencer, branches, parent }: Props) {
+export function InfluencerInfoCard({ influencer, peers }: Props) {
   const t = useTranslations("influencer.detail");
   const [editOpen, setEditOpen] = useState(false);
 
@@ -108,37 +107,33 @@ export function InfluencerInfoCard({ influencer, branches, parent }: Props) {
         <Separator />
         <div className="flex flex-col gap-1 text-sm">
           <span className="font-medium text-muted-foreground">
-            {t("parentInfluencer")}
+            {t("agency")}
           </span>
-          {parent ? (
-            <span className="font-semibold text-primary">{parent.name}</span>
+          {influencer.agencyName ? (
+            <span className="font-semibold text-primary">
+              {influencer.agencyName}
+            </span>
           ) : (
             <span className="text-sm text-muted-foreground">{t("none")}</span>
           )}
         </div>
 
-        {branches.length > 0 && (
+        {peers.length > 0 && (
           <>
             <Separator />
             <div className="flex flex-col gap-2">
               <span className="text-sm font-medium text-muted-foreground">
-                {t("branches")}
+                {t("peers")}
               </span>
               <ul className="flex flex-col gap-1.5">
-                {branches.map((branch) => (
-                  <li key={branch.id}>
-                    {branch.id === influencer.id ? (
-                      <span className="text-sm font-semibold text-primary">
-                        {branch.name}
-                      </span>
-                    ) : (
-                      <Link
-                        href={`/influencer/${branch.id}`}
-                        className="text-sm font-medium hover:text-primary hover:underline"
-                      >
-                        {branch.name}
-                      </Link>
-                    )}
+                {peers.map((peer) => (
+                  <li key={peer.id}>
+                    <Link
+                      href={`/influencer/${peer.id}`}
+                      className="text-sm font-medium hover:text-primary hover:underline"
+                    >
+                      {peer.name}
+                    </Link>
                   </li>
                 ))}
               </ul>

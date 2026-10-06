@@ -95,7 +95,7 @@ export function NewOrderDialog({ open, onOpenChange }: Props) {
     [lookupClinics]
   );
   const influencerOptions = useMemo(
-    () => getListableClinics(lookupInfluencers),
+    () => lookupInfluencers,
     [lookupInfluencers]
   );
   const selectedProduct = activeProducts.find(

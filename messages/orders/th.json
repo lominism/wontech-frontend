@@ -72,7 +72,8 @@
     "sources": {
       "wontech": "Wontech",
       "lazada": "Lazada",
-      "shopee": "Shopee"
+      "shopee": "Shopee",
+      "storefront": "ร้านค้า"
     },
     "validation": {
       "productRequired": "กรุณาเลือกสินค้า",

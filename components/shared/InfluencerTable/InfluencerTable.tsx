@@ -12,7 +12,6 @@ import { useRouter } from "@/i18n/navigation";
 
 type Props = {
   data: Influencer[];
-  allInfluencers: Influencer[];
   sortBy: string;
   sortDir: SortDirection;
   onSort: (columnId: string) => void;
@@ -20,19 +19,9 @@ type Props = {
 
 const columnHelper = createColumnHelper<Influencer>();
 
-export function InfluencerTable({
-  data,
-  allInfluencers,
-  sortBy,
-  sortDir,
-  onSort,
-}: Props) {
+export function InfluencerTable({ data, sortBy, sortDir, onSort }: Props) {
   const t = useTranslations("influencer.table");
   const router = useRouter();
-
-  const parentMap = Object.fromEntries(
-    allInfluencers.map((c) => [c.id, c.name])
-  );
 
   const columns = [
     columnHelper.accessor("name", {
@@ -99,25 +88,22 @@ export function InfluencerTable({
         </Badge>
       ),
     }),
-    columnHelper.accessor("parentId", {
-      id: "parent",
+    columnHelper.accessor("agencyName", {
+      id: "agency",
       header: () => (
         <SortableColumnHeader
-          label={t("parent")}
-          columnId="parent"
+          label={t("agency")}
+          columnId="agency"
           sortBy={sortBy}
           sortDir={sortDir}
           onSort={onSort}
         />
       ),
-      cell: (info) => {
-        const parentId = info.getValue();
-        return (
-          <span className="text-muted-foreground">
-            {parentId ? parentMap[parentId] ?? "—" : t("noParent")}
-          </span>
-        );
-      },
+      cell: (info) => (
+        <span className="text-muted-foreground">
+          {info.getValue() || t("noAgency")}
+        </span>
+      ),
     }),
   ];
 

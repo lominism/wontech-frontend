@@ -55,7 +55,9 @@ export function ProductCard({ product }: Props) {
 
         <div className="flex items-center justify-between text-sm">
           <span className="text-muted-foreground">{t("category")}</span>
-          <Badge variant="secondary">{product.category}</Badge>
+          <Badge variant="secondary">
+            {product.category || t("none")}
+          </Badge>
         </div>
 
         <div className="flex items-center justify-between text-sm">

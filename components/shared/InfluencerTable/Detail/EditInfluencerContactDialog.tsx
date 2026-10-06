@@ -25,11 +25,21 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { useRouter } from "@/i18n/navigation";
 import { useAuth } from "@/providers/AuthProvider";
 import { type Influencer } from "@/lib/api/influencers";
+import { useAgencies } from "@/lib/queries/useAgencies";
 import { useUpdateInfluencerContact } from "@/lib/queries/useUpdateInfluencerContact";
 import { useDeleteInfluencer } from "@/lib/queries/useDeleteInfluencer";
+
+const AGENCY_NONE = "__none__";
 
 type Props = {
   open: boolean;
@@ -43,13 +53,19 @@ type FormState = {
   addressCode: string;
   contactEmail: string;
   contactPhone: string;
+  agencyId: string;
 };
 
-export function EditInfluencerContactDialog({ open, onOpenChange, influencer }: Props) {
+export function EditInfluencerContactDialog({
+  open,
+  onOpenChange,
+  influencer,
+}: Props) {
   const t = useTranslations("influencer.detail.editContact");
   const router = useRouter();
   const { profile } = useAuth();
   const isOwner = profile?.role === "owner";
+  const { data: agencies = [] } = useAgencies({ enabled: open });
   const { mutateAsync, isPending } = useUpdateInfluencerContact(influencer.id);
   const deleteInfluencer = useDeleteInfluencer();
   const [confirmOpen, setConfirmOpen] = useState(false);
@@ -59,6 +75,7 @@ export function EditInfluencerContactDialog({ open, onOpenChange, influencer }: 
     addressCode: "",
     contactEmail: "",
     contactPhone: "",
+    agencyId: AGENCY_NONE,
   });
 
   const update = (key: keyof FormState, value: string) =>
@@ -72,6 +89,7 @@ export function EditInfluencerContactDialog({ open, onOpenChange, influencer }: 
         addressCode: influencer.addressCode ?? "",
         contactEmail: influencer.contactEmail ?? "",
         contactPhone: influencer.contactPhone ?? "",
+        agencyId: influencer.agencyId ?? AGENCY_NONE,
       });
     }
   }, [
@@ -81,6 +99,7 @@ export function EditInfluencerContactDialog({ open, onOpenChange, influencer }: 
     influencer.addressCode,
     influencer.contactEmail,
     influencer.contactPhone,
+    influencer.agencyId,
   ]);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -92,6 +111,7 @@ export function EditInfluencerContactDialog({ open, onOpenChange, influencer }: 
         addressCode: form.addressCode.trim(),
         contactEmail: form.contactEmail.trim(),
         contactPhone: form.contactPhone.trim(),
+        agencyId: form.agencyId === AGENCY_NONE ? null : form.agencyId,
       });
       toast.success(t("success"));
       onOpenChange(false);
@@ -195,6 +215,27 @@ export function EditInfluencerContactDialog({ open, onOpenChange, influencer }: 
                 placeholder={t("phonePlaceholder")}
                 required
               />
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <Label htmlFor="edit-influencer-agency">{t("agency")}</Label>
+              <Select
+                value={form.agencyId}
+                onValueChange={(value) => update("agencyId", value)}
+              >
+                <SelectTrigger id="edit-influencer-agency">
+                  <SelectValue placeholder={t("agencyPlaceholder")} />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value={AGENCY_NONE}>{t("noAgency")}</SelectItem>
+                  {agencies.map((agency) => (
+                    <SelectItem key={agency.id} value={agency.id}>
+                      {agency.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <p className="text-muted-foreground text-xs">{t("agencyHint")}</p>
             </div>
 
             <DialogFooter className="mt-2 sm:justify-between">

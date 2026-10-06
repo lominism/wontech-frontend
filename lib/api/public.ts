@@ -4,7 +4,7 @@ export type PublicShopProduct = {
   id: string;
   name: string;
   sku: string;
-  category: string;
+  category: string | null;
   price: number;
   description: string | null;
   brand: string | null;
@@ -77,6 +77,14 @@ export async function getPublicShopProduct(
   productId: string,
   partner: ShopPartner = "clinic"
 ): Promise<PublicShopResponse> {
+  if (partner === "storefront") {
+    const product = await getStorefrontProduct(productId);
+    return {
+      clinic: { id: "", name: "" },
+      product,
+    };
+  }
+
   const path =
     partner === "influencer"
       ? `/public/shop/influencer/${partnerId}/${productId}`
@@ -89,6 +97,35 @@ export async function getPublicShopProduct(
   }
 
   return res.json() as Promise<PublicShopResponse>;
+}
+
+export async function listStorefrontProducts(): Promise<PublicShopProduct[]> {
+  const res = await fetch(`${apiUrl()}/public/storefront/products`, {
+    cache: "no-store",
+  });
+
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(text || "Failed to load products");
+  }
+
+  return res.json() as Promise<PublicShopProduct[]>;
+}
+
+export async function getStorefrontProduct(
+  productId: string
+): Promise<PublicShopProduct> {
+  const res = await fetch(
+    `${apiUrl()}/public/storefront/products/${productId}`,
+    { cache: "no-store" }
+  );
+
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(text || "Failed to load product");
+  }
+
+  return res.json() as Promise<PublicShopProduct>;
 }
 
 export async function createPublicOrder(

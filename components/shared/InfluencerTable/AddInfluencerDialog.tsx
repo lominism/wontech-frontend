@@ -21,16 +21,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { type Influencer } from "@/lib/api/influencers";
+import { useAgencies } from "@/lib/queries/useAgencies";
 import { useCreateInfluencer } from "@/lib/queries/useCreateInfluencer";
 
-const PARENT_NONE = "none";
-const PARENT_NEW = "__new__";
+const AGENCY_NONE = "none";
+const AGENCY_NEW = "__new__";
 
 type Props = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  parentOptions: Influencer[];
 };
 
 type FormState = {
@@ -40,8 +39,8 @@ type FormState = {
   addressCode: string;
   contactEmail: string;
   contactPhone: string;
-  parentOption: string;
-  newParentName: string;
+  agencyOption: string;
+  newAgencyName: string;
 };
 
 const emptyForm: FormState = {
@@ -51,16 +50,17 @@ const emptyForm: FormState = {
   addressCode: "",
   contactEmail: "",
   contactPhone: "",
-  parentOption: PARENT_NONE,
-  newParentName: "",
+  agencyOption: AGENCY_NONE,
+  newAgencyName: "",
 };
 
-export function AddInfluencerDialog({ open, onOpenChange, parentOptions }: Props) {
+export function AddInfluencerDialog({ open, onOpenChange }: Props) {
   const t = useTranslations("influencer.dialog");
   const { mutateAsync, isPending } = useCreateInfluencer();
+  const { data: agencies = [] } = useAgencies({ enabled: open });
   const [form, setForm] = useState<FormState>(emptyForm);
 
-  const showNewParentField = form.parentOption === PARENT_NEW;
+  const showNewAgencyField = form.agencyOption === AGENCY_NEW;
 
   const update = (key: keyof FormState, value: string) =>
     setForm((prev) => ({ ...prev, [key]: value }));
@@ -72,8 +72,8 @@ export function AddInfluencerDialog({ open, onOpenChange, parentOptions }: Props
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (form.parentOption === PARENT_NEW && !form.newParentName.trim()) {
-      toast.error(t("newParentNameRequired"));
+    if (form.agencyOption === AGENCY_NEW && !form.newAgencyName.trim()) {
+      toast.error(t("newAgencyNameRequired"));
       return;
     }
 
@@ -85,12 +85,12 @@ export function AddInfluencerDialog({ open, onOpenChange, parentOptions }: Props
         addressCode: form.addressCode.trim(),
         contactEmail: form.contactEmail.trim(),
         contactPhone: form.contactPhone.trim(),
-        parentInfluencerId:
-          form.parentOption !== PARENT_NONE && form.parentOption !== PARENT_NEW
-            ? form.parentOption
+        agencyId:
+          form.agencyOption !== AGENCY_NONE && form.agencyOption !== AGENCY_NEW
+            ? form.agencyOption
             : null,
-        newParentName:
-          form.parentOption === PARENT_NEW ? form.newParentName.trim() : null,
+        newAgencyName:
+          form.agencyOption === AGENCY_NEW ? form.newAgencyName.trim() : null,
       };
 
       await mutateAsync(payload);
@@ -132,7 +132,10 @@ export function AddInfluencerDialog({ open, onOpenChange, parentOptions }: Props
             <Label>{t("address")}</Label>
             <div className="flex flex-col gap-3 rounded-lg border p-3">
               <div className="flex flex-col gap-2">
-                <Label htmlFor="influencer-address-street" className="text-muted-foreground text-xs">
+                <Label
+                  htmlFor="influencer-address-street"
+                  className="text-muted-foreground text-xs"
+                >
                   {t("addressStreet")}
                 </Label>
                 <Input
@@ -144,7 +147,10 @@ export function AddInfluencerDialog({ open, onOpenChange, parentOptions }: Props
                 />
               </div>
               <div className="flex flex-col gap-2">
-                <Label htmlFor="influencer-address-city" className="text-muted-foreground text-xs">
+                <Label
+                  htmlFor="influencer-address-city"
+                  className="text-muted-foreground text-xs"
+                >
                   {t("addressCity")}
                 </Label>
                 <Input
@@ -156,7 +162,10 @@ export function AddInfluencerDialog({ open, onOpenChange, parentOptions }: Props
                 />
               </div>
               <div className="flex flex-col gap-2">
-                <Label htmlFor="influencer-address-code" className="text-muted-foreground text-xs">
+                <Label
+                  htmlFor="influencer-address-code"
+                  className="text-muted-foreground text-xs"
+                >
                   {t("addressCode")}
                 </Label>
                 <Input
@@ -195,39 +204,39 @@ export function AddInfluencerDialog({ open, onOpenChange, parentOptions }: Props
           </div>
 
           <div className="flex flex-col gap-2">
-            <Label htmlFor="parent-influencer">{t("parentInfluencer")}</Label>
+            <Label htmlFor="influencer-agency">{t("agency")}</Label>
             <Select
-              value={form.parentOption}
-              onValueChange={(value) => update("parentOption", value)}
+              value={form.agencyOption}
+              onValueChange={(value) => update("agencyOption", value)}
             >
-              <SelectTrigger id="parent-influencer">
-                <SelectValue placeholder={t("parentPlaceholder")} />
+              <SelectTrigger id="influencer-agency">
+                <SelectValue placeholder={t("agencyPlaceholder")} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value={PARENT_NONE}>{t("noParent")}</SelectItem>
-                {parentOptions.map((influencer) => (
-                  <SelectItem key={influencer.id} value={influencer.id}>
-                    {influencer.name}
+                <SelectItem value={AGENCY_NONE}>{t("noAgency")}</SelectItem>
+                {agencies.map((agency) => (
+                  <SelectItem key={agency.id} value={agency.id}>
+                    {agency.name}
                   </SelectItem>
                 ))}
-                <SelectItem value={PARENT_NEW}>{t("createNewParent")}</SelectItem>
+                <SelectItem value={AGENCY_NEW}>{t("createNewAgency")}</SelectItem>
               </SelectContent>
             </Select>
-            <p className="text-muted-foreground text-xs">{t("parentHint")}</p>
+            <p className="text-muted-foreground text-xs">{t("agencyHint")}</p>
           </div>
 
-          {showNewParentField && (
+          {showNewAgencyField && (
             <div className="flex flex-col gap-2">
-              <Label htmlFor="new-parent-name">{t("newParentName")}</Label>
+              <Label htmlFor="new-agency-name">{t("newAgencyName")}</Label>
               <Input
-                id="new-parent-name"
-                value={form.newParentName}
-                onChange={(e) => update("newParentName", e.target.value)}
-                placeholder={t("newParentNamePlaceholder")}
+                id="new-agency-name"
+                value={form.newAgencyName}
+                onChange={(e) => update("newAgencyName", e.target.value)}
+                placeholder={t("newAgencyNamePlaceholder")}
                 required
               />
               <p className="text-muted-foreground text-xs">
-                {t("newParentHint")}
+                {t("newAgencyHint")}
               </p>
             </div>
           )}

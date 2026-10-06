@@ -6,13 +6,13 @@ import { type ShopPartner } from "@/lib/shop-url";
 import { ShopProductView } from "./ShopProductView";
 
 type Props = {
-  clinicId: string;
+  clinicId?: string;
   productId: string;
   partner?: ShopPartner;
 };
 
 export function ShopProductPage({
-  clinicId,
+  clinicId = "",
   productId,
   partner = "clinic",
 }: Props) {

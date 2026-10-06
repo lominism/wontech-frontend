@@ -11,7 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { productCategories } from "@/lib/mock-data";
+import { useProductCategories } from "@/lib/queries/useProductCategories";
 import { cn } from "@/lib/utils";
 
 export type InventoryView = "grid" | "list";
@@ -36,6 +36,7 @@ export function InventoryToolbar({
   onViewChange,
 }: Props) {
   const t = useTranslations("inventory");
+  const { data: categories = [] } = useProductCategories();
 
   return (
     <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
@@ -59,9 +60,9 @@ export function InventoryToolbar({
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">{t("actions.allCategories")}</SelectItem>
-            {productCategories.map((cat) => (
-              <SelectItem key={cat} value={cat}>
-                {cat}
+            {categories.map((cat) => (
+              <SelectItem key={cat.id} value={cat.name}>
+                {cat.name}
               </SelectItem>
             ))}
           </SelectContent>

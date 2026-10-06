@@ -26,6 +26,7 @@ export function ShopProductView({
   const { clinic, product } = data;
   const maxQuantity = Math.max(1, product.stockAvailable || 1);
   const [quantity, setQuantity] = useState(1);
+  const isStorefront = partner === "storefront";
 
   const displayImages =
     product.images.length > 0
@@ -53,9 +54,11 @@ export function ShopProductView({
 
         <div className="flex flex-col gap-8 lg:py-4">
           <div className="flex flex-col gap-3">
-            <p className="text-xs font-medium uppercase tracking-[0.22em] text-[#6B6560]">
-              {t("soldBy", { clinic: clinic.name })}
-            </p>
+            {!isStorefront && clinic.name ? (
+              <p className="text-xs font-medium uppercase tracking-[0.22em] text-[#6B6560]">
+                {t("soldBy", { clinic: clinic.name })}
+              </p>
+            ) : null}
             {product.brand && (
               <p className="text-sm uppercase tracking-[0.18em] text-[#3D5A4C]">
                 {product.brand}
@@ -67,7 +70,9 @@ export function ShopProductView({
             >
               {product.name}
             </h1>
-            <p className="text-sm text-[#6B6560]">{product.category}</p>
+            {product.category ? (
+              <p className="text-sm text-[#6B6560]">{product.category}</p>
+            ) : null}
           </div>
 
           <div className="border-y border-[#E8DFD4] py-6">

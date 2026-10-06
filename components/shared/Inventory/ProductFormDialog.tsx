@@ -23,11 +23,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { productCategories } from "@/lib/mock-data";
 import { type InventoryProduct } from "@/lib/api/products";
 import { useCreateProduct } from "@/lib/queries/useCreateProduct";
+import { useProductCategories } from "@/lib/queries/useProductCategories";
 import { useUpdateProduct } from "@/lib/queries/useUpdateProduct";
 import { ProductImagesUpload } from "./ProductImagesUpload";
+
+const CATEGORY_NONE = "__none__";
 
 type Props = {
   open: boolean;
@@ -69,7 +71,7 @@ function productToForm(product: InventoryProduct): FormState {
   return {
     name: product.name,
     sku: product.sku,
-    category: product.category,
+    category: product.category ?? "",
     price: String(product.price),
     stock: String(product.stock),
     commission: product.commission != null ? String(product.commission) : "",
@@ -90,6 +92,7 @@ export function ProductFormDialog({ open, onOpenChange, product }: Props) {
     useCreateProduct();
   const { mutateAsync: updateProduct, isPending: isUpdating } =
     useUpdateProduct(product?.id ?? "");
+  const { data: categories = [] } = useProductCategories({ enabled: open });
   const isPending = isCreating || isUpdating;
 
   const [form, setForm] = useState<FormState>(emptyForm);
@@ -124,15 +127,11 @@ export function ProductFormDialog({ open, onOpenChange, product }: Props) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.category) {
-      toast.error(t("categoryPlaceholder"));
-      return;
-    }
 
     const payload = {
       sku: form.sku.trim(),
       name: form.name.trim(),
-      category: form.category,
+      category: form.category.trim() || null,
       price: Number(form.price),
       stock: Number(form.stock),
       commission: form.commission ? Number(form.commission) : null,
@@ -208,16 +207,19 @@ export function ProductFormDialog({ open, onOpenChange, product }: Props) {
           <div className="flex flex-col gap-2">
             <Label htmlFor="category">{t("category")}</Label>
             <Select
-              value={form.category}
-              onValueChange={(value) => update("category", value)}
+              value={form.category || CATEGORY_NONE}
+              onValueChange={(value) =>
+                update("category", value === CATEGORY_NONE ? "" : value)
+              }
             >
               <SelectTrigger id="category">
                 <SelectValue placeholder={t("categoryPlaceholder")} />
               </SelectTrigger>
               <SelectContent>
-                {productCategories.map((cat) => (
-                  <SelectItem key={cat} value={cat}>
-                    {cat}
+                <SelectItem value={CATEGORY_NONE}>{t("categoryNone")}</SelectItem>
+                {categories.map((cat) => (
+                  <SelectItem key={cat.id} value={cat.name}>
+                    {cat.name}
                   </SelectItem>
                 ))}
               </SelectContent>

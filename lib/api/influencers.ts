@@ -4,8 +4,8 @@ export const INFLUENCER_PAGE_SIZE = 10;
 
 export type InfluencerResponse = {
   id: string;
-  group_id: string;
-  parent_influencer_id?: string | null;
+  agency_id?: string | null;
+  agency_name?: string | null;
   name: string;
   address_street: string;
   address_city: string;
@@ -40,7 +40,8 @@ export type Influencer = {
   itemsSold: number;
   revenue: number;
   credit: number;
-  parentId: string | null;
+  agencyId: string | null;
+  agencyName: string | null;
 };
 
 export function mapInfluencerResponse(row: InfluencerResponse): Influencer {
@@ -55,7 +56,8 @@ export function mapInfluencerResponse(row: InfluencerResponse): Influencer {
     itemsSold: row.items_sold ?? 0,
     revenue: row.revenue ?? 0,
     credit: row.credit ?? 0,
-    parentId: row.parent_influencer_id ?? null,
+    agencyId: row.agency_id ?? null,
+    agencyName: row.agency_name ?? null,
   };
 }
 
@@ -213,8 +215,8 @@ export type CreateInfluencerPayload = {
   addressCode: string;
   contactEmail: string;
   contactPhone: string;
-  parentInfluencerId?: string | null;
-  newParentName?: string | null;
+  agencyId?: string | null;
+  newAgencyName?: string | null;
 };
 
 export async function createInfluencer(
@@ -265,6 +267,7 @@ export type UpdateInfluencerContactPayload = {
   addressCode?: string;
   contactEmail?: string;
   contactPhone?: string;
+  agencyId?: string | null;
 };
 
 export async function updateInfluencerContact(

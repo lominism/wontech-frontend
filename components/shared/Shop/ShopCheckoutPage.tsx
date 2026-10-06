@@ -14,13 +14,13 @@ import { ShopQuantitySelector } from "./ShopQuantitySelector";
 import { shopInputClass } from "./shop-theme";
 
 type Props = {
-  clinicId: string;
+  clinicId?: string;
   productId: string;
   partner?: ShopPartner;
 };
 
 export function ShopCheckoutPage({
-  clinicId,
+  clinicId = "",
   productId,
   partner = "clinic",
 }: Props) {
@@ -32,6 +32,7 @@ export function ShopCheckoutPage({
   });
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const productBasePath = shopProductPath(partner, clinicId, productId);
 
   const maxQuantity = Math.max(1, data?.product.stockAvailable ?? 1);
   const initialQty = Math.min(
@@ -65,16 +66,20 @@ export function ShopCheckoutPage({
     setError(null);
 
     try {
+      const partnerIds =
+        partner === "storefront"
+          ? {}
+          : partner === "influencer"
+            ? { influencerId: clinicId }
+            : { clinicId };
       const result = await createPublicOrder({
-        ...(partner === "influencer"
-          ? { influencerId: clinicId }
-          : { clinicId }),
+        ...partnerIds,
         productId,
         quantity,
         ...form,
       });
       router.push(
-        `${shopProductPath(partner, clinicId, productId)}/checkout/pay?orderId=${result.orderId}`
+        `${productBasePath}/checkout/pay?orderId=${result.orderId}`
       );
     } catch (err) {
       const message = err instanceof Error ? err.message : "";
@@ -103,7 +108,7 @@ export function ShopCheckoutPage({
   return (
     <div className="flex flex-col gap-8">
       <Link
-        href={shopProductPath(partner, clinicId, productId)}
+        href={productBasePath}
         className="inline-flex w-fit items-center gap-1.5 text-sm text-[#6B6560] transition-colors hover:text-[#2A2A2A]"
       >
         <ArrowLeft size={15} />

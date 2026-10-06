@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
-import { getParentClinicOptions } from "@/lib/mock-data";
 import { useAuth } from "@/providers/AuthProvider";
 import { useDebouncedValue } from "@/lib/hooks/useDebouncedValue";
 import {
@@ -11,7 +10,6 @@ import {
   type SortDirection,
 } from "@/lib/sorting";
 import { useInfluencersPaginated } from "@/lib/queries/useInfluencersPaginated";
-import { useInfluencersLookup } from "@/lib/queries/useInfluencersLookup";
 import { SearchBar } from "@/components/shared/InfluencerTable/SearchBar";
 import { InfluencerTable } from "@/components/shared/InfluencerTable/InfluencerTable";
 import { InfluencersPagination } from "@/components/shared/InfluencerTable/InfluencersPagination";
@@ -32,12 +30,6 @@ export function InfluencerContainer() {
   useEffect(() => {
     setPage(1);
   }, [debouncedSearch, sortBy, sortDir]);
-
-  const {
-    data: lookupInfluencers = [],
-  } = useInfluencersLookup({
-    enabled: !authLoading && !!user,
-  });
 
   const {
     data,
@@ -64,8 +56,6 @@ export function InfluencerContainer() {
       setPage(totalPages);
     }
   }, [page, totalPages]);
-
-  const parentOptions = getParentClinicOptions(lookupInfluencers);
 
   const isInitialLoading = isLoading && !data;
   const isRefreshing = isFetching && !isInitialLoading;
@@ -113,7 +103,6 @@ export function InfluencerContainer() {
           >
             <InfluencerTable
               data={influencers}
-              allInfluencers={lookupInfluencers}
               sortBy={sortBy}
               sortDir={sortDir}
               onSort={handleSort}
@@ -128,11 +117,7 @@ export function InfluencerContainer() {
         </>
       )}
 
-      <AddInfluencerDialog
-        open={isAddOpen}
-        onOpenChange={setIsAddOpen}
-        parentOptions={parentOptions}
-      />
+      <AddInfluencerDialog open={isAddOpen} onOpenChange={setIsAddOpen} />
     </div>
   );
 }

@@ -7,7 +7,7 @@ import {
 export type CreateProductPayload = {
   sku: string;
   name: string;
-  category: string;
+  category?: string | null;
   price: number;
   stock: number;
   commission?: number | null;
@@ -29,7 +29,7 @@ export type ProductResponse = {
   id: string;
   sku: string;
   name: string;
-  category: string;
+  category: string | null;
   price: string;
   commission_amount: string | null;
   kol_commission_amount: string | null;
@@ -50,7 +50,7 @@ export type InventoryProduct = {
   id: string;
   name: string;
   sku: string;
-  category: string;
+  category: string | null;
   price: number;
   commission: number | null;
   kolCommission: number | null;
@@ -72,7 +72,7 @@ export function mapProductResponse(row: ProductResponse): InventoryProduct {
     id: row.id,
     name: row.name,
     sku: row.sku,
-    category: row.category,
+    category: row.category ?? null,
     price: Number(row.price),
     commission:
       row.commission_amount != null ? Number(row.commission_amount) : null,

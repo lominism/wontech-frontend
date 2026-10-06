@@ -110,5 +110,17 @@
     "emptyClinics": "No clinics found.",
     "totalClinics": "{count} clinics",
     "retry": "Try again"
+  },
+  "storefront": {
+    "title": "Shop Our Products",
+    "description": "Browse our clinic and beauty essentials. Choose a product to view details and checkout.",
+    "searchPlaceholder": "Search products…",
+    "allCategories": "All categories",
+    "loading": "Loading products…",
+    "loadError": "Could not load products.",
+    "retry": "Try again",
+    "empty": "No products match your search.",
+    "inStock": "In stock",
+    "outOfStock": "Out of stock"
   }
 }

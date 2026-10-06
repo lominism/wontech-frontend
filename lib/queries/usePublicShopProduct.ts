@@ -3,7 +3,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { getPublicShopProduct } from "@/lib/api/public";
 import { type ShopPartner } from "@/lib/shop-url";
-import { publicShopKeys } from "./publicKeys";
+import { publicShopKeys, storefrontKeys } from "./publicKeys";
 
 type Options = {
   enabled?: boolean;
@@ -15,9 +15,16 @@ export function usePublicShopProduct(
   productId: string,
   { enabled = true, partner = "clinic" }: Options = {}
 ) {
+  const isStorefront = partner === "storefront";
+
   return useQuery({
-    queryKey: publicShopKeys.detail(partner, partnerId, productId),
+    queryKey: isStorefront
+      ? storefrontKeys.detail(productId)
+      : publicShopKeys.detail(partner, partnerId, productId),
     queryFn: () => getPublicShopProduct(partnerId, productId, partner),
-    enabled: enabled && !!partnerId && !!productId,
+    enabled:
+      enabled &&
+      !!productId &&
+      (isStorefront || !!partnerId),
   });
 }

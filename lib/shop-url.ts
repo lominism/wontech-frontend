@@ -1,10 +1,13 @@
-export type ShopPartner = "clinic" | "influencer";
+export type ShopPartner = "clinic" | "influencer" | "storefront";
 
 export function shopProductPath(
   partner: ShopPartner,
   partnerId: string,
   productId: string
 ) {
+  if (partner === "storefront") {
+    return `/storefront/${productId}`;
+  }
   const segment =
     partner === "influencer" ? `influencer/${partnerId}` : partnerId;
   return `/shop/${segment}/${productId}`;

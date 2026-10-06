@@ -9,7 +9,7 @@ import { createCheckoutSession, getPaymentStatus } from "@/lib/api/public";
 import { shopProductPath, type ShopPartner } from "@/lib/shop-url";
 
 type Props = {
-  clinicId: string;
+  clinicId?: string;
   productId: string;
   partner?: ShopPartner;
 };
@@ -18,7 +18,7 @@ const POLL_INTERVAL_MS = 1500;
 const POLL_TIMEOUT_MS = 30000;
 
 export function ShopPaymentPage({
-  clinicId,
+  clinicId = "",
   productId,
   partner = "clinic",
 }: Props) {
@@ -27,6 +27,7 @@ export function ShopPaymentPage({
   const searchParams = useSearchParams();
   const orderId = searchParams.get("orderId");
   const sessionId = searchParams.get("session_id");
+  const productBasePath = shopProductPath(partner, clinicId, productId);
 
   const [redirecting, setRedirecting] = useState(false);
   const [confirming, setConfirming] = useState(!!sessionId);
@@ -34,9 +35,9 @@ export function ShopPaymentPage({
   const [trackingToken, setTrackingToken] = useState<string | null>(null);
 
   const buildPayPath = useCallback(() => {
-    const base = `${window.location.origin}/${locale}${shopProductPath(partner, clinicId, productId)}/checkout/pay`;
+    const base = `${window.location.origin}/${locale}${productBasePath}/checkout/pay`;
     return orderId ? `${base}?orderId=${orderId}` : base;
-  }, [clinicId, locale, orderId, partner, productId]);
+  }, [locale, orderId, productBasePath]);
 
   const pollPaymentStatus = useCallback(async (stripeSessionId: string) => {
     const deadline = Date.now() + POLL_TIMEOUT_MS;
@@ -98,7 +99,7 @@ export function ShopPaymentPage({
     try {
       const payPath = buildPayPath();
       const successUrl = `${payPath}&session_id={CHECKOUT_SESSION_ID}`;
-      const cancelUrl = `${window.location.origin}/${locale}${shopProductPath(partner, clinicId, productId)}/checkout`;
+      const cancelUrl = `${window.location.origin}/${locale}${productBasePath}/checkout`;
 
       const { checkoutUrl } = await createCheckoutSession(
         orderId,
@@ -184,7 +185,7 @@ export function ShopPaymentPage({
           {redirecting ? t("redirecting") : t("payNow")}
         </button>
         <Link
-          href={`${shopProductPath(partner, clinicId, productId)}/checkout`}
+          href={`${productBasePath}/checkout`}
           className="inline-flex w-fit items-center gap-1.5 text-sm text-[#6B6560] transition-colors hover:text-[#2A2A2A]"
         >
           <ArrowLeft size={15} />
