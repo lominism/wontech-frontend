@@ -1,3 +1,4 @@
+import { LanguageSwitcher } from "@/components/shared/LanguageSwitcher/LanguageSwitcher";
 import { shopSerif } from "@/components/shared/Shop/shop-theme";
 import { Link } from "@/i18n/navigation";
 import React from "react";
@@ -20,9 +21,7 @@ export default function PublicLayout({
           >
             Wontech
           </Link>
-          <span className="hidden text-xs uppercase tracking-[0.25em] text-[#6B6560] sm:block">
-            Clinic &amp; Beauty
-          </span>
+          <LanguageSwitcher variant="public" />
         </div>
       </header>
       <main className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
