@@ -1,4 +1,5 @@
 import { shopSerif } from "@/components/shared/Shop/shop-theme";
+import { Link } from "@/i18n/navigation";
 import React from "react";
 
 export default function PublicLayout({
@@ -12,12 +13,13 @@ export default function PublicLayout({
     >
       <header className="border-b border-[#E8DFD4] bg-[#FFFCF8]/90 backdrop-blur-sm">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
-          <span
-            className="font-[family-name:var(--font-shop-serif)] text-2xl font-medium tracking-wide text-[#3D5A4C]"
+          <Link
+            href="/storefront"
+            className="font-[family-name:var(--font-shop-serif)] text-2xl font-medium tracking-wide text-[#3D5A4C] transition-colors hover:text-[#2F463B]"
             style={{ fontFamily: "var(--font-shop-serif), serif" }}
           >
             Wontech
-          </span>
+          </Link>
           <span className="hidden text-xs uppercase tracking-[0.25em] text-[#6B6560] sm:block">
             Clinic &amp; Beauty
           </span>

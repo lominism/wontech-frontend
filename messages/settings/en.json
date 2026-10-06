@@ -5,7 +5,39 @@
   },
   "account": {
     "title": "Account",
-    "comingSoon": "Account settings coming soon."
+    "tabs": {
+      "personalInfo": "Personal Info",
+      "language": "Language"
+    },
+    "personalInfoDescription": "Update your name and profile photo.",
+    "languageDescription": "Choose the language used after you sign in.",
+    "preferredLanguage": "Preferred language",
+    "languages": {
+      "english": "English",
+      "thai": "ไทย"
+    },
+    "languageSaveSuccess": "Language preference saved.",
+    "languageSaveFailed": "Could not save language preference.",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "email": "Email",
+    "role": "Role",
+    "roles": {
+      "owner": "Owner",
+      "admin": "Admin"
+    },
+    "changePhoto": "Change photo",
+    "uploading": "Uploading…",
+    "photoHint": "JPG, PNG, WebP, or GIF up to 5 MB.",
+    "imageInvalidType": "Use a JPG, PNG, WebP, or GIF image.",
+    "imageTooLarge": "Image must be {max} MB or smaller.",
+    "imageUploadFailed": "Could not upload photo.",
+    "nameRequired": "First name and last name are required.",
+    "save": "Save changes",
+    "saving": "Saving…",
+    "saveSuccess": "Profile updated.",
+    "saveFailed": "Could not update profile.",
+    "firebaseSyncWarning": "Profile saved, but Firebase display name could not be updated."
   },
   "company": {
     "title": "Company Settings",

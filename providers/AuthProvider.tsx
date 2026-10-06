@@ -39,6 +39,7 @@ function mergeProfile(
     ...next,
     firstName: next.firstName ?? prev.firstName,
     lastName: next.lastName ?? prev.lastName,
+    avatarUrl: next.avatarUrl ?? prev.avatarUrl,
   };
 }
 

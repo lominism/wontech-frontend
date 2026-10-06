@@ -7,7 +7,7 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth } from "@/lib/firebase";
-import { syncUser } from "@/lib/syncUser";
+import { syncUser, type PreferredLocale } from "@/lib/syncUser";
 import { useAuth } from "@/providers/AuthProvider";
 import { useRouter, Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
@@ -22,6 +22,12 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { toast } from "sonner";
+
+function resolvePreferredLocale(
+  value: string | null | undefined
+): PreferredLocale {
+  return value === "en" || value === "th" ? value : "th";
+}
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -51,7 +57,9 @@ export default function RegisterPage() {
           lastName: lastName.trim(),
         });
         applyProfile(backendUser);
-        router.push("/dashboard");
+        const locale = resolvePreferredLocale(backendUser.preferredLocale);
+        document.cookie = `NEXT_LOCALE=${locale}; path=/; max-age=31536000; SameSite=Lax`;
+        router.push("/dashboard", { locale });
       } catch (syncError) {
         // Registration is invite-only: if the backend rejects the sync (no
         // valid invitation), remove the just-created Firebase account so the

@@ -5,7 +5,39 @@
   },
   "account": {
     "title": "บัญชี",
-    "comingSoon": "การตั้งค่าบัญชีจะพร้อมใช้งานเร็วๆ นี้"
+    "tabs": {
+      "personalInfo": "ข้อมูลส่วนตัว",
+      "language": "ภาษา"
+    },
+    "personalInfoDescription": "อัปเดตชื่อและรูปโปรไฟล์ของคุณ",
+    "languageDescription": "เลือกภาษาที่จะใช้หลังจากเข้าสู่ระบบ",
+    "preferredLanguage": "ภาษาที่ต้องการ",
+    "languages": {
+      "english": "English",
+      "thai": "ไทย"
+    },
+    "languageSaveSuccess": "บันทึกการตั้งค่าภาษาแล้ว",
+    "languageSaveFailed": "ไม่สามารถบันทึกการตั้งค่าภาษาได้",
+    "firstName": "ชื่อ",
+    "lastName": "นามสกุล",
+    "email": "อีเมล",
+    "role": "บทบาท",
+    "roles": {
+      "owner": "เจ้าของ",
+      "admin": "แอดมิน"
+    },
+    "changePhoto": "เปลี่ยนรูป",
+    "uploading": "กำลังอัปโหลด…",
+    "photoHint": "JPG, PNG, WebP หรือ GIF ไม่เกิน 5 MB",
+    "imageInvalidType": "ใช้ไฟล์ JPG, PNG, WebP หรือ GIF เท่านั้น",
+    "imageTooLarge": "รูปต้องมีขนาดไม่เกิน {max} MB",
+    "imageUploadFailed": "ไม่สามารถอัปโหลดรูปได้",
+    "nameRequired": "กรุณาระบุชื่อและนามสกุล",
+    "save": "บันทึกการเปลี่ยนแปลง",
+    "saving": "กำลังบันทึก…",
+    "saveSuccess": "อัปเดตโปรไฟล์แล้ว",
+    "saveFailed": "ไม่สามารถอัปเดตโปรไฟล์ได้",
+    "firebaseSyncWarning": "บันทึกโปรไฟล์แล้ว แต่ไม่สามารถอัปเดตชื่อแสดงผลใน Firebase ได้"
   },
   "company": {
     "title": "ตั้งค่าบริษัท",
