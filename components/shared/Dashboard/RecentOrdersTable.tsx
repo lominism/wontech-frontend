@@ -58,7 +58,7 @@ export function RecentOrdersTable({ data }: Props) {
       ),
     }),
     columnHelper.accessor("clinic", {
-      header: t("columns.clinic"),
+      header: t("columns.saleSource"),
       cell: (info) => (
         <span className="text-muted-foreground">{info.getValue()}</span>
       ),

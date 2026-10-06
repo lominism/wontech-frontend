@@ -30,7 +30,7 @@
     "orderNo": "Order",
     "date": "Date",
     "customer": "Customer",
-    "clinic": "Clinic",
+    "saleSource": "Source of Sale",
     "qty": "Qty",
     "status": "Status",
     "total": "Total",

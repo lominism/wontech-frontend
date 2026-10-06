@@ -98,7 +98,7 @@ export function OrdersTable({
       id: "clinic",
       header: () => (
         <SortableColumnHeader
-          label={t("clinic")}
+          label={t("saleSource")}
           columnId="clinic"
           sortBy={sortBy}
           sortDir={sortDir}
