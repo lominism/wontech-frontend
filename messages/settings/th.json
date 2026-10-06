@@ -1,4 +1,81 @@
 {
+  "menu": {
+    "account": "บัญชี",
+    "companySettings": "ตั้งค่าบริษัท"
+  },
+  "account": {
+    "title": "บัญชี",
+    "tabs": {
+      "personalInfo": "ข้อมูลส่วนตัว",
+      "language": "ภาษา"
+    },
+    "personalInfoDescription": "อัปเดตชื่อและรูปโปรไฟล์ของคุณ",
+    "languageDescription": "เลือกภาษาที่จะใช้หลังจากเข้าสู่ระบบ",
+    "preferredLanguage": "ภาษาที่ต้องการ",
+    "languages": {
+      "english": "English",
+      "thai": "ไทย"
+    },
+    "languageSaveSuccess": "บันทึกการตั้งค่าภาษาแล้ว",
+    "languageSaveFailed": "ไม่สามารถบันทึกการตั้งค่าภาษาได้",
+    "firstName": "ชื่อ",
+    "lastName": "นามสกุล",
+    "email": "อีเมล",
+    "role": "บทบาท",
+    "roles": {
+      "owner": "เจ้าของ",
+      "admin": "แอดมิน"
+    },
+    "changePhoto": "เปลี่ยนรูป",
+    "uploading": "กำลังอัปโหลด…",
+    "photoHint": "JPG, PNG, WebP หรือ GIF ไม่เกิน 5 MB",
+    "imageInvalidType": "ใช้ไฟล์ JPG, PNG, WebP หรือ GIF เท่านั้น",
+    "imageTooLarge": "รูปต้องมีขนาดไม่เกิน {max} MB",
+    "imageUploadFailed": "ไม่สามารถอัปโหลดรูปได้",
+    "nameRequired": "กรุณาระบุชื่อและนามสกุล",
+    "save": "บันทึกการเปลี่ยนแปลง",
+    "saving": "กำลังบันทึก…",
+    "saveSuccess": "อัปเดตโปรไฟล์แล้ว",
+    "saveFailed": "ไม่สามารถอัปเดตโปรไฟล์ได้",
+    "firebaseSyncWarning": "บันทึกโปรไฟล์แล้ว แต่ไม่สามารถอัปเดตชื่อแสดงผลใน Firebase ได้"
+  },
+  "company": {
+    "title": "ตั้งค่าบริษัท",
+    "tabs": {
+      "productCategories": "หมวดหมู่สินค้า",
+      "agency": "เอเจนซี่"
+    },
+    "agencyEmpty": "ยังไม่มีเอเจนซี่ สร้างได้เมื่อเพิ่มอินฟลูเอนเซอร์",
+    "agenciesLoading": "กำลังโหลดเอเจนซี่…",
+    "agenciesLoadError": "ไม่สามารถโหลดเอเจนซี่ได้",
+    "agenciesEmpty": "ยังไม่มีเอเจนซี่ สร้างได้เมื่อเพิ่มอินฟลูเอนเซอร์",
+    "agencyName": "เอเจนซี่",
+    "agencyInfluencers": "อินฟลูเอนเซอร์",
+    "agencyCredit": "เครดิต",
+    "deleteAgency": "ลบเอเจนซี่",
+    "deleteAgencyTitle": "ลบเอเจนซี่?",
+    "deleteAgencyDescription": "อินฟลูเอนเซอร์ใน “{name}” จะกลายเป็นอิสระ เครดิตของเอเจนซี่ต้องเป็น 0 จึงจะลบได้ การกระทำนี้ไม่สามารถย้อนกลับได้",
+    "agencyDeleteSuccess": "ลบเอเจนซี่แล้ว",
+    "agencyDeleteFailed": "ไม่สามารถลบเอเจนซี่ได้",
+    "categoriesLoading": "กำลังโหลดหมวดหมู่…",
+    "categoriesLoadError": "ไม่สามารถโหลดหมวดหมู่สินค้าได้",
+    "categoriesEmpty": "ยังไม่มีหมวดหมู่สินค้า เพิ่มหมวดหมู่เพื่อเริ่มต้น",
+    "retry": "ลองอีกครั้ง",
+    "categoryNamePlaceholder": "ชื่อหมวดหมู่",
+    "categoryNameRequired": "กรุณาระบุชื่อหมวดหมู่",
+    "addCategory": "เพิ่ม",
+    "adding": "กำลังเพิ่ม…",
+    "deleteCategory": "ลบหมวดหมู่",
+    "deleteCategoryTitle": "ลบหมวดหมู่?",
+    "deleteCategoryDescription": "สินค้าที่ใช้ “{name}” จะถูกล้างหมวดหมู่ การกระทำนี้ไม่สามารถย้อนกลับได้",
+    "cancel": "ยกเลิก",
+    "confirmDelete": "ลบ",
+    "deleting": "กำลังลบ…",
+    "categoryAddSuccess": "เพิ่มหมวดหมู่แล้ว",
+    "categoryAddFailed": "ไม่สามารถเพิ่มหมวดหมู่ได้",
+    "categoryDeleteSuccess": "ลบหมวดหมู่แล้ว",
+    "categoryDeleteFailed": "ไม่สามารถลบหมวดหมู่ได้"
+  },
   "members": {
     "teamMembers": "สมาชิกทีม",
     "invitedTeamMembers": "สมาชิกทีมที่เชิญ",

@@ -1,8 +1,10 @@
+import { type ShopPartner } from "@/lib/shop-url";
+
 export type PublicShopProduct = {
   id: string;
   name: string;
   sku: string;
-  category: string;
+  category: string | null;
   price: number;
   description: string | null;
   brand: string | null;
@@ -21,7 +23,8 @@ export type PublicShopResponse = {
 };
 
 export type CreateOrderPayload = {
-  clinicId: string;
+  clinicId?: string;
+  influencerId?: string;
   productId: string;
   customerName: string;
   customerEmail: string;
@@ -70,11 +73,50 @@ export type PublicTrackResponse = {
 const apiUrl = () => process.env.NEXT_PUBLIC_API_URL ?? "";
 
 export async function getPublicShopProduct(
-  clinicId: string,
-  productId: string
+  partnerId: string,
+  productId: string,
+  partner: ShopPartner = "clinic"
 ): Promise<PublicShopResponse> {
+  if (partner === "storefront") {
+    const product = await getStorefrontProduct(productId);
+    return {
+      clinic: { id: "", name: "" },
+      product,
+    };
+  }
+
+  const path =
+    partner === "influencer"
+      ? `/public/shop/influencer/${partnerId}/${productId}`
+      : `/public/shop/${partnerId}/${productId}`;
+  const res = await fetch(`${apiUrl()}${path}`, { cache: "no-store" });
+
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(text || "Failed to load product");
+  }
+
+  return res.json() as Promise<PublicShopResponse>;
+}
+
+export async function listStorefrontProducts(): Promise<PublicShopProduct[]> {
+  const res = await fetch(`${apiUrl()}/public/storefront/products`, {
+    cache: "no-store",
+  });
+
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(text || "Failed to load products");
+  }
+
+  return res.json() as Promise<PublicShopProduct[]>;
+}
+
+export async function getStorefrontProduct(
+  productId: string
+): Promise<PublicShopProduct> {
   const res = await fetch(
-    `${apiUrl()}/public/shop/${clinicId}/${productId}`,
+    `${apiUrl()}/public/storefront/products/${productId}`,
     { cache: "no-store" }
   );
 
@@ -83,7 +125,7 @@ export async function getPublicShopProduct(
     throw new Error(text || "Failed to load product");
   }
 
-  return res.json() as Promise<PublicShopResponse>;
+  return res.json() as Promise<PublicShopProduct>;
 }
 
 export async function createPublicOrder(

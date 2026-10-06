@@ -30,7 +30,7 @@
     "orderNo": "คำสั่งซื้อ",
     "date": "วันที่",
     "customer": "ลูกค้า",
-    "clinic": "คลินิก",
+    "saleSource": "แหล่งที่ขาย",
     "qty": "จำนวน",
     "status": "สถานะ",
     "total": "ยอดรวม",
@@ -58,6 +58,8 @@
     "qty": "จำนวน",
     "soldBy": "ขายโดย",
     "noClinic": "ไม่มี",
+    "influencer": "อินฟลูเอนเซอร์",
+    "noInfluencer": "ไม่มี",
     "status": "สถานะ",
     "optional": "ไม่บังคับ",
     "stockAvailable": "คงเหลือ {count} ชิ้น",
@@ -70,7 +72,8 @@
     "sources": {
       "wontech": "Wontech",
       "lazada": "Lazada",
-      "shopee": "Shopee"
+      "shopee": "Shopee",
+      "storefront": "ร้านค้า"
     },
     "validation": {
       "productRequired": "กรุณาเลือกสินค้า",

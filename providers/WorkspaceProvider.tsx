@@ -40,7 +40,7 @@ export function WorkspaceProvider({ children }: { children: React.ReactNode }) {
       firstName: profile?.firstName ?? fallbackFirst,
       lastName: profile?.lastName ?? fallbackLast,
       email: profile?.email ?? user?.email ?? "",
-      avatar: user?.photoURL ?? "",
+      avatar: profile?.avatarUrl || user?.photoURL || "",
     };
   }, [user, profile]);
 

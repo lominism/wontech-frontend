@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 type Props = {
   namespace:
     | "clinic.pagination"
+    | "influencer.pagination"
     | "orders.pagination"
     | "logistics.pagination"
     | "inventory.detail.history.pagination";

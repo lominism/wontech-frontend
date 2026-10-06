@@ -5,7 +5,7 @@ import { routing } from "./i18n/routing";
 const intlMiddleware = createMiddleware(routing);
 
 const AUTH_PAGES = ["/auth/login", "/auth/register", "/auth/forgot-password"];
-const PUBLIC_PAGES = ["/shop", "/track"];
+const PUBLIC_PAGES = ["/shop", "/storefront", "/track"];
 
 function getLocale(pathname: string): string {
   const segment = pathname.split("/")[1];

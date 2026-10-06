@@ -1,4 +1,81 @@
 {
+  "menu": {
+    "account": "Account",
+    "companySettings": "Company Settings"
+  },
+  "account": {
+    "title": "Account",
+    "tabs": {
+      "personalInfo": "Personal Info",
+      "language": "Language"
+    },
+    "personalInfoDescription": "Update your name and profile photo.",
+    "languageDescription": "Choose the language used after you sign in.",
+    "preferredLanguage": "Preferred language",
+    "languages": {
+      "english": "English",
+      "thai": "ไทย"
+    },
+    "languageSaveSuccess": "Language preference saved.",
+    "languageSaveFailed": "Could not save language preference.",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "email": "Email",
+    "role": "Role",
+    "roles": {
+      "owner": "Owner",
+      "admin": "Admin"
+    },
+    "changePhoto": "Change photo",
+    "uploading": "Uploading…",
+    "photoHint": "JPG, PNG, WebP, or GIF up to 5 MB.",
+    "imageInvalidType": "Use a JPG, PNG, WebP, or GIF image.",
+    "imageTooLarge": "Image must be {max} MB or smaller.",
+    "imageUploadFailed": "Could not upload photo.",
+    "nameRequired": "First name and last name are required.",
+    "save": "Save changes",
+    "saving": "Saving…",
+    "saveSuccess": "Profile updated.",
+    "saveFailed": "Could not update profile.",
+    "firebaseSyncWarning": "Profile saved, but Firebase display name could not be updated."
+  },
+  "company": {
+    "title": "Company Settings",
+    "tabs": {
+      "productCategories": "Product Categories",
+      "agency": "Agency"
+    },
+    "agencyEmpty": "No agencies yet. Create one when adding an influencer.",
+    "agenciesLoading": "Loading agencies…",
+    "agenciesLoadError": "Could not load agencies.",
+    "agenciesEmpty": "No agencies yet. Create one when adding an influencer.",
+    "agencyName": "Agency",
+    "agencyInfluencers": "Influencers",
+    "agencyCredit": "Credit",
+    "deleteAgency": "Delete agency",
+    "deleteAgencyTitle": "Delete agency?",
+    "deleteAgencyDescription": "Influencers in “{name}” will become standalone. Agency credit must be 0 to delete. This cannot be undone.",
+    "agencyDeleteSuccess": "Agency deleted.",
+    "agencyDeleteFailed": "Could not delete agency.",
+    "categoriesLoading": "Loading categories…",
+    "categoriesLoadError": "Could not load product categories.",
+    "categoriesEmpty": "No product categories yet. Add one to get started.",
+    "retry": "Try again",
+    "categoryNamePlaceholder": "Category name",
+    "categoryNameRequired": "Enter a category name.",
+    "addCategory": "Add",
+    "adding": "Adding…",
+    "deleteCategory": "Delete category",
+    "deleteCategoryTitle": "Delete category?",
+    "deleteCategoryDescription": "Products using “{name}” will have their category cleared. This cannot be undone.",
+    "cancel": "Cancel",
+    "confirmDelete": "Delete",
+    "deleting": "Deleting…",
+    "categoryAddSuccess": "Category added.",
+    "categoryAddFailed": "Could not add category.",
+    "categoryDeleteSuccess": "Category deleted.",
+    "categoryDeleteFailed": "Could not delete category."
+  },
   "members": {
     "teamMembers": "Team Members",
     "invitedTeamMembers": "Invited Team Members",

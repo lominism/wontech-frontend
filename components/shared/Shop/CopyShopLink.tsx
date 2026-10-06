@@ -15,7 +15,7 @@ import {
 import { QrPreviewDialog } from "@/components/shared/Shop/QrPreviewDialog";
 import { type Clinic } from "@/lib/api/clinics";
 import { type InventoryProduct } from "@/lib/api/products";
-import { buildShopUrl } from "@/lib/shop-url";
+import { buildShopUrl, type ShopPartner } from "@/lib/shop-url";
 
 type Props = {
   clinicId?: string;
@@ -23,6 +23,7 @@ type Props = {
   productId?: string;
   clinics?: Clinic[];
   products?: InventoryProduct[];
+  partner?: ShopPartner;
 };
 
 export function CopyShopLink({
@@ -31,6 +32,7 @@ export function CopyShopLink({
   productId: fixedProductId,
   clinics = [],
   products = [],
+  partner = "clinic",
 }: Props) {
   const t = useTranslations("shop.link");
   const locale = useLocale();
@@ -53,10 +55,11 @@ export function CopyShopLink({
             window.location.origin,
             locale,
             resolvedClinicId,
-            resolvedProductId
+            resolvedProductId,
+            partner
           )
         : "",
-    [canCopy, locale, resolvedClinicId, resolvedProductId]
+    [canCopy, locale, partner, resolvedClinicId, resolvedProductId]
   );
 
   const productName = useMemo(() => {

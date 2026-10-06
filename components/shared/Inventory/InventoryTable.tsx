@@ -62,7 +62,9 @@ export function InventoryTable({ data }: Props) {
     }),
     columnHelper.accessor("category", {
       header: t("category"),
-      cell: (info) => <Badge variant="secondary">{info.getValue()}</Badge>,
+      cell: (info) => (
+        <Badge variant="secondary">{info.getValue() || t("none")}</Badge>
+      ),
     }),
     columnHelper.accessor("price", {
       header: t("price"),

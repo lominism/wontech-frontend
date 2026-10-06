@@ -55,7 +55,9 @@ export function ProductCard({ product }: Props) {
 
         <div className="flex items-center justify-between text-sm">
           <span className="text-muted-foreground">{t("category")}</span>
-          <Badge variant="secondary">{product.category}</Badge>
+          <Badge variant="secondary">
+            {product.category || t("none")}
+          </Badge>
         </div>
 
         <div className="flex items-center justify-between text-sm">
@@ -70,6 +72,17 @@ export function ProductCard({ product }: Props) {
           {product.commission != null ? (
             <Badge className="bg-pink-100 text-pink-700 border-pink-200 hover:bg-pink-100">
               {thbFormatter.format(product.commission)}
+            </Badge>
+          ) : (
+            <span className="text-muted-foreground text-xs">{t("noCommission")}</span>
+          )}
+        </div>
+
+        <div className="flex items-center justify-between text-sm">
+          <span className="text-muted-foreground">{t("kolCommission")}</span>
+          {product.kolCommission != null ? (
+            <Badge className="bg-violet-100 text-violet-700 border-violet-200 hover:bg-violet-100">
+              {thbFormatter.format(product.kolCommission)}
             </Badge>
           ) : (
             <span className="text-muted-foreground text-xs">{t("noCommission")}</span>

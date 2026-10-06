@@ -5,6 +5,11 @@ export const CLINIC_DEFAULT_SORT = {
   sortDir: "asc" as SortDirection,
 };
 
+export const INFLUENCER_DEFAULT_SORT = {
+  sortBy: "name",
+  sortDir: "asc" as SortDirection,
+};
+
 export const ORDER_DEFAULT_SORT = {
   sortBy: "date",
   sortDir: "desc" as SortDirection,

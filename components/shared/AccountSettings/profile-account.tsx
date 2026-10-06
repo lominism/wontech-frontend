@@ -1,6 +1,7 @@
 "use client";
 
 import { BadgeCheck, ChevronsUpDown, LogOut, Settings } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -18,6 +19,7 @@ import { useAuth } from "@/providers/AuthProvider";
 import { useWorkspace } from "@/providers/WorkspaceProvider";
 
 const ProfileAccount = () => {
+  const t = useTranslations("settings.menu");
   const { isMobile } = useSidebar();
   const { currentUser } = useWorkspace();
   const { logout } = useAuth();
@@ -80,15 +82,15 @@ const ProfileAccount = () => {
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem asChild>
-            <Link href="/settings">
+            <Link href="/account">
               <BadgeCheck />
-              Account
+              {t("account")}
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
             <Link href="/settings">
               <Settings />
-              Settings
+              {t("companySettings")}
             </Link>
           </DropdownMenuItem>
         </DropdownMenuGroup>

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { type PublicShopResponse } from "@/lib/api/public";
+import { shopProductPath, type ShopPartner } from "@/lib/shop-url";
 import { thbFormatter } from "@/lib/utils";
 import { ShopProductGallery } from "./ShopProductGallery";
 import { ShopQuantitySelector } from "./ShopQuantitySelector";
@@ -12,13 +13,20 @@ type Props = {
   data: PublicShopResponse;
   clinicId: string;
   productId: string;
+  partner?: ShopPartner;
 };
 
-export function ShopProductView({ data, clinicId, productId }: Props) {
+export function ShopProductView({
+  data,
+  clinicId,
+  productId,
+  partner = "clinic",
+}: Props) {
   const t = useTranslations("shop.product");
   const { clinic, product } = data;
   const maxQuantity = Math.max(1, product.stockAvailable || 1);
   const [quantity, setQuantity] = useState(1);
+  const isStorefront = partner === "storefront";
 
   const displayImages =
     product.images.length > 0
@@ -27,7 +35,7 @@ export function ShopProductView({ data, clinicId, productId }: Props) {
         ? [product.image]
         : [];
 
-  const checkoutHref = `/shop/${clinicId}/${productId}/checkout?quantity=${quantity}`;
+  const checkoutHref = `${shopProductPath(partner, clinicId, productId)}/checkout?quantity=${quantity}`;
 
   const details = [
     { label: t("brand"), value: product.brand },
@@ -46,9 +54,11 @@ export function ShopProductView({ data, clinicId, productId }: Props) {
 
         <div className="flex flex-col gap-8 lg:py-4">
           <div className="flex flex-col gap-3">
-            <p className="text-xs font-medium uppercase tracking-[0.22em] text-[#6B6560]">
-              {t("soldBy", { clinic: clinic.name })}
-            </p>
+            {!isStorefront && clinic.name ? (
+              <p className="text-xs font-medium uppercase tracking-[0.22em] text-[#6B6560]">
+                {t("soldBy", { clinic: clinic.name })}
+              </p>
+            ) : null}
             {product.brand && (
               <p className="text-sm uppercase tracking-[0.18em] text-[#3D5A4C]">
                 {product.brand}
@@ -60,7 +70,9 @@ export function ShopProductView({ data, clinicId, productId }: Props) {
             >
               {product.name}
             </h1>
-            <p className="text-sm text-[#6B6560]">{product.category}</p>
+            {product.category ? (
+              <p className="text-sm text-[#6B6560]">{product.category}</p>
+            ) : null}
           </div>
 
           <div className="border-y border-[#E8DFD4] py-6">

@@ -23,11 +23,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { productCategories } from "@/lib/mock-data";
 import { type InventoryProduct } from "@/lib/api/products";
 import { useCreateProduct } from "@/lib/queries/useCreateProduct";
+import { useProductCategories } from "@/lib/queries/useProductCategories";
 import { useUpdateProduct } from "@/lib/queries/useUpdateProduct";
 import { ProductImagesUpload } from "./ProductImagesUpload";
+
+const CATEGORY_NONE = "__none__";
 
 type Props = {
   open: boolean;
@@ -42,6 +44,7 @@ type FormState = {
   price: string;
   stock: string;
   commission: string;
+  kolCommission: string;
   description: string;
   brand: string;
   weight: string;
@@ -56,6 +59,7 @@ const emptyForm: FormState = {
   price: "",
   stock: "",
   commission: "",
+  kolCommission: "",
   description: "",
   brand: "",
   weight: "",
@@ -67,10 +71,12 @@ function productToForm(product: InventoryProduct): FormState {
   return {
     name: product.name,
     sku: product.sku,
-    category: product.category,
+    category: product.category ?? "",
     price: String(product.price),
     stock: String(product.stock),
     commission: product.commission != null ? String(product.commission) : "",
+    kolCommission:
+      product.kolCommission != null ? String(product.kolCommission) : "",
     description: product.description ?? "",
     brand: product.brand ?? "",
     weight: product.weight ?? "",
@@ -86,6 +92,7 @@ export function ProductFormDialog({ open, onOpenChange, product }: Props) {
     useCreateProduct();
   const { mutateAsync: updateProduct, isPending: isUpdating } =
     useUpdateProduct(product?.id ?? "");
+  const { data: categories = [] } = useProductCategories({ enabled: open });
   const isPending = isCreating || isUpdating;
 
   const [form, setForm] = useState<FormState>(emptyForm);
@@ -120,18 +127,15 @@ export function ProductFormDialog({ open, onOpenChange, product }: Props) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.category) {
-      toast.error(t("categoryPlaceholder"));
-      return;
-    }
 
     const payload = {
       sku: form.sku.trim(),
       name: form.name.trim(),
-      category: form.category,
+      category: form.category.trim() || null,
       price: Number(form.price),
       stock: Number(form.stock),
       commission: form.commission ? Number(form.commission) : null,
+      kolCommission: form.kolCommission ? Number(form.kolCommission) : null,
       description: optionalText(form.description),
       brand: optionalText(form.brand),
       weight: optionalText(form.weight),
@@ -203,16 +207,19 @@ export function ProductFormDialog({ open, onOpenChange, product }: Props) {
           <div className="flex flex-col gap-2">
             <Label htmlFor="category">{t("category")}</Label>
             <Select
-              value={form.category}
-              onValueChange={(value) => update("category", value)}
+              value={form.category || CATEGORY_NONE}
+              onValueChange={(value) =>
+                update("category", value === CATEGORY_NONE ? "" : value)
+              }
             >
               <SelectTrigger id="category">
                 <SelectValue placeholder={t("categoryPlaceholder")} />
               </SelectTrigger>
               <SelectContent>
-                {productCategories.map((cat) => (
-                  <SelectItem key={cat} value={cat}>
-                    {cat}
+                <SelectItem value={CATEGORY_NONE}>{t("categoryNone")}</SelectItem>
+                {categories.map((cat) => (
+                  <SelectItem key={cat.id} value={cat.name}>
+                    {cat.name}
                   </SelectItem>
                 ))}
               </SelectContent>
@@ -258,6 +265,18 @@ export function ProductFormDialog({ open, onOpenChange, product }: Props) {
               value={form.commission}
               onChange={(e) => update("commission", e.target.value)}
               placeholder={t("commissionPlaceholder")}
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="kolCommission">{t("kolCommission")}</Label>
+            <Input
+              id="kolCommission"
+              type="number"
+              min="0"
+              step="0.01"
+              value={form.kolCommission}
+              onChange={(e) => update("kolCommission", e.target.value)}
+              placeholder={t("kolCommissionPlaceholder")}
             />
           </div>
 

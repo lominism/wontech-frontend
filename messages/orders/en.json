@@ -30,7 +30,7 @@
     "orderNo": "Order",
     "date": "Date",
     "customer": "Customer",
-    "clinic": "Clinic",
+    "saleSource": "Source of Sale",
     "qty": "Qty",
     "status": "Status",
     "total": "Total",
@@ -58,6 +58,8 @@
     "qty": "Quantity",
     "soldBy": "Sold by",
     "noClinic": "None",
+    "influencer": "Influencer",
+    "noInfluencer": "None",
     "status": "Status",
     "optional": "optional",
     "stockAvailable": "{count} in stock",
@@ -70,7 +72,8 @@
     "sources": {
       "wontech": "Wontech",
       "lazada": "Lazada",
-      "shopee": "Shopee"
+      "shopee": "Shopee",
+      "storefront": "Storefront"
     },
     "validation": {
       "productRequired": "Please select a product",

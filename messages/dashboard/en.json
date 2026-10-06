@@ -40,7 +40,7 @@
       "date": "Date",
       "item": "Item",
       "customer": "Customer",
-      "clinic": "Clinic",
+      "saleSource": "Source of Sale",
       "qty": "Qty"
     }
   }

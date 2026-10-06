@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/lib/firebase";
-import { syncUser } from "@/lib/syncUser";
+import { syncUser, type PreferredLocale } from "@/lib/syncUser";
 import { useRouter, Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -18,6 +18,12 @@ import {
 } from "@/components/ui/card";
 import { toast } from "sonner";
 
+function resolvePreferredLocale(
+  value: string | null | undefined
+): PreferredLocale {
+  return value === "en" || value === "th" ? value : "th";
+}
+
 export default function LoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState("");
@@ -29,8 +35,10 @@ export default function LoginPage() {
     setLoading(true);
     try {
       const { user } = await signInWithEmailAndPassword(auth, email, password);
-      await syncUser(user);
-      router.push("/dashboard");
+      const backendUser = await syncUser(user);
+      const locale = resolvePreferredLocale(backendUser.preferredLocale);
+      document.cookie = `NEXT_LOCALE=${locale}; path=/; max-age=31536000; SameSite=Lax`;
+      router.push("/dashboard", { locale });
     } catch (error: unknown) {
       const message =
         error instanceof Error ? error.message : "Failed to sign in.";

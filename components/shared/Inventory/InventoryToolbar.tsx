@@ -1,9 +1,17 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { LayoutGrid, List } from "lucide-react";
-// Temporary single-product catalog: restore Search/Plus, Input, Button, Select, and
-// productCategories when re-enabling search, category filter, and Add Product.
+import { LayoutGrid, List, Plus, Search } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { useProductCategories } from "@/lib/queries/useProductCategories";
 import { cn } from "@/lib/utils";
 
 export type InventoryView = "grid" | "list";
@@ -19,20 +27,19 @@ type Props = {
 };
 
 export function InventoryToolbar({
-  // Kept for easy restore of search / category / add UI
-  search: _search,
-  onSearchChange: _onSearchChange,
-  category: _category,
-  onCategoryChange: _onCategoryChange,
-  onAdd: _onAdd,
+  search,
+  onSearchChange,
+  category,
+  onCategoryChange,
+  onAdd,
   view,
   onViewChange,
 }: Props) {
   const t = useTranslations("inventory");
+  const { data: categories = [] } = useProductCategories();
 
   return (
-    <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-end">
-      {/*
+    <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
       <div className="flex flex-1 items-center gap-3">
         <div className="relative w-full max-w-xs">
           <Search
@@ -53,15 +60,14 @@ export function InventoryToolbar({
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">{t("actions.allCategories")}</SelectItem>
-            {productCategories.map((cat) => (
-              <SelectItem key={cat} value={cat}>
-                {cat}
+            {categories.map((cat) => (
+              <SelectItem key={cat.id} value={cat.name}>
+                {cat.name}
               </SelectItem>
             ))}
           </SelectContent>
         </Select>
       </div>
-      */}
 
       <div className="flex items-center gap-3">
         <div className="inline-flex items-center rounded-md border p-0.5">
@@ -95,12 +101,10 @@ export function InventoryToolbar({
           </button>
         </div>
 
-        {/*
         <Button onClick={onAdd} className="shrink-0">
           <Plus size={16} />
           {t("actions.addProduct")}
         </Button>
-        */}
       </div>
     </div>
   );

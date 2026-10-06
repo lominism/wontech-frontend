@@ -32,6 +32,14 @@ export async function getCloudinarySignature(): Promise<CloudinarySignature> {
 }
 
 export async function uploadProductImage(file: File): Promise<string> {
+  return uploadImage(file);
+}
+
+export async function uploadAvatar(file: File): Promise<string> {
+  return uploadImage(file);
+}
+
+async function uploadImage(file: File): Promise<string> {
   const signature = await getCloudinarySignature();
 
   const formData = new FormData();
