@@ -14,16 +14,37 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { type Agency } from "@/lib/api/agencies";
 import { useAgencies } from "@/lib/queries/useAgencies";
+import { useCreateAgency } from "@/lib/queries/useCreateAgency";
 import { useDeleteAgency } from "@/lib/queries/useDeleteAgency";
 import { thbFormatter } from "@/lib/utils";
 
 export function AgenciesPanel() {
   const t = useTranslations("settings.company");
   const { data: agencies = [], isLoading, isError, refetch } = useAgencies();
+  const { mutateAsync: createAgency, isPending: isCreating } = useCreateAgency();
   const { mutateAsync: deleteAgency, isPending: isDeleting } = useDeleteAgency();
+  const [name, setName] = useState("");
   const [pendingDelete, setPendingDelete] = useState<Agency | null>(null);
+
+  const handleAdd = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const trimmed = name.trim();
+    if (!trimmed) {
+      toast.error(t("agencyNameRequired"));
+      return;
+    }
+
+    try {
+      await createAgency(trimmed);
+      setName("");
+      toast.success(t("agencyAddSuccess"));
+    } catch (err: unknown) {
+      toast.error(err instanceof Error ? err.message : t("agencyAddFailed"));
+    }
+  };
 
   const handleDelete = async () => {
     if (!pendingDelete) return;
@@ -57,6 +78,19 @@ export function AgenciesPanel() {
 
   return (
     <div className="flex max-w-2xl flex-col gap-6">
+      <form onSubmit={handleAdd} className="flex gap-2">
+        <Input
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder={t("agencyNamePlaceholder")}
+          disabled={isCreating}
+          aria-label={t("agencyNamePlaceholder")}
+        />
+        <Button type="submit" disabled={isCreating}>
+          {isCreating ? t("adding") : t("addAgency")}
+        </Button>
+      </form>
+
       {agencies.length === 0 ? (
         <p className="text-sm text-muted-foreground">{t("agenciesEmpty")}</p>
       ) : (

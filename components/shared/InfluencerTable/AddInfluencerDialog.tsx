@@ -219,7 +219,9 @@ export function AddInfluencerDialog({ open, onOpenChange }: Props) {
                     {agency.name}
                   </SelectItem>
                 ))}
-                <SelectItem value={AGENCY_NEW}>{t("createNewAgency")}</SelectItem>
+                <SelectItem value={AGENCY_NEW}>
+                  {t("createNewAgency")}
+                </SelectItem>
               </SelectContent>
             </Select>
             <p className="text-muted-foreground text-xs">{t("agencyHint")}</p>

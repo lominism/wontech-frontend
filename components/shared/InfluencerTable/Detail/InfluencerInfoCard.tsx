@@ -3,16 +3,14 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { Building2, Mail, MapPin, Pencil, Phone } from "lucide-react";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Link } from "@/i18n/navigation";
-import { type Influencer, formatInfluencerAddress } from "@/lib/api/influencers";
+import {
+  type Influencer,
+  formatInfluencerAddress,
+} from "@/lib/api/influencers";
 import { EditInfluencerContactDialog } from "./EditInfluencerContactDialog";
 
 type Props = {

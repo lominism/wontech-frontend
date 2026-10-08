@@ -81,6 +81,12 @@ export function EditInfluencerContactDialog({
   const update = (key: keyof FormState, value: string) =>
     setForm((prev) => ({ ...prev, [key]: value }));
 
+  const isStandalone = !influencer.agencyId;
+  const hasPersonalCredit =
+    isStandalone && Math.abs(influencer.credit) > 1e-9;
+  const isJoiningAgency =
+    isStandalone && form.agencyId !== AGENCY_NONE;
+
   useEffect(() => {
     if (open) {
       setForm({
@@ -104,6 +110,12 @@ export function EditInfluencerContactDialog({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (isJoiningAgency && hasPersonalCredit) {
+      toast.error(t("creditMustBeZero"));
+      return;
+    }
+
     try {
       await mutateAsync({
         addressStreet: form.addressStreet.trim(),
@@ -236,6 +248,11 @@ export function EditInfluencerContactDialog({
                 </SelectContent>
               </Select>
               <p className="text-muted-foreground text-xs">{t("agencyHint")}</p>
+              {hasPersonalCredit && (
+                <p className="text-xs text-amber-700 dark:text-amber-500">
+                  {t("creditMustBeZeroHint")}
+                </p>
+              )}
             </div>
 
             <DialogFooter className="mt-2 sm:justify-between">
