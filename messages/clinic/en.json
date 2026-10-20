@@ -8,7 +8,15 @@
   },
   "actions": {
     "search": "Search clinics...",
+    "filter": "Filter",
     "addClinic": "Add Clinic"
+  },
+  "filter": {
+    "all": "All clinics",
+    "credit_5000_plus": "5000+ Credit",
+    "no_sales": "Clinics With No Sales",
+    "single": "Single Clinics",
+    "with_parent": "Clinics With Parents"
   },
   "table": {
     "clinicName": "Clinic Name",
@@ -130,7 +138,13 @@
         "adjustment": "Adjustment",
         "redemption": "Redemption"
       },
-      "empty": "No credit activity recorded yet."
+      "empty": "No credit activity recorded yet.",
+      "pagination": {
+        "pageOf": "Page {page} of {totalPages}",
+        "previous": "Previous",
+        "next": "Next",
+        "total": "{count, plural, one {# record} other {# records}}"
+      }
     }
   }
 }

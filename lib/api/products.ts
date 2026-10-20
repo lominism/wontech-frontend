@@ -184,3 +184,44 @@ export async function deleteProduct(id: string): Promise<void> {
     throw new Error(text || "Failed to delete product");
   }
 }
+
+export type ProductHistoryType = "sale" | "adjustment";
+
+export type ProductHistoryItem = {
+  id: string;
+  type: ProductHistoryType;
+  date: string;
+  quantity: number;
+  customerName: string | null;
+  clinicName: string | null;
+  actorName: string | null;
+  delta: number | null;
+};
+
+export type ProductHistoryResult = {
+  items: ProductHistoryItem[];
+  total: number;
+  page: number;
+  pageSize: number;
+};
+
+export async function getProductHistory(
+  productId: string,
+  params: { page?: number; pageSize?: number } = {}
+): Promise<ProductHistoryResult> {
+  const query = new URLSearchParams();
+  query.set("page", String(params.page ?? 1));
+  query.set("pageSize", String(params.pageSize ?? 10));
+
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/products/${productId}/history?${query.toString()}`,
+    { headers: await authHeaders() }
+  );
+
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(text || "Failed to load product history");
+  }
+
+  return res.json() as Promise<ProductHistoryResult>;
+}

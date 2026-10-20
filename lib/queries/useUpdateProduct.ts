@@ -15,6 +15,9 @@ export function useUpdateProduct(id: string) {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: productKeys.lists() });
       queryClient.invalidateQueries({ queryKey: productKeys.detail(id) });
+      queryClient.invalidateQueries({
+        queryKey: [...productKeys.all, "history", id],
+      });
     },
   });
 }

@@ -11,17 +11,10 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { WDataTable } from "@/components/shared/WDataTable";
 import { TablePagination } from "@/components/shared/TablePagination";
-
-export type PurchaseHistoryRecord = {
-  id: string;
-  date: string;
-  quantity: number;
-  customerName: string | null;
-  clinicName: string | null;
-};
+import type { ProductHistoryItem } from "@/lib/api/products";
 
 type Props = {
-  records: PurchaseHistoryRecord[];
+  records: ProductHistoryItem[];
   isLoading?: boolean;
   page: number;
   total: number;
@@ -29,7 +22,7 @@ type Props = {
   onPageChange: (page: number) => void;
 };
 
-const columnHelper = createColumnHelper<PurchaseHistoryRecord>();
+const columnHelper = createColumnHelper<ProductHistoryItem>();
 
 export function PurchaseHistoryTable({
   records,
@@ -58,15 +51,38 @@ export function PurchaseHistoryTable({
         </span>
       ),
     }),
-    columnHelper.accessor("quantity", {
+    columnHelper.display({
+      id: "quantity",
       header: t("quantity"),
-      cell: (info) => {
-        const count = info.getValue();
-        const name = info.row.original.customerName?.trim() || "—";
+      cell: ({ row }) => {
+        const record = row.original;
+
+        if (record.type === "adjustment") {
+          const absDelta = Math.abs(record.delta ?? record.quantity);
+          const actor = record.actorName?.trim() || "—";
+          const phrase =
+            (record.delta ?? 0) >= 0
+              ? t("addedToInventoryBy")
+              : t("removedFromInventoryBy");
+
+          return (
+            <span className="inline-flex flex-wrap items-center gap-1.5">
+              <Badge className="border-purple-200 bg-purple-100 text-purple-700 hover:bg-purple-100">
+                {absDelta}
+              </Badge>
+              <span className="text-sm text-muted-foreground">{phrase}</span>
+              <Badge className="border-emerald-200 bg-emerald-100 text-emerald-700 hover:bg-emerald-100">
+                {actor}
+              </Badge>
+            </span>
+          );
+        }
+
+        const name = record.customerName?.trim() || "—";
         return (
           <span className="inline-flex flex-wrap items-center gap-1.5">
             <Badge className="border-purple-200 bg-purple-100 text-purple-700 hover:bg-purple-100">
-              {count}
+              {record.quantity}
             </Badge>
             <span className="text-sm text-muted-foreground">{t("soldTo")}</span>
             <Badge className="border-emerald-200 bg-emerald-100 text-emerald-700 hover:bg-emerald-100">

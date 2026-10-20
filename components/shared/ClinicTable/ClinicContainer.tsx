@@ -12,6 +12,7 @@ import {
 } from "@/lib/sorting";
 import { useClinicsPaginated } from "@/lib/queries/useClinicsPaginated";
 import { useClinicsLookup } from "@/lib/queries/useClinicsLookup";
+import type { ClinicListFilter } from "@/lib/api/clinics";
 import { SearchBar } from "@/components/shared/ClinicTable/SearchBar";
 import { ClinicTable } from "@/components/shared/ClinicTable/ClinicTable";
 import { ClinicsPagination } from "@/components/shared/ClinicTable/ClinicsPagination";
@@ -22,6 +23,7 @@ export function ClinicContainer() {
   const { user, loading: authLoading } = useAuth();
   const [search, setSearch] = useState("");
   const debouncedSearch = useDebouncedValue(search, 300);
+  const [filter, setFilter] = useState<ClinicListFilter>("all");
   const [page, setPage] = useState(1);
   const [sortBy, setSortBy] = useState(CLINIC_DEFAULT_SORT.sortBy);
   const [sortDir, setSortDir] = useState<SortDirection>(
@@ -31,7 +33,7 @@ export function ClinicContainer() {
 
   useEffect(() => {
     setPage(1);
-  }, [debouncedSearch, sortBy, sortDir]);
+  }, [debouncedSearch, filter, sortBy, sortDir]);
 
   const {
     data: lookupClinics = [],
@@ -50,6 +52,7 @@ export function ClinicContainer() {
     page,
     sortBy,
     sortDir,
+    filter,
     enabled: !authLoading && !!user,
   });
 
@@ -86,6 +89,8 @@ export function ClinicContainer() {
       <SearchBar
         value={search}
         onChange={setSearch}
+        filter={filter}
+        onFilterChange={setFilter}
         onAdd={() => setIsAddOpen(true)}
       />
 

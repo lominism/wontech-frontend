@@ -28,6 +28,13 @@ export type CreditLedgerRecord = {
   note: string | null;
 };
 
+export type CreditLedgerResult = {
+  items: CreditLedgerRecord[];
+  total: number;
+  page: number;
+  pageSize: number;
+};
+
 /** Normalized influencer shape used by influencer UI components. */
 export type Influencer = {
   id: string;
@@ -161,10 +168,15 @@ export async function getInfluencer(id: string): Promise<Influencer> {
 }
 
 export async function getInfluencerCreditLedger(
-  influencerId: string
-): Promise<CreditLedgerRecord[]> {
+  influencerId: string,
+  params: { page?: number; pageSize?: number } = {}
+): Promise<CreditLedgerResult> {
+  const query = new URLSearchParams();
+  query.set("page", String(params.page ?? 1));
+  query.set("pageSize", String(params.pageSize ?? 10));
+
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/influencers/${influencerId}/credit-ledger`,
+    `${process.env.NEXT_PUBLIC_API_URL}/influencers/${influencerId}/credit-ledger?${query}`,
     {
       headers: await authHeaders(),
     }
@@ -175,7 +187,7 @@ export async function getInfluencerCreditLedger(
     throw new Error(text || "Failed to load credit history");
   }
 
-  return res.json() as Promise<CreditLedgerRecord[]>;
+  return res.json() as Promise<CreditLedgerResult>;
 }
 
 export type AdjustCreditPayload = {

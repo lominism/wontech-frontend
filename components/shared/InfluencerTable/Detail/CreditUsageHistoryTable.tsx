@@ -16,6 +16,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { thbFormatter } from "@/lib/utils";
 import { WDataTable } from "@/components/shared/WDataTable";
+import { TablePagination } from "@/components/shared/TablePagination";
 import { type CreditLedgerRecord } from "@/lib/api/influencers";
 import { useAdjustInfluencerCredit } from "@/lib/queries/useAdjustInfluencerCredit";
 import {
@@ -31,6 +32,10 @@ type Props = {
   influencerId: string;
   records: CreditLedgerRecord[];
   loading?: boolean;
+  page: number;
+  total: number;
+  pageSize: number;
+  onPageChange: (page: number) => void;
 };
 
 const columnHelper = createColumnHelper<CreditLedgerRecord>();
@@ -39,6 +44,10 @@ export function CreditUsageHistoryTable({
   influencerId,
   records,
   loading,
+  page,
+  total,
+  pageSize,
+  onPageChange,
 }: Props) {
   const t = useTranslations("influencer.detail.history");
   const locale = useLocale();
@@ -46,6 +55,7 @@ export function CreditUsageHistoryTable({
   const [amount, setAmount] = useState("");
   const [mode, setMode] = useState<"decrease" | "increase">("decrease");
   const { mutateAsync, isPending } = useAdjustInfluencerCredit(influencerId);
+  const totalPages = Math.max(1, Math.ceil(total / pageSize));
 
   const dateFormatter = useMemo(
     () =>
@@ -136,17 +146,26 @@ export function CreditUsageHistoryTable({
         </div>
         <p className="text-muted-foreground text-sm">{t("groupNote")}</p>
       </CardHeader>
-      <CardContent>
+      <CardContent className="flex flex-col gap-4">
         {loading ? (
           <div className="flex h-24 items-center justify-center text-muted-foreground text-sm">
             {t("loading")}
           </div>
         ) : (
-          <WDataTable
-            columns={columns}
-            data={records}
-            emptyMessage={t("empty")}
-          />
+          <>
+            <WDataTable
+              columns={columns}
+              data={records}
+              emptyMessage={t("empty")}
+            />
+            <TablePagination
+              namespace="influencer.detail.history.pagination"
+              page={page}
+              totalPages={totalPages}
+              total={total}
+              onPageChange={onPageChange}
+            />
+          </>
         )}
       </CardContent>
 

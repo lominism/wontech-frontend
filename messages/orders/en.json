@@ -10,7 +10,6 @@
     "search": "Search order # or customer...",
     "statusFilter": "Status",
     "activeStatuses": "Active",
-    "exportCsv": "Export CSV",
     "newOrder": "New Order"
   },
   "filter": {
