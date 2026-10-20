@@ -139,13 +139,15 @@
       "origin": "ประเทศต้นกำเนิด"
     },
     "history": {
-      "title": "ประวัติการซื้อ",
-      "date": "วันที่ซื้อ",
+      "title": "ประวัติ",
+      "date": "วันที่",
       "quantity": "จำนวน",
       "soldTo": "ขายให้",
+      "addedToInventoryBy": "เพิ่มเข้าคลังโดย",
+      "removedFromInventoryBy": "นำออกจากคลังโดย",
       "clinic": "คลินิก",
-      "empty": "ยังไม่มีการบันทึกการซื้อ",
-      "loading": "กำลังโหลดประวัติการซื้อ…",
+      "empty": "ยังไม่มีประวัติ",
+      "loading": "กำลังโหลดประวัติ…",
       "pagination": {
         "pageOf": "หน้า {page} จาก {totalPages}",
         "previous": "ก่อนหน้า",

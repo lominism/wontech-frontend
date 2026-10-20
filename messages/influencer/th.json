@@ -135,7 +135,13 @@
         "adjustment": "ปรับยอด",
         "redemption": "แลกใช้"
       },
-      "empty": "ยังไม่มีการบันทึกกิจกรรมเครดิต"
+      "empty": "ยังไม่มีการบันทึกกิจกรรมเครดิต",
+      "pagination": {
+        "pageOf": "หน้า {page} จาก {totalPages}",
+        "previous": "ก่อนหน้า",
+        "next": "ถัดไป",
+        "total": "{count, plural, other {# รายการ}}"
+      }
     }
   }
 }

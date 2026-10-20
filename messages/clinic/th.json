@@ -8,7 +8,15 @@
   },
   "actions": {
     "search": "ค้นหาคลินิก...",
+    "filter": "ตัวกรอง",
     "addClinic": "เพิ่มคลินิก"
+  },
+  "filter": {
+    "all": "คลินิกทั้งหมด",
+    "credit_5000_plus": "เครดิต 5000+",
+    "no_sales": "คลินิกที่ยังไม่มียอดขาย",
+    "single": "คลินิกเดี่ยว",
+    "with_parent": "คลินิกที่มีบริษัทแม่"
   },
   "table": {
     "clinicName": "ชื่อคลินิก",
@@ -130,7 +138,13 @@
         "adjustment": "ปรับยอด",
         "redemption": "แลกใช้"
       },
-      "empty": "ยังไม่มีการบันทึกกิจกรรมเครดิต"
+      "empty": "ยังไม่มีการบันทึกกิจกรรมเครดิต",
+      "pagination": {
+        "pageOf": "หน้า {page} จาก {totalPages}",
+        "previous": "ก่อนหน้า",
+        "next": "ถัดไป",
+        "total": "{count, plural, other {# รายการ}}"
+      }
     }
   }
 }

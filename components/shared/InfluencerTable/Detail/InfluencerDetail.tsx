@@ -1,13 +1,16 @@
 "use client";
 
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { useAuth } from "@/providers/AuthProvider";
 import { useInfluencer } from "@/lib/queries/useInfluencer";
 import { useInfluencersLookup } from "@/lib/queries/useInfluencersLookup";
-import { useInfluencerCreditLedger } from "@/lib/queries/useInfluencerCreditLedger";
+import {
+  INFLUENCER_CREDIT_LEDGER_PAGE_SIZE,
+  useInfluencerCreditLedger,
+} from "@/lib/queries/useInfluencerCreditLedger";
 import { InfluencerInfoCard } from "./InfluencerInfoCard";
 import { InfluencerFinancialCard } from "./InfluencerFinancialCard";
 import { CreditUsageHistoryTable } from "./CreditUsageHistoryTable";
@@ -44,10 +47,19 @@ export function InfluencerDetail({ influencerId }: Props) {
     );
   }, [influencer, allInfluencers]);
 
-  const { data: history = [], isLoading: historyLoading } =
-    useInfluencerCreditLedger(influencerId, {
-      enabled: !authLoading && !!user,
-    });
+  const [historyPage, setHistoryPage] = useState(1);
+  const {
+    data: historyResult,
+    isLoading: historyLoading,
+    isFetching: historyFetching,
+  } = useInfluencerCreditLedger(influencerId, {
+    page: historyPage,
+    enabled: !authLoading && !!user,
+  });
+
+  useEffect(() => {
+    setHistoryPage(1);
+  }, [influencerId]);
 
   if (authLoading || isLoading) {
     return (
@@ -107,8 +119,12 @@ export function InfluencerDetail({ influencerId }: Props) {
           <InfluencerFinancialCard influencer={influencer} />
           <CreditUsageHistoryTable
             influencerId={influencerId}
-            records={history}
-            loading={historyLoading}
+            records={historyResult?.items ?? []}
+            loading={historyLoading || (historyFetching && !historyResult)}
+            page={historyPage}
+            total={historyResult?.total ?? 0}
+            pageSize={INFLUENCER_CREDIT_LEDGER_PAGE_SIZE}
+            onPageChange={setHistoryPage}
           />
         </div>
       </div>

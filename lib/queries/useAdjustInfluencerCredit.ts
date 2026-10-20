@@ -15,7 +15,7 @@ export function useAdjustInfluencerCredit(influencerId: string) {
       adjustInfluencerCredit(influencerId, payload),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: influencerKeys.creditLedger(influencerId),
+        queryKey: influencerKeys.creditLedgers(influencerId),
       });
       queryClient.invalidateQueries({ queryKey: influencerKeys.detail(influencerId) });
       queryClient.invalidateQueries({ queryKey: influencerKeys.all });

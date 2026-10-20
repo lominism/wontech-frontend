@@ -15,7 +15,7 @@ export function useAdjustClinicCredit(clinicId: string) {
       adjustClinicCredit(clinicId, payload),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: clinicKeys.creditLedger(clinicId),
+        queryKey: clinicKeys.creditLedgers(clinicId),
       });
       queryClient.invalidateQueries({ queryKey: clinicKeys.detail(clinicId) });
       queryClient.invalidateQueries({ queryKey: clinicKeys.all });

@@ -28,6 +28,13 @@ export type CreditLedgerRecord = {
   note: string | null;
 };
 
+export type CreditLedgerResult = {
+  items: CreditLedgerRecord[];
+  total: number;
+  page: number;
+  pageSize: number;
+};
+
 /** Normalized clinic shape used by clinic UI components. */
 export type Clinic = {
   id: string;
@@ -81,12 +88,23 @@ async function authHeaders(): Promise<HeadersInit> {
   };
 }
 
+export const CLINIC_LIST_FILTERS = [
+  "all",
+  "credit_5000_plus",
+  "no_sales",
+  "single",
+  "with_parent",
+] as const;
+
+export type ClinicListFilter = (typeof CLINIC_LIST_FILTERS)[number];
+
 export type ListClinicsParams = {
   search?: string;
   page?: number;
   pageSize?: number;
   sortBy?: string;
   sortDir?: string;
+  filter?: ClinicListFilter;
 };
 
 export async function listClinicsPaginated(
@@ -103,6 +121,9 @@ export async function listClinicsPaginated(
   }
   if (params.sortDir) {
     query.set("sortDir", params.sortDir);
+  }
+  if (params.filter && params.filter !== "all") {
+    query.set("filter", params.filter);
   }
 
   const res = await fetch(
@@ -159,10 +180,15 @@ export async function getClinic(id: string): Promise<Clinic> {
 }
 
 export async function getClinicCreditLedger(
-  clinicId: string
-): Promise<CreditLedgerRecord[]> {
+  clinicId: string,
+  params: { page?: number; pageSize?: number } = {}
+): Promise<CreditLedgerResult> {
+  const query = new URLSearchParams();
+  query.set("page", String(params.page ?? 1));
+  query.set("pageSize", String(params.pageSize ?? 10));
+
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/clinics/${clinicId}/credit-ledger`,
+    `${process.env.NEXT_PUBLIC_API_URL}/clinics/${clinicId}/credit-ledger?${query}`,
     {
       headers: await authHeaders(),
     }
@@ -173,7 +199,7 @@ export async function getClinicCreditLedger(
     throw new Error(text || "Failed to load credit history");
   }
 
-  return res.json() as Promise<CreditLedgerRecord[]>;
+  return res.json() as Promise<CreditLedgerResult>;
 }
 
 export type AdjustCreditPayload = {

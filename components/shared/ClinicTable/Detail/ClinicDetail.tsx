@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "@/i18n/navigation";
@@ -8,7 +8,10 @@ import { useAuth } from "@/providers/AuthProvider";
 import { useClinic } from "@/lib/queries/useClinic";
 import { useClinicsLookup } from "@/lib/queries/useClinicsLookup";
 import { getClinicBranches } from "@/lib/mock-data";
-import { useClinicCreditLedger } from "@/lib/queries/useClinicCreditLedger";
+import {
+  CLINIC_CREDIT_LEDGER_PAGE_SIZE,
+  useClinicCreditLedger,
+} from "@/lib/queries/useClinicCreditLedger";
 import { ClinicInfoCard } from "./ClinicInfoCard";
 import { ClinicFinancialCard } from "./ClinicFinancialCard";
 import { CreditUsageHistoryTable } from "./CreditUsageHistoryTable";
@@ -50,10 +53,19 @@ export function ClinicDetail({ clinicId }: Props) {
     };
   }, [clinic, allClinics]);
 
-  const { data: history = [], isLoading: historyLoading } = useClinicCreditLedger(
-    clinicId,
-    { enabled: !authLoading && !!user }
-  );
+  const [historyPage, setHistoryPage] = useState(1);
+  const {
+    data: historyResult,
+    isLoading: historyLoading,
+    isFetching: historyFetching,
+  } = useClinicCreditLedger(clinicId, {
+    page: historyPage,
+    enabled: !authLoading && !!user,
+  });
+
+  useEffect(() => {
+    setHistoryPage(1);
+  }, [clinicId]);
 
   if (authLoading || isLoading) {
     return (
@@ -112,8 +124,12 @@ export function ClinicDetail({ clinicId }: Props) {
           <ClinicFinancialCard clinic={clinic} />
           <CreditUsageHistoryTable
             clinicId={clinicId}
-            records={history}
-            loading={historyLoading}
+            records={historyResult?.items ?? []}
+            loading={historyLoading || (historyFetching && !historyResult)}
+            page={historyPage}
+            total={historyResult?.total ?? 0}
+            pageSize={CLINIC_CREDIT_LEDGER_PAGE_SIZE}
+            onPageChange={setHistoryPage}
           />
         </div>
       </div>

@@ -135,7 +135,13 @@
         "adjustment": "Adjustment",
         "redemption": "Redemption"
       },
-      "empty": "No credit activity recorded yet."
+      "empty": "No credit activity recorded yet.",
+      "pagination": {
+        "pageOf": "Page {page} of {totalPages}",
+        "previous": "Previous",
+        "next": "Next",
+        "total": "{count, plural, one {# record} other {# records}}"
+      }
     }
   }
 }

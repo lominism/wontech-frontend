@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { Download, Plus, Search } from "lucide-react";
+import { Plus, Search } from "lucide-react";
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -62,10 +62,6 @@ export function OrdersToolbar({
       </Select>
 
       <div className="ml-auto flex items-center gap-2">
-        <Button variant="secondary" className="shrink-0" disabled>
-          <Download size={16} />
-          {t("exportCsv")}
-        </Button>
         <Button className="shrink-0" onClick={onNewOrder}>
           <Plus size={16} />
           {t("newOrder")}

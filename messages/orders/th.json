@@ -10,7 +10,6 @@
     "search": "ค้นหาเลขคำสั่งซื้อหรือชื่อลูกค้า...",
     "statusFilter": "สถานะ",
     "activeStatuses": "กำลังดำเนินการ",
-    "exportCsv": "ส่งออก CSV",
     "newOrder": "เพิ่มคำสั่งซื้อ"
   },
   "filter": {

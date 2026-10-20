@@ -1,15 +1,15 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { useAuth } from "@/providers/AuthProvider";
 import { useProduct } from "@/lib/queries/useProduct";
 import {
-  PURCHASE_HISTORY_PAGE_SIZE,
-  useProductPurchaseHistory,
-} from "@/lib/queries/useProductPurchaseHistory";
+  PRODUCT_HISTORY_PAGE_SIZE,
+  useProductHistory,
+} from "@/lib/queries/useProductHistory";
 import { ProductInfoCard } from "./ProductInfoCard";
 import { ProductAdditionalInfoCard } from "./ProductAdditionalInfoCard";
 import { PurchaseHistoryTable } from "./PurchaseHistoryTable";
@@ -34,7 +34,7 @@ export function ProductDetail({ productId }: Props) {
     data: historyResult,
     isLoading: historyLoading,
     isFetching: historyFetching,
-  } = useProductPurchaseHistory(productId, {
+  } = useProductHistory(productId, {
     page: historyPage,
     enabled: !authLoading && !!user,
   });
@@ -42,18 +42,6 @@ export function ProductDetail({ productId }: Props) {
   useEffect(() => {
     setHistoryPage(1);
   }, [productId]);
-
-  const history = useMemo(
-    () =>
-      (historyResult?.items ?? []).map((order) => ({
-        id: order.id,
-        date: order.date,
-        quantity: order.qty,
-        customerName: order.customer === "—" ? null : order.customer || null,
-        clinicName: order.clinic === "—" ? null : order.clinic || null,
-      })),
-    [historyResult]
-  );
 
   if (authLoading || isLoading) {
     return (
@@ -105,11 +93,11 @@ export function ProductDetail({ productId }: Props) {
         <div className="flex h-full flex-col gap-6 lg:col-span-2">
           <ProductAdditionalInfoCard product={product} />
           <PurchaseHistoryTable
-            records={history}
+            records={historyResult?.items ?? []}
             isLoading={historyLoading || (historyFetching && !historyResult)}
             page={historyPage}
             total={historyResult?.total ?? 0}
-            pageSize={PURCHASE_HISTORY_PAGE_SIZE}
+            pageSize={PRODUCT_HISTORY_PAGE_SIZE}
             onPageChange={setHistoryPage}
           />
         </div>

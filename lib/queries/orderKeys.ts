@@ -12,6 +12,4 @@ export const orderKeys = {
   }) => [...orderKeys.lists(), params] as const,
   details: () => [...orderKeys.all, "detail"] as const,
   detail: (id: string) => [...orderKeys.details(), id] as const,
-  purchaseHistory: (productId: string, page: number) =>
-    [...orderKeys.all, "purchase-history", productId, page] as const,
 };
